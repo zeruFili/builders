@@ -26,7 +26,7 @@ function StarRating({ rating, size = 'sm', interactive = false, onRate }: { rati
             <span className="text-[#CBD5E1]">★</span>
             {(filled || partial) && (
               <span
-                className="absolute inset-0 text-[#F59E0B] overflow-hidden"
+                className="absolute inset-0 text-[#D4A853] overflow-hidden"
                 style={{ width: filled ? '100%' : `${(rating - Math.floor(rating)) * 100}%` }}
               >
                 ★
@@ -41,14 +41,21 @@ function StarRating({ rating, size = 'sm', interactive = false, onRate }: { rati
 
 function CategoryIcon({ category }: { category: Category }) {
   const icons: Record<Category, string> = {
-    Construction: '🏗️',
-    Hospitals: '🏥',
-    Hotels: '🏨',
-    'Guest Houses': '🏡',
+    Automotive: '🚗',
+    Cars: '🚗',
     Clothing: '👕',
     'Coffee Shops': '☕',
+    Construction: '🏗️',
+    Fashion: '👕',
+    'Food & Beverage': '☕',
     Furniture: '🪑',
-    Cars: '🚗',
+    'Guest Houses': '🏡',
+    Healthcare: '🏥',
+    Hospitals: '🏥',
+    Hospitality: '🏨',
+    Hotels: '🏨',
+    Ministry: '⛪',
+    'Professional Services': '💼',
   }
   return <span>{icons[category]}</span>
 }
@@ -57,12 +64,19 @@ function getCategoryGradient(cat: Category): string {
   const g: Record<Category, string> = {
     Construction: 'from-amber-500/10 to-orange-500/10',
     Hospitals: 'from-emerald-500/10 to-teal-500/10',
+    Healthcare: 'from-emerald-500/10 to-teal-500/10',
     Hotels: 'from-violet-500/10 to-purple-500/10',
+    Hospitality: 'from-violet-500/10 to-purple-500/10',
     'Guest Houses': 'from-rose-500/10 to-pink-500/10',
     Clothing: 'from-sky-500/10 to-blue-500/10',
     'Coffee Shops': 'from-yellow-500/10 to-amber-500/10',
     Furniture: 'from-indigo-500/10 to-blue-500/10',
     Cars: 'from-red-500/10 to-orange-500/10',
+    Ministry: 'from-sky-500/10 to-blue-500/10',
+    Fashion: 'from-rose-500/10 to-pink-500/10',
+    'Food & Beverage': 'from-yellow-500/10 to-amber-500/10',
+    'Professional Services': 'from-indigo-500/10 to-blue-500/10',
+    Automotive: 'from-red-500/10 to-orange-500/10',
   }
   return g[cat]
 }
@@ -71,12 +85,19 @@ function getCategoryColor(cat: Category): string {
   const c: Record<Category, string> = {
     Construction: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
     Hospitals: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
+    Healthcare: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
     Hotels: 'bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300',
+    Hospitality: 'bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300',
     'Guest Houses': 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
     Clothing: 'bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300',
     'Coffee Shops': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
     Furniture: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
     Cars: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
+    Ministry: 'bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300',
+    Fashion: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
+    'Food & Beverage': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
+    'Professional Services': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
+    Automotive: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
   }
   return c[cat]
 }
@@ -258,11 +279,17 @@ export default function CompanyProfile({ company, onBack }: { company: Company; 
                 </span>
               </div>
               <h1 className="font-serif text-2xl md:text-5xl text-white leading-tight">{company.name}</h1>
+              {company.ownerName && (
+                <p className="text-white/70 text-sm mt-1">Owned by <span className="font-medium text-white">{company.ownerName}</span></p>
+              )}
               <div className="flex items-center gap-3 mt-3">
                 <StarRating rating={company.rating} size="lg" />
                 <span className="text-white font-bold text-xl">{company.rating.toFixed(1)}</span>
                 <span className="text-white/60 text-sm">({company.reviewCount.toLocaleString()} reviews)</span>
               </div>
+              {company.missionStatement && (
+                <p className="text-white/50 text-sm italic mt-2 max-w-xl leading-relaxed">"{company.missionStatement}"</p>
+              )}
             </div>
             <div className="flex gap-3">
               <a href={`tel:${company.phone}`} className="flex items-center gap-2 bg-white text-[var(--brand)] text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-gray-100 transition-colors shadow-lg">
@@ -411,9 +438,9 @@ export default function CompanyProfile({ company, onBack }: { company: Company; 
                 return (
                   <div key={star} className="flex items-center gap-3 mb-2.5">
                     <span className="text-xs font-medium text-[var(--text-secondary)] w-3">{star}</span>
-                    <span className="text-[#F59E0B] text-xs">★</span>
+                    <span className="text-[#D4A853] text-xs">★</span>
                     <div className="flex-1 h-2 bg-[var(--surface-alt)] rounded-full overflow-hidden">
-                      <div className="h-full bg-[#F59E0B] rounded-full transition-all duration-500" style={{ width: `${pct}%` }} />
+                      <div className="h-full bg-[#D4A853] rounded-full transition-all duration-500" style={{ width: `${pct}%` }} />
                     </div>
                     <span className="text-xs text-[var(--text-tertiary)] w-8 text-right">{pct}%</span>
                   </div>
