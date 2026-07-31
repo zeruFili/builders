@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { type Company, type Category, type Review } from '../data/companies'
 
 interface ExtendedReview extends Review {
@@ -205,6 +205,8 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 export default function CompanyProfile({ company, onBack }: { company: Company; onBack: () => void }) {
   const [reviewSort, setReviewSort] = useState<'newest' | 'highest' | 'lowest'>('newest')
   const [reviewFilter, setReviewFilter] = useState<number | null>(null)
+
+  useEffect(() => { window.scrollTo(0, 0) }, [company.id])
 
   const sortedReviews = useMemo(() => {
     let r: ExtendedReview[] = company.reviews.map(rv => ({ ...rv, helpful: Math.floor(Math.random() * 25), verified: Math.random() > 0.4, title: ['Exceptional experience', 'Great quality and service', 'Highly recommended', 'Good but room for improvement', 'Decent overall'][Math.floor(Math.random() * 5)] }))
