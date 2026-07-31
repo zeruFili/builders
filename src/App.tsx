@@ -105,10 +105,6 @@ export default function App() {
   const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'name'>('rating')
   const [showVerified, setShowVerified] = useState(false)
 
-  if (selectedCompany) {
-    return <CompanyProfile company={selectedCompany} onBack={() => setSelectedCompany(null)} />
-  }
-
   const filtered = useMemo(() => {
     let result = selectedCategory
       ? companies.filter((c) => c.category === selectedCategory)
@@ -128,6 +124,10 @@ export default function App() {
 
   const totalCompanies = companies.length
   const totalReviews = companies.reduce((sum, c) => sum + c.reviewCount, 0)
+
+  if (selectedCompany) {
+    return <CompanyProfile company={selectedCompany} onBack={() => setSelectedCompany(null)} />
+  }
 
   return (
     <div className="min-h-screen bg-[var(--surface-alt)]">
