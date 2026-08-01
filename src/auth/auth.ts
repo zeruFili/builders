@@ -1,9 +1,13 @@
+export type UserRole = 'admin' | 'user' | 'company'
+
 export interface User {
   id: string;
   email: string;
   name: string;
   avatar: string;
+  role: UserRole;
   business?: string;
+  companyId?: string;
 }
 
 interface StoredUser extends User {
@@ -11,11 +15,14 @@ interface StoredUser extends User {
 }
 
 const MOCK_USERS: StoredUser[] = [
-  { id: 'u1', email: 'david@covenantbuilders.com', name: 'David Thompson', avatar: 'https://i.pravatar.cc/96?img=11', password: 'password123', business: 'Covenant Builders Group' },
-  { id: 'u2', email: 'sarah@kingdomfoundations.org', name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/96?img=47', password: 'password123', business: 'Refuge Wellness Center' },
-  { id: 'u3', email: 'james@bethanycenter.org', name: 'James Carter', avatar: 'https://i.pravatar.cc/96?img=8', password: 'password123', business: 'Bethany Retreat & Conference Center' },
-  { id: 'u4', email: 'grace@generationsofgrace.co', name: 'Grace Mwamba', avatar: 'https://i.pravatar.cc/96?img=5', password: 'password123', business: 'Generations of Grace Apparel' },
-  { id: 'u5', email: 'thomas@stewardshipwealth.org', name: 'Thomas Whitfield', avatar: 'https://i.pravatar.cc/96?img=6', password: 'password123', business: 'Stewardship Wealth Management' },
+  { id: 'u1', email: 'david@covenantbuilders.com', name: 'David Thompson', avatar: 'https://i.pravatar.cc/96?img=11', password: 'password123', role: 'company', business: 'Covenant Builders Group', companyId: 'covenant-builders' },
+  { id: 'u2', email: 'sarah@kingdomfoundations.org', name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/96?img=47', password: 'password123', role: 'company', business: 'Refuge Wellness Center', companyId: 'refuge-wellness' },
+  { id: 'u3', email: 'james@bethanycenter.org', name: 'James Carter', avatar: 'https://i.pravatar.cc/96?img=8', password: 'password123', role: 'company', business: 'Bethany Retreat & Conference Center', companyId: 'bethany-retreat' },
+  { id: 'u4', email: 'grace@generationsofgrace.co', name: 'Grace Mwamba', avatar: 'https://i.pravatar.cc/96?img=5', password: 'password123', role: 'company', business: 'Generations of Grace Apparel', companyId: 'generations-of-grace' },
+  { id: 'u5', email: 'thomas@stewardshipwealth.org', name: 'Thomas Whitfield', avatar: 'https://i.pravatar.cc/96?img=6', password: 'password123', role: 'company', business: 'Stewardship Wealth Management', companyId: 'stewardship-wealth' },
+  { id: 'admin1', email: 'admin@kbn.org', name: 'Admin KBN', avatar: 'https://i.pravatar.cc/96?img=68', password: 'password123', role: 'admin' },
+  { id: 'regular1', email: 'john@example.com', name: 'John Doe', avatar: 'https://i.pravatar.cc/96?img=3', password: 'password123', role: 'user' },
+  { id: 'regular2', email: 'mary@example.com', name: 'Mary Smith', avatar: 'https://i.pravatar.cc/96?img=9', password: 'password123', role: 'user' },
 ]
 
 function getStoredUsers(): StoredUser[] {
@@ -65,12 +72,14 @@ export async function signUp(data: { name: string; email: string; password: stri
     throw new Error('An account with this email already exists.')
   }
   if (data.password.length < 6) throw new Error('Password must be at least 6 characters.')
+  const imgIdx = (users.length + 1) * 7 % 70
   const newUser: StoredUser = {
     id: 'u' + (users.length + 1),
     email: data.email,
     name: data.name,
-    avatar: `https://i.pravatar.cc/96?img=${(users.length + 1) * 7 % 70}`,
+    avatar: `https://i.pravatar.cc/96?img=${imgIdx}`,
     password: data.password,
+    role: 'user',
     business: data.business,
   }
   users.push(newUser)

@@ -1,9 +1,14 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import CompanyProfile, { CompanyCard, StarRating } from './components/CompanyProfile'
 import LoginPage from './components/LoginPage'
 import SignUpPage from './components/SignUpPage'
+import CompanyDashboard from './components/CompanyDashboard'
+import AdminDashboard from './components/AdminDashboard'
+import UserDashboard from './components/UserDashboard'
 import { useAuth } from './auth/AuthContext'
-import { companies, CATEGORIES, type Company, type Category } from './data/companies'
+import { type UserRole } from './auth/auth'
+import { getCompanies, subscribe } from './data/companyStore'
+import { CATEGORIES, type Company, type Category } from './data/companies'
 
 const NAV_ITEMS = ['Home', 'About Us', 'Community & Membership', 'Events'] as const
 
@@ -61,6 +66,7 @@ function Navbar({ onLogin, onSignUp, onHome }: { onLogin: () => void; onSignUp: 
               <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
                 <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
                 <span className="hidden lg:inline">{user.name.split(' ')[0]}</span>
+                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : user.role === 'company' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'}`}>{user.role}</span>
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {userMenuOpen && (
@@ -125,11 +131,18 @@ function DirectoryPage({ onBack, onSelectCompany }: { onBack: () => void; onSele
   const [dirCategory, setDirCategory] = useState<Category | null>(null)
   const [dirSearch, setDirSearch] = useState('')
   const [dirSort, setDirSort] = useState<'rating' | 'reviews' | 'name'>('rating')
+  const [allCompanies, setAllCompanies] = useState(getCompanies())
+
+  useEffect(() => {
+    setAllCompanies(getCompanies())
+    const unsub = subscribe(() => setAllCompanies(getCompanies()))
+    return unsub
+  }, [])
 
   const dirFiltered = useMemo(() => {
     let result = dirCategory
-      ? companies.filter((c) => c.category === dirCategory)
-      : companies
+      ? allCompanies.filter((c) => c.category === dirCategory)
+      : allCompanies
     if (dirSearch) {
       const q = dirSearch.toLowerCase()
       result = result.filter(c => c.name.toLowerCase().includes(q) || c.description.toLowerCase().includes(q) || c.tags.some(t => t.toLowerCase().includes(q)) || c.category.toLowerCase().includes(q))
@@ -138,7 +151,7 @@ function DirectoryPage({ onBack, onSelectCompany }: { onBack: () => void; onSele
     else if (dirSort === 'reviews') result.sort((a, b) => b.reviewCount - a.reviewCount)
     else result.sort((a, b) => a.name.localeCompare(b.name))
     return result
-  }, [dirCategory, dirSearch, dirSort])
+  }, [allCompanies, dirCategory, dirSearch, dirSort])
 
   return (
     <div>
@@ -149,7 +162,7 @@ function DirectoryPage({ onBack, onSelectCompany }: { onBack: () => void; onSele
             Back to Home
           </button>
           <h1 className="font-serif text-3xl md:text-5xl text-white mb-3">All Members</h1>
-          <p className="text-[#94A3B8] text-lg">Browse all {companies.length} businesses in our network</p>
+          <p className="text-[#94A3B8] text-lg">Browse all {allCompanies.length} businesses in our network</p>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
@@ -198,7 +211,35 @@ export default function App() {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null)
   const [showDirectory, setShowDirectory] = useState(false)
   const [authPage, setAuthPage] = useState<'login' | 'signup' | null>(null)
+  const [dashboard, setDashboard] = useState<UserRole | null>(null)
   const { user, loading } = useAuth()
+  const [liveCompanies, setLiveCompanies] = useState(getCompanies())
+  const loginExplicitRef = useRef(false)
+
+  useEffect(() => {
+    setLiveCompanies(getCompanies())
+    const unsub = subscribe(() => setLiveCompanies(getCompanies()))
+    return unsub
+  }, [])
+
+  function handleLoginSuccess(role: UserRole) {
+    loginExplicitRef.current = true
+    setAuthPage(null)
+    setDashboard(role)
+  }
+
+  useEffect(() => {
+    if (loading) return
+    if (user) {
+      if (loginExplicitRef.current) {
+        loginExplicitRef.current = false
+      } else {
+        setDashboard(user.role)
+      }
+    } else {
+      setDashboard(null)
+    }
+  }, [loading, user])
 
   if (loading) {
     return (
@@ -208,8 +249,12 @@ export default function App() {
     )
   }
 
+  if (dashboard === 'company') return <CompanyDashboard onBack={() => setDashboard(null)} />
+  if (dashboard === 'admin') return <AdminDashboard onBack={() => setDashboard(null)} />
+  if (dashboard === 'user') return <UserDashboard onBack={() => setDashboard(null)} />
+
   if (authPage === 'login') {
-    return <LoginPage onSwitch={() => setAuthPage('signup')} />
+    return <LoginPage onSwitch={() => setAuthPage('signup')} onSuccess={handleLoginSuccess} />
   }
 
   if (authPage === 'signup') {
@@ -231,7 +276,7 @@ export default function App() {
     )
   }
 
-  const featured = companies.filter(c => c.featured)
+  const featured = liveCompanies.filter(c => c.featured)
 
   return (
     <div className="min-h-screen bg-[var(--surface-alt)]">

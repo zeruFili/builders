@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
-import { type User, getStoredSession, login as doLogin, signUp as doSignUp, logout as doLogout } from './auth'
+import { type User, type UserRole, getStoredSession, login as doLogin, signUp as doSignUp, logout as doLogout } from './auth'
 
 interface AuthState {
   user: User | null
   loading: boolean
-  login: (email: string, password: string) => Promise<void>
+  login: (email: string, password: string) => Promise<UserRole>
   signUp: (data: { name: string; email: string; password: string; business?: string }) => Promise<void>
   logout: () => Promise<void>
 }
@@ -20,9 +20,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(false)
   }, [])
 
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string): Promise<UserRole> => {
     const u = await doLogin(email, password)
     setUser(u)
+    return u.role
   }, [])
 
   const signUp = useCallback(async (data: { name: string; email: string; password: string; business?: string }) => {

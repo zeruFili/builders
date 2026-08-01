@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/AuthContext'
+import { type UserRole } from '../auth/auth'
 
 const MOCK_CREDENTIALS = [
-  { email: 'david@covenantbuilders.com', name: 'David Thompson' },
-  { email: 'sarah@kingdomfoundations.org', name: 'Sarah Chen' },
-  { email: 'james@bethanycenter.org', name: 'James Carter' },
-  { email: 'grace@generationsofgrace.co', name: 'Grace Mwamba' },
-  { email: 'thomas@stewardshipwealth.org', name: 'Thomas Whitfield' },
+  { email: 'admin@kbn.org', name: 'Admin KBN', role: 'admin' as UserRole },
+  { email: 'john@example.com', name: 'John Doe', role: 'user' as UserRole },
+  { email: 'mary@example.com', name: 'Mary Smith', role: 'user' as UserRole },
+  { email: 'david@covenantbuilders.com', name: 'David Thompson', role: 'company' as UserRole },
+  { email: 'thomas@stewardshipwealth.org', name: 'Thomas Whitfield', role: 'company' as UserRole },
+  { email: 'sarah@kingdomfoundations.org', name: 'Sarah Chen', role: 'company' as UserRole },
 ]
 
-export default function LoginPage({ onSwitch }: { onSwitch: () => void }) {
+export default function LoginPage({ onSwitch, onSuccess }: { onSwitch: () => void; onSuccess: (role: UserRole) => void }) {
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,7 +26,8 @@ export default function LoginPage({ onSwitch }: { onSwitch: () => void }) {
     if (!password) { setError('Please enter your password.'); return }
     setLoading(true)
     try {
-      await login(email, password)
+      const role = await login(email, password)
+      onSuccess(role)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Login failed.')
     } finally {
@@ -74,7 +77,7 @@ export default function LoginPage({ onSwitch }: { onSwitch: () => void }) {
               </div>
             </div>
 
-            <button type='submit' disabled={loading}
+            <button type="submit" disabled={loading}
               className="w-full bg-[var(--brand)] text-white text-sm font-semibold py-3 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 disabled:opacity-60 flex items-center justify-center gap-2">
               {loading ? (
                 <><svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg> Signing in...</>
@@ -97,11 +100,11 @@ export default function LoginPage({ onSwitch }: { onSwitch: () => void }) {
                 <div className="w-8 h-8 rounded-lg bg-[var(--brand)]/10 flex items-center justify-center group-hover:bg-[var(--brand)]/20 transition-colors flex-shrink-0">
                   <svg className="w-4 h-4 text-[var(--brand)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="text-sm font-medium text-[var(--text-primary)] truncate">{cred.name}</div>
                   <div className="text-xs text-[var(--text-tertiary)] truncate">{cred.email}</div>
                 </div>
-                <span className="ml-auto text-[10px] font-medium text-[var(--text-tertiary)] bg-[var(--surface-alt)] px-2 py-0.5 rounded-full border border-[var(--border-light)]">password123</span>
+                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${cred.role === 'admin' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : cred.role === 'company' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'}`}>{cred.role}</span>
               </button>
             ))}
           </div>
