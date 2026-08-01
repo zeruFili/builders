@@ -1,5 +1,8 @@
 import { useState, useMemo } from 'react'
 import CompanyProfile, { CompanyCard, StarRating } from './components/CompanyProfile'
+import LoginPage from './components/LoginPage'
+import SignUpPage from './components/SignUpPage'
+import { useAuth } from './auth/AuthContext'
 import { companies, CATEGORIES, type Company, type Category } from './data/companies'
 
 const NAV_ITEMS = ['Home', 'About Us', 'Community & Membership', 'Events'] as const
@@ -28,19 +31,21 @@ const COMMUNITY_CARDS = [
   { icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', title: 'Business Growth', desc: 'Access resources, partnerships, and opportunities that help your business flourish while honoring Christ.' },
 ]
 
-function Navbar() {
+function Navbar({ onLogin, onSignUp, onHome }: { onLogin: () => void; onSignUp: () => void; onHome: () => void }) {
+  const { user, logout } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
   return (
     <header className="glass sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between gap-4">
-        <a href="#" className="flex items-center gap-2.5 flex-shrink-0 group">
+        <button onClick={onHome} className="flex items-center gap-2.5 flex-shrink-0 group">
           <div className="w-9 h-9 bg-[var(--brand)] rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20">
             <svg className="w-5 h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
           </div>
           <span className="font-serif text-xl text-[var(--text-primary)] hidden sm:block tracking-tight">KBN</span>
-        </a>
+        </button>
 
         <nav className="hidden lg:flex items-center gap-1">
           {NAV_ITEMS.map(item => (
@@ -51,10 +56,35 @@ function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href="#" className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2 rounded-xl transition-colors hidden md:block">Login</a>
-          <a href="#" className="text-sm font-semibold text-white bg-[var(--brand)] px-4 py-2 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 hidden md:flex items-center gap-2">
-            Join the Network
-          </a>
+          {user ? (
+            <div className="relative hidden md:block">
+              <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
+                <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
+                <span className="hidden lg:inline">{user.name.split(' ')[0]}</span>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </button>
+              {userMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 bg-[var(--surface)] rounded-xl border border-[var(--border-light)] shadow-xl p-2 animate-slide-down">
+                  <div className="px-3 py-2.5 border-b border-[var(--border-light)] mb-1">
+                    <p className="text-sm font-semibold text-[var(--text-primary)]">{user.name}</p>
+                    <p className="text-xs text-[var(--text-tertiary)] truncate">{user.email}</p>
+                    {user.business && <p className="text-xs text-[var(--accent-dark)] mt-0.5">{user.business}</p>}
+                  </div>
+                  <button onClick={() => { logout(); setUserMenuOpen(false) }} className="w-full text-left text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-lg transition-colors flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <button onClick={onLogin} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2 rounded-xl transition-colors hidden md:block">Login</button>
+              <button onClick={onSignUp} className="text-sm font-semibold text-white bg-[var(--brand)] px-4 py-2 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 hidden md:flex items-center gap-2">
+                Sign Up
+              </button>
+            </>
+          )}
           <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden w-10 h-10 rounded-xl border border-[var(--border-default)] flex items-center justify-center text-[var(--text-secondary)] hover:bg-[var(--surface-alt)] transition-colors">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} /></svg>
           </button>
@@ -66,8 +96,14 @@ function Navbar() {
             <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setMenuOpen(false)} className="block w-full text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</a>
           ))}
           <div className="pt-2 border-t border-[var(--border-light)] space-y-2">
-            <a href="#" className="block w-full text-center text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">Login</a>
-            <a href="#" className="block w-full text-center text-sm font-semibold text-white bg-[var(--brand)] py-2.5 rounded-xl hover:bg-[var(--brand-light)] transition-colors">Join the Network</a>
+            {user ? (
+              <button onClick={() => { logout(); setMenuOpen(false) }} className="block w-full text-center text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">Sign Out</button>
+            ) : (
+              <>
+                <button onClick={() => { onLogin(); setMenuOpen(false) }} className="block w-full text-center text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">Login</button>
+                <button onClick={() => { onSignUp(); setMenuOpen(false) }} className="block w-full text-center text-sm font-semibold text-white bg-[var(--brand)] py-2.5 rounded-xl hover:bg-[var(--brand-light)] transition-colors">Sign Up</button>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -161,6 +197,24 @@ function DirectoryPage({ onBack, onSelectCompany }: { onBack: () => void; onSele
 export default function App() {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null)
   const [showDirectory, setShowDirectory] = useState(false)
+  const [authPage, setAuthPage] = useState<'login' | 'signup' | null>(null)
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[var(--surface-alt)] flex items-center justify-center">
+        <svg className="w-8 h-8 animate-spin text-[var(--brand)]" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
+      </div>
+    )
+  }
+
+  if (authPage === 'login') {
+    return <LoginPage onSwitch={() => setAuthPage('signup')} />
+  }
+
+  if (authPage === 'signup') {
+    return <SignUpPage onSwitch={() => setAuthPage('login')} />
+  }
 
   if (selectedCompany) {
     return <CompanyProfile company={selectedCompany} onBack={() => setSelectedCompany(null)} />
@@ -181,7 +235,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[var(--surface-alt)]">
-      <Navbar />
+      <Navbar
+        onLogin={() => setAuthPage('login')}
+        onSignUp={() => setAuthPage('signup')}
+        onHome={() => { setShowDirectory(false); setAuthPage(null) }}
+      />
 
       {/* Hero */}
       <section id="home" className="relative bg-[var(--brand-dark)] overflow-hidden">
