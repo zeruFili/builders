@@ -327,25 +327,7 @@ export default function App() {
                 ))}
               </div>
             </div>
-            <div className="hidden lg:block">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/20 to-[var(--brand)]/20 rounded-2xl blur-2xl" />
-                <img
-                  src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=500&fit=crop&auto=format"
-                  alt="Christian professionals collaborating"
-                  className="relative rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover aspect-[4/3]"
-                />
-                <div className="absolute -bottom-4 -left-4 bg-white dark:bg-[var(--surface-raised)] rounded-xl shadow-xl p-4 z-10 border border-[var(--border-light)]">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-lg">🙏</div>
-                    <div>
-                      <div className="text-sm font-semibold text-[var(--text-primary)]">Prayer & Fellowship</div>
-                      <div className="text-xs text-[var(--text-tertiary)]">Joining together in faith</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[var(--surface-alt)] to-transparent" />
