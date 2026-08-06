@@ -96,7 +96,7 @@ export default function SignUpPage({ onSwitch }: { onSwitch: () => void }) {
           </form>
 
           <p className="text-xs text-[var(--text-tertiary)] text-center mt-5">
-            By signing up, you agree to our Terms of Service and Privacy Policy.
+            By signing up you agree to our Terms of Service and Privacy Policy.
           </p>
 
           <p className="text-sm text-center text-[var(--text-tertiary)] mt-5 pt-5 border-t border-[var(--border-light)]">
