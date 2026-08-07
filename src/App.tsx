@@ -13,27 +13,27 @@ import { CATEGORIES, type Company, type Category } from './data/companies'
 const NAV_ITEMS = ['Home', 'About Us', 'Community & Membership', 'Events'] as const
 
 const EVENTS = [
-  { image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop&auto=format', date: 'Aug 15, 2025', time: '7:30 AM – 9:30 AM', location: 'Daily Bread Café, Fort Worth', title: 'Business Networking Breakfast', description: 'Start your morning with fellowship, prayer, and purposeful connections with fellow Christian entrepreneurs over coffee and breakfast.' },
-  { image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop&auto=format', date: 'Sep 20, 2025', time: '9:00 AM – 4:00 PM', location: 'Bethany Retreat Center, Tyler', title: 'Kingdom Leadership Summit', description: 'A full day of worship, keynote sessions, and workshops designed to equip Christian leaders for greater Kingdom impact.' },
-  { image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&h=400&fit=crop&auto=format', date: 'Oct 7, 2025', time: '6:30 PM – 8:30 PM', location: 'Grace Community Church, Dallas', title: 'Prayer & Worship Gathering', description: 'An evening of powerful worship and intercessory prayer for our businesses, families, and city. All are welcome.' },
-  { image: 'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=600&h=400&fit=crop&auto=format', date: 'Nov 11, 2025', time: '9:00 AM – 12:30 PM', location: 'Stewardship Wealth, Dallas', title: 'Entrepreneurship Workshop', description: 'Practical training on starting and scaling a business with biblical principles. Includes mentoring sessions and Q&A with experienced leaders.' },
-  { image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=400&fit=crop&auto=format', date: 'Dec 5, 2025', time: '8:00 AM – 5:00 PM', location: 'Irving Convention Center', title: 'Christian Business Conference', description: 'Our annual flagship event featuring inspiring speakers, breakout sessions, and unparalleled networking with Kingdom-minded professionals.' },
-  { image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=400&fit=crop&auto=format', date: 'Dec 19, 2025', time: '6:00 PM – 8:00 PM', location: 'Daily Bread Café, Fort Worth', title: 'Monthly Member Meetup', description: 'Wind down the year with fellowship and celebration. Share testimonies of God\'s faithfulness and look ahead to the new year together.' },
+  { image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop&auto=format', date: 'Aug 15, 2025', time: '7:30 AM – 9:30 AM', location: 'Abren Cafe, Addis Ababa', title: 'Quarterly Networking Breakfast', description: 'Start your morning with fellowship, prayer, and purposeful connections with fellow Christian entrepreneurs over coffee and breakfast at our quarterly gathering.' },
+  { image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop&auto=format', date: 'Sep 20, 2025', time: '9:00 AM – 4:00 PM', location: 'Betesha Retreat Center, Addis Ababa', title: 'National Ethiopian Christian Business Summit', description: 'A full day of worship, keynote sessions, and workshops designed to equip Christian leaders for greater Kingdom impact across Ethiopia.' },
+  { image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&h=400&fit=crop&auto=format', date: 'Oct 7, 2025', time: '6:30 PM – 8:30 PM', location: 'Addis Ababa, Ethiopia', title: 'Prayer & Worship Gathering', description: 'An evening of powerful worship and intercessory prayer for our businesses, families, and nation. All are welcome.' },
+  { image: 'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=600&h=400&fit=crop&auto=format', date: 'Nov 11, 2025', time: '9:00 AM – 12:30 PM', location: 'Hawassa, SNNPR, Ethiopia', title: 'Hawassa Regional Networking Event', description: 'Strategic networking event in Hawassa — chosen for its 85% Christian population — uniting local Christian entrepreneurs and professionals.' },
+  { image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=400&fit=crop&auto=format', date: 'Dec 5, 2025', time: '8:00 AM – 5:00 PM', location: 'Addis Ababa, Ethiopia', title: 'Kingdom Builders Leadership Academy Launch', description: 'Launch of our leadership academy equipping believers with business skills and spiritual grounding for Kingdom impact.' },
+  { image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=400&fit=crop&auto=format', date: 'Dec 19, 2025', time: '6:00 PM – 8:00 PM', location: 'Abren Cafe, Addis Ababa', title: 'Year-End Celebration & Prayer', description: 'Wind down the year with fellowship and celebration. Share testimonies of God\'s faithfulness and look ahead to the new year together.' },
 ]
 
 const TESTIMONIALS = [
-  { photo: 'https://i.pravatar.cc/96?img=47', name: 'Sarah Cho', profession: 'Business Owner', company: 'Covenant Builders Group', text: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.' },
-  { photo: 'https://i.pravatar.cc/96?img=11', name: 'Marcus Webb', profession: 'Architect', company: 'Kingdom Foundations Inc.', text: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.' },
-  { photo: 'https://i.pravatar.cc/96?img=44', name: 'Patricia Nguyen', profession: 'Physician', company: 'Faith Health Partners', text: 'Finding other Christian healthcare professionals through KBN has been life-giving. We share best practices, pray for each other\'s patients, and encourage one another to keep Christ at the center of our practice.' },
-  { photo: 'https://i.pravatar.cc/96?img=8', name: 'Pastor James Hartley', profession: 'Senior Pastor', company: 'Grace Community Church', text: 'KBN bridges the gap between the church and the marketplace. Our congregation members have found jobs, mentors, and Kingdom-minded business partners through this incredible network.' },
+  { photo: 'https://i.pravatar.cc/96?img=47', name: 'Meron Tadesse', profession: 'Business Owner', company: 'Kidus Builders Group', text: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.' },
+  { photo: 'https://i.pravatar.cc/96?img=11', name: 'Henok Kebede', profession: 'Architect', company: 'Tsion Foundations Inc.', text: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.' },
+  { photo: 'https://i.pravatar.cc/96?img=44', name: 'Dr. Tigist Asrat', profession: 'Physician', company: 'Selam Health Partners', text: 'Finding other Christian healthcare professionals through KBN has been life-giving. We share best practices, pray for each other\'s patients, and encourage one another to keep Christ at the center of our practice.' },
+  { photo: 'https://i.pravatar.cc/96?img=8', name: 'Pastor Dawit Alemu', profession: 'Senior Pastor', company: 'Betesha Retreat Center', text: 'KBN bridges the gap between the church and the marketplace. Our congregation members have found jobs, mentors, and Kingdom-minded business partners through this incredible network.' },
 ]
 
 const COMMUNITY_CARDS = [
-  { icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', title: 'Christian Business Directory', desc: 'Discover trusted Christian-owned businesses and connect with professionals who share your values.' },
-  { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', title: 'Networking Opportunities', desc: 'Build meaningful relationships with entrepreneurs, professionals, and ministry leaders.' },
-  { icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253', title: 'Mentorship', desc: 'Learn from experienced Christian business leaders passionate about helping others grow.' },
-  { icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6', title: 'Faith & Leadership', desc: 'Grow spiritually while developing leadership skills rooted in biblical principles.' },
-  { icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', title: 'Business Growth', desc: 'Access resources, partnerships, and opportunities that help your business flourish while honoring Christ.' },
+  { icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', title: 'Christian Business Directory', desc: 'Discover trusted Ethiopian Christian-owned businesses and connect with professionals who share your faith and values.' },
+  { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', title: 'Networking Events', desc: 'Quarterly gatherings in the USA and Ethiopia, plus state-level chapters in major diaspora communities.' },
+  { icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253', title: 'Leadership Academy', desc: 'Training and capacity building through the Kingdom Builders Leadership Academy and annual conferences.' },
+  { icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6', title: 'Christian Institutions', desc: 'Building Christian schools, community centers, and business hubs that reflect Kingdom values across Ethiopia.' },
+  { icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', title: 'Investment & Business Support', desc: 'Christian Investment Fund, microfinance loans, and a digital platform connecting believers to resources and opportunities.' },
 ]
 
 function Navbar({ onLogin, onSignUp, onHome }: { onLogin: () => void; onSignUp: () => void; onHome: () => void }) {
@@ -303,7 +303,7 @@ export default function App() {
                 <span className="gold-gradient-text">Faith, Business, and Community</span>
               </h1>
               <p className="text-[#94A3B8] text-lg leading-relaxed mb-10 max-w-xl">
-                Kingdom Builders Network (KBN) is a community of Christian entrepreneurs, business leaders, and professionals committed to honoring God through their work. Together, we encourage one another, create meaningful connections, and grow businesses that make a lasting Kingdom impact.
+                Kingdom Builders Network (KBN) is a registered ministry under the Ethiopian Council of Gospel Believers Churches, connecting hundreds of Ethiopian Christian entrepreneurs and professionals across the U.S. and Ethiopia. Through connection, communication, and collaboration, we strengthen both the spiritual and economic well-being of the Christian community.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="#join" className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-sm font-bold px-6 py-3.5 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-xl shadow-[var(--accent)]/30">
@@ -316,9 +316,9 @@ export default function App() {
               </div>
               <div className="grid grid-cols-3 gap-8 max-w-md mt-12">
                 {[
-                  { value: '200+', label: 'Members' },
-                  { value: '8', label: 'Industries' },
-                  { value: '12', label: 'Chapters' },
+                  { value: '300+', label: 'Members' },
+                  { value: '15', label: 'Industries' },
+                  { value: '2', label: 'Countries' },
                 ].map(s => (
                   <div key={s.label}>
                     <div className="font-serif text-2xl text-white font-bold">{s.value}</div>
@@ -336,12 +336,12 @@ export default function App() {
       {/* About */}
       <section id="about-us" className="py-20 md:py-28 animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Who We Are" title="Kingdom Builders Network" subtitle="KBN exists to connect Christian entrepreneurs and professionals who desire to integrate faith with business. We believe businesses can be powerful tools for serving communities, creating opportunities, and advancing God's Kingdom." />
+          <SectionHeading overline="Who We Are" title="Kingdom Builders Network" subtitle="Inspired by Psalm 133:1 — 'Behold, how good and pleasant it is when God's people live together in unity!' — KBN envisions a united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life." />
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
-              { title: 'Authentic Relationships', desc: 'We foster genuine connections where faith and business intersect, building a community that supports, encourages, and challenges one another.' },
-              { title: 'Mentorship & Growth', desc: 'Through mentorship, networking, and collaboration, we empower members to grow spiritually and professionally in every season.' },
-              { title: 'Kingdom Impact', desc: 'We equip believers to use their businesses as platforms for ministry, serving their communities and advancing God\'s purposes.' },
+              { title: 'Unity in Christ', desc: 'Building relationships among believers for mutual spiritual and professional growth, reflecting the heart of Psalm 133.' },
+              { title: 'Integrity & Excellence', desc: 'Upholding Christian ethics in all professional and business dealings while pursuing excellence in leadership and community transformation.' },
+              { title: 'Service', desc: 'Using resources, skills, and influence to serve churches, communities, and God\'s Kingdom — empowering believers and building Christian institutions.' },
             ].map(item => (
               <div key={item.title} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6 text-center group">
                 <div className="w-12 h-12 rounded-xl bg-[var(--accent-light)] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
@@ -351,6 +351,35 @@ export default function App() {
                 <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{item.desc}</p>
               </div>
             ))}
+          </div>
+
+          {/* Achievements */}
+          <div className="max-w-4xl mx-auto mt-16">
+            <h3 className="font-serif text-2xl text-[var(--text-primary)] text-center mb-8">Our Impact (Past 3 Years)</h3>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[var(--accent-dark)] mb-3">
+                  <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
+                  United States
+                </div>
+                <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
+                  <li>• Connected Ethiopian Christian professionals in multiple states</li>
+                  <li>• Hosted 3 successful national networking events</li>
+                  <li>• Developing strategic plan for commercial buildings to support Christian businesses</li>
+                </ul>
+              </div>
+              <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[var(--accent-dark)] mb-3">
+                  <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
+                  Ethiopia
+                </div>
+                <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
+                  <li>• Held 2 large-scale networking events in Hawassa</li>
+                  <li>• Launched KG to College Christian School in Hawassa</li>
+                  <li>• Building Kingdom Business Hubs across Addis Ababa</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -366,14 +395,14 @@ export default function App() {
                 <svg className="w-8 h-8 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
               </div>
               <h3 className="font-serif text-2xl text-white mb-4">Our Mission</h3>
-              <p className="text-[#94A3B8] leading-relaxed text-lg">Connecting Christian entrepreneurs and professionals to grow in faith, business, and purpose.</p>
+              <p className="text-[#94A3B8] leading-relaxed text-lg">To unite Christian entrepreneurs and professionals through connection, communication, and collaboration — strengthening both the spiritual and physical well-being of the Christian community locally and globally.</p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-10 text-center group card-hover">
               <div className="w-16 h-16 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                 <svg className="w-8 h-8 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
               </div>
               <h3 className="font-serif text-2xl text-white mb-4">Our Vision</h3>
-              <p className="text-[#94A3B8] leading-relaxed text-lg">To build a global network of Kingdom-minded leaders who use their gifts, businesses, and influence to glorify God and positively impact their communities.</p>
+              <p className="text-[#94A3B8] leading-relaxed text-lg">A united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life — in Ethiopia, the U.S., and beyond.</p>
             </div>
           </div>
         </div>
@@ -382,7 +411,7 @@ export default function App() {
       {/* Community & Membership */}
       <section id="community-membership" className="py-20 md:py-28 animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Why Join" title="Community & Membership" subtitle="Experience the power of a faith-driven professional network designed to help you thrive in business and walk closer with Christ." />
+          <SectionHeading overline="Why Join" title="Community & Membership" subtitle="Experience the power of a faith-driven professional network spanning Ethiopia and the USA. Through consistent networking, training, and strategic initiatives, we empower believers to thrive spiritually and economically." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {COMMUNITY_CARDS.map((card, i) => (
               <div key={card.title} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6 group" style={{ animationDelay: `${i * 80}ms` }}>
@@ -400,7 +429,7 @@ export default function App() {
       {/* Featured Members */}
       <section className="py-20 md:py-28 bg-[var(--surface)] animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Our Community" title="Featured Members" subtitle="Meet some of the incredible Christian business owners and professionals in our network." />
+          <SectionHeading overline="Our Community" title="Featured Members" subtitle="Meet some of the incredible Ethiopian Christian business owners and professionals in our network." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-stagger">
             {featured.map(company => (
               <CompanyCard key={company.id} company={company} onClick={() => setSelectedCompany(company)} />
@@ -473,13 +502,69 @@ export default function App() {
         </div>
       </section>
 
+      {/* Strategic Goals */}
+      <section className="py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8">
+          <SectionHeading overline="Roadmap 2025–2028" title="Strategic Goals" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+            {[
+              { num: '01', title: 'Foster Christian Unity', desc: 'Consistent networking and fellowship across state-level chapters in the US and regional fellowships in Ethiopia.' },
+              { num: '02', title: 'Empower Entrepreneurship', desc: 'Equipping believers with business skills and spiritual grounding through the Kingdom Builders Leadership Academy.' },
+              { num: '03', title: 'Support Churches', desc: 'Providing financial, professional, and physical resources to local churches, ministries, and community projects.' },
+              { num: '04', title: 'Build Institutions', desc: 'Establishing Christian schools, business hubs, and community centers that reflect Kingdom values.' },
+              { num: '05', title: 'Expand Global Impact', desc: 'Replicating the KBN model in other cities and countries through digital platforms and international coordination.' },
+            ].map(goal => (
+              <div key={goal.num} className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 text-center group card-hover">
+                <div className="w-10 h-10 rounded-full bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-4 text-[var(--accent)] text-sm font-bold">{goal.num}</div>
+                <h3 className="font-semibold text-white mb-2">{goal.title}</h3>
+                <p className="text-xs text-[#94A3B8] leading-relaxed">{goal.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Founder */}
+      <section className="py-20 md:py-28 animate-fade-in-up">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <SectionHeading overline="Our Founder" title="Mr. Surafel Tilahun Tulu" subtitle="Visionary founder of Kingdom Builders Network — a born-again Christian, minister of God, and pioneering entrepreneur dedicated to uplifting Christian communities through innovation, mentorship, and service." />
+          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-8">
+              <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-lg">Spiritual & Entrepreneurial Leadership</h3>
+              <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Faithfully teaching the Word of God and ministering to Christian communities</li>
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Pioneering entrepreneur in Ethiopia since 1994 (E.C.) introducing groundbreaking technologies</li>
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Introduced CD printing and duplication technology to Ethiopia</li>
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Developed and installed full-body disinfection tunnels during public health crises</li>
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Created Smart Cafe Counting Machines serving Ethiopian cafes</li>
+              </ul>
+            </div>
+            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-8">
+              <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-lg">Enterprises & Ventures</h3>
+              <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Sura Investment Consultancy</li>
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Addis Tec Industrial Machinery Equipment</li>
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Debol Trading LLC (USA)</li>
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> ET-POL Global sp.z.o.o (Poland)</li>
+                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Debbol App & e-commerce platform development</li>
+                <li className="flex gap-2 mt-4 pt-4 border-t border-[var(--border-light)]">
+                  <span className="text-[var(--accent-dark)] mt-0.5">✦</span>
+                  <span>Contact: +251 91 196 3232 &bull; www.ethiochristiannet.com</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section id="join" className="py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)] rounded-full blur-[180px] opacity-5" />
         <div className="relative max-w-3xl mx-auto px-4 md:px-8 text-center">
-          <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">Join a Community That Builds More Than Businesses</h2>
-          <p className="text-[#94A3B8] text-lg leading-relaxed mb-10">Become part of a growing network of Christian entrepreneurs and professionals committed to making a Kingdom impact through faith, excellence, and service.</p>
+          <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">Join a Movement That Builds God's Kingdom</h2>
+          <p className="text-[#94A3B8] text-lg leading-relaxed mb-10">Become part of a growing network of Ethiopian Christian entrepreneurs and professionals committed to making a Kingdom impact through faith, excellence, and service — across Ethiopia, the USA, and beyond.</p>
           <a href="#" className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30">
             Become a Member
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
@@ -498,7 +583,7 @@ export default function App() {
                 </div>
                 <span className="font-serif text-xl">Kingdom Builders Network</span>
               </div>
-              <p className="text-sm text-[#94A3B8] leading-relaxed mb-6 max-w-sm">Connecting Christian entrepreneurs and professionals to grow in faith, business, and purpose.</p>
+              <p className="text-sm text-[#94A3B8] leading-relaxed mb-6 max-w-sm">A registered ministry under the Ethiopian Council of Gospel Believers Churches and in the United States — connecting Christian entrepreneurs and professionals across borders.</p>
               <div className="flex items-center gap-3">
                 {['Twitter', 'LinkedIn', 'Instagram', 'YouTube'].map(s => (
                   <a key={s} href="#" className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white/50 hover:bg-[var(--accent)]/20 hover:text-[var(--accent)] transition-all">
@@ -510,7 +595,7 @@ export default function App() {
             <div>
               <h4 className="font-semibold text-white text-sm mb-4">Navigation</h4>
               <div className="space-y-2.5">
-                {['About Us', 'Community & Membership', 'Events', 'Join the Network'].map(link => (
+                {['About Us', 'Community & Membership', 'Events', 'Join the Network', 'Contact'].map(link => (
                   <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                 ))}
               </div>
@@ -518,7 +603,7 @@ export default function App() {
             <div>
               <h4 className="font-semibold text-white text-sm mb-4">Resources</h4>
               <div className="space-y-2.5">
-                {['Blog', 'Podcast', 'Devotionals', 'Prayer Requests', 'FAQ'].map(link => (
+                {['Leadership Academy', 'KBN App & Podcast', 'Prayer Requests', 'KBN Journal', 'FAQ'].map(link => (
                   <a key={link} href="#" className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                 ))}
               </div>
@@ -527,8 +612,8 @@ export default function App() {
               <h4 className="font-semibold text-white text-sm mb-4">Contact</h4>
               <div className="space-y-2.5 text-sm text-[#94A3B8]">
                 <p>info@kbn.org</p>
-                <p>(469) 555-KBN1</p>
-                <p>Dallas-Fort Worth, TX</p>
+                <p>+251 91 196 3232</p>
+                <p>Addis Ababa, Ethiopia</p>
               </div>
             </div>
           </div>
