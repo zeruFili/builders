@@ -4,7 +4,7 @@ import { type UserRole } from '../auth/auth'
 
 const MOCK_CREDENTIALS = [
   { email: 'admin@kbn.org', name: 'Admin KBN', role: 'admin' as UserRole },
-  { email: 'john@example.com', name: 'John Doe', role: 'user' as UserRole },
+  { email: 'john@example.com', name: 'Johns Doe', role: 'user' as UserRole },
   { email: 'mary@example.com', name: 'Mary Smith', role: 'user' as UserRole },
   { email: 'david@covenantbuilders.com', name: 'David Thompson', role: 'company' as UserRole },
   { email: 'thomas@stewardshipwealth.org', name: 'Thomas Whitfield', role: 'company' as UserRole },
