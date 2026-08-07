@@ -5,7 +5,7 @@ import path from 'node:path'
 
 export default defineConfig(() => {
   return {
-    base: '/',
+    base: '/builders/',
     plugins: [
       react(),
       tailwindcss(),
