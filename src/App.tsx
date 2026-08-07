@@ -5,6 +5,7 @@ import SignUpPage from './components/SignUpPage'
 import CompanyDashboard from './components/CompanyDashboard'
 import AdminDashboard from './components/AdminDashboard'
 import UserDashboard from './components/UserDashboard'
+import AboutUsPage from './components/AboutUsPage'
 import { useAuth } from './auth/AuthContext'
 import { type UserRole } from './auth/auth'
 import { getCompanies, subscribe } from './data/companyStore'
@@ -36,7 +37,7 @@ const COMMUNITY_CARDS = [
   { icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', title: 'Investment & Business Support', desc: 'Christian Investment Fund, microfinance loans, and a digital platform connecting believers to resources and opportunities.' },
 ]
 
-function Navbar({ onLogin, onSignUp, onHome }: { onLogin: () => void; onSignUp: () => void; onHome: () => void }) {
+function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void; onSignUp: () => void; onHome: () => void; onAboutUs: () => void }) {
   const { user, logout } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
@@ -53,11 +54,17 @@ function Navbar({ onLogin, onSignUp, onHome }: { onLogin: () => void; onSignUp: 
         </button>
 
         <nav className="hidden lg:flex items-center gap-1">
-          {NAV_ITEMS.map(item => (
-            <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all">
-              {item}
-            </a>
-          ))}
+          {NAV_ITEMS.map(item =>
+            item === 'About Us' ? (
+              <button key={item} onClick={onAboutUs} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
+                {item}
+              </button>
+            ) : (
+              <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all">
+                {item}
+              </a>
+            )
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -98,9 +105,13 @@ function Navbar({ onLogin, onSignUp, onHome }: { onLogin: () => void; onSignUp: 
       </div>
       {menuOpen && (
         <div className="lg:hidden border-t border-[var(--border-light)] bg-[var(--surface)] px-4 py-4 space-y-2 animate-slide-down">
-          {NAV_ITEMS.map(item => (
-            <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setMenuOpen(false)} className="block w-full text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</a>
-          ))}
+          {NAV_ITEMS.map(item =>
+            item === 'About Us' ? (
+              <button key={item} onClick={() => { onAboutUs(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
+            ) : (
+              <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setMenuOpen(false)} className="block w-full text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</a>
+            )
+          )}
           <div className="pt-2 border-t border-[var(--border-light)] space-y-2">
             {user ? (
               <button onClick={() => { logout(); setMenuOpen(false) }} className="block w-full text-center text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">Sign Out</button>
@@ -210,6 +221,7 @@ function DirectoryPage({ onBack, onSelectCompany }: { onBack: () => void; onSele
 export default function App() {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null)
   const [showDirectory, setShowDirectory] = useState(false)
+  const [showAboutUs, setShowAboutUs] = useState(false)
   const [authPage, setAuthPage] = useState<'login' | 'signup' | null>(null)
   const [dashboard, setDashboard] = useState<UserRole | null>(null)
   const { user, loading } = useAuth()
@@ -276,6 +288,10 @@ export default function App() {
     )
   }
 
+  if (showAboutUs) {
+    return <AboutUsPage onBack={() => setShowAboutUs(false)} />
+  }
+
   const featured = liveCompanies.filter(c => c.featured)
 
   return (
@@ -283,7 +299,8 @@ export default function App() {
       <Navbar
         onLogin={() => setAuthPage('login')}
         onSignUp={() => setAuthPage('signup')}
-        onHome={() => { setShowDirectory(false); setAuthPage(null) }}
+        onHome={() => { setShowDirectory(false); setAuthPage(null); setShowAboutUs(false) }}
+        onAboutUs={() => { setShowAboutUs(true); window.scrollTo(0, 0) }}
       />
 
       {/* Hero */}
