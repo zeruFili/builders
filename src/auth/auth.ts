@@ -15,14 +15,14 @@ interface StoredUser extends User {
 }
 
 const MOCK_USERS: StoredUser[] = [
-  { id: 'u1', email: 'david@covenantbuilders.com', name: 'David Thompson', avatar: 'https://i.pravatar.cc/96?img=11', password: 'password123', role: 'company', business: 'Covenant Builders Group', companyId: 'covenant-builders' },
-  { id: 'u2', email: 'sarah@kingdomfoundations.org', name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/96?img=47', password: 'password123', role: 'company', business: 'Refuge Wellness Center', companyId: 'refuge-wellness' },
-  { id: 'u3', email: 'james@bethanycenter.org', name: 'James Carter', avatar: 'https://i.pravatar.cc/96?img=8', password: 'password123', role: 'company', business: 'Bethany Retreat & Conference Center', companyId: 'bethany-retreat' },
-  { id: 'u4', email: 'grace@generationsofgrace.co', name: 'Grace Mwamba', avatar: 'https://i.pravatar.cc/96?img=5', password: 'password123', role: 'company', business: 'Generations of Grace Apparel', companyId: 'generations-of-grace' },
-  { id: 'u5', email: 'thomas@stewardshipwealth.org', name: 'Thomas Whitfield', avatar: 'https://i.pravatar.cc/96?img=6', password: 'password123', role: 'company', business: 'Stewardship Wealth Management', companyId: 'stewardship-wealth' },
+  { id: 'u1', email: 'henok@kidusbuilders.com', name: 'Henok Kebede', avatar: 'https://i.pravatar.cc/96?img=11', password: 'password123', role: 'company', business: 'Kidus Builders Group', companyId: 'covenant-builders' },
+  { id: 'u2', email: 'meron@tsionwellness.org', name: 'Meron Tadesse', avatar: 'https://i.pravatar.cc/96?img=47', password: 'password123', role: 'company', business: 'Tsion Wellness Center', companyId: 'refuge-wellness' },
+  { id: 'u3', email: 'dawit@betesharetreat.org', name: 'Dawit Alemu', avatar: 'https://i.pravatar.cc/96?img=8', password: 'password123', role: 'company', business: 'Betesha Retreat & Conference Center', companyId: 'bethany-retreat' },
+  { id: 'u4', email: 'bethlehem@bereketapparel.co', name: 'Bethlehem Haile', avatar: 'https://i.pravatar.cc/96?img=5', password: 'password123', role: 'company', business: 'Bereket Apparel', companyId: 'generations-of-grace' },
+  { id: 'u5', email: 'yohannes@stewardshipwealth.org', name: 'Yohannes Assefa', avatar: 'https://i.pravatar.cc/96?img=6', password: 'password123', role: 'company', business: 'Stewardship Wealth Management', companyId: 'stewardship-wealth' },
   { id: 'admin1', email: 'admin@kbn.org', name: 'Admin KBN', avatar: 'https://i.pravatar.cc/96?img=68', password: 'password123', role: 'admin' },
-  { id: 'regular1', email: 'john@example.com', name: 'John Doe', avatar: 'https://i.pravatar.cc/96?img=3', password: 'password123', role: 'user' },
-  { id: 'regular2', email: 'mary@example.com', name: 'Mary Smith', avatar: 'https://i.pravatar.cc/96?img=9', password: 'password123', role: 'user' },
+  { id: 'regular1', email: 'abel@example.com', name: 'Abel Tesfaye', avatar: 'https://i.pravatar.cc/96?img=3', password: 'password123', role: 'user' },
+  { id: 'regular2', email: 'tigist@example.com', name: 'Tigist Lemma', avatar: 'https://i.pravatar.cc/96?img=9', password: 'password123', role: 'user' },
 ]
 
 function getStoredUsers(): StoredUser[] {
