@@ -540,38 +540,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Founder */}
-      <section className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Our Founder" title="Mr. Surafel Tilahun Tulu" subtitle="Visionary founder of Kingdom Builders Network — a born-again Christian, minister of God, and pioneering entrepreneur dedicated to uplifting Christian communities through innovation, mentorship, and service." />
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8">
-              <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-lg">Spiritual & Entrepreneurial Leadership</h3>
-              <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Faithfully teaching the Word of God and ministering to Christian communities</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Pioneering entrepreneur in Ethiopia since 1994 (E.C.) introducing groundbreaking technologies</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Introduced CD printing and duplication technology to Ethiopia</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Developed and installed full-body disinfection tunnels during public health crises</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Created Smart Cafe Counting Machines serving Ethiopian cafes</li>
-              </ul>
-            </div>
-            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-8">
-              <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-lg">Enterprises & Ventures</h3>
-              <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Sura Investment Consultancy</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Addis Tec Industrial Machinery Equipment</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Debol Trading LLC (USA)</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> ET-POL Global sp.z.o.o (Poland)</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Debbol App & e-commerce platform development</li>
-                <li className="flex gap-2 mt-4 pt-4 border-t border-[var(--border-light)]">
-                  <span className="text-[var(--accent-dark)] mt-0.5">✦</span>
-                  <span>Contact: +251 91 196 3232 &bull; www.ethiochristiannet.com</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section id="join" className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">

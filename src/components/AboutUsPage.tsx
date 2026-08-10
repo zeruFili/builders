@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import knbLogo from '../assets/kbn logo.jpg'
+import surafelImg from '../assets/surafel.jpg'
 
 function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
   return (
@@ -298,11 +299,7 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
               </ul>
             </div>
             <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8 min-w-0">
-              <div className="flex flex-col items-center mb-5 sm:mb-6">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[var(--brand)]/5 border-2 border-[var(--accent)] flex items-center justify-center shadow-lg shadow-[var(--accent)]/5 flex-shrink-0">
-                  <svg className="w-12 h-12 sm:w-16 sm:h-16 text-[var(--accent)]/40" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-                </div>
-              </div>
+              <img src={surafelImg} alt="Mr. Surafel Tilahun Tulu" className="w-full object-contain rounded-xl mb-5 sm:mb-6" />
               <h3 className="font-semibold text-[var(--text-primary)] mb-3 sm:mb-4 text-base sm:text-lg break-words">Enterprises & Ventures</h3>
               <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-6">
                 {['Sura Investment Consultancy', 'Addis Tec Industrial Machinery Equipment', 'Debol Trading LLC (USA)', 'ET-POL Global sp.z.o.o (Poland)'].map(e => (
