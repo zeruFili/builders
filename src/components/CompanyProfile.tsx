@@ -291,12 +291,12 @@ export default function CompanyProfile({ company, onBack }: { company: Company; 
                 <p className="text-white/50 text-sm italic mt-2 max-w-xl leading-relaxed">"{company.missionStatement}"</p>
               )}
             </div>
-            <div className="flex gap-3">
-              <a href={`tel:${company.phone}`} className="flex items-center gap-2 bg-white text-[var(--brand)] text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-gray-100 transition-colors shadow-lg">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              <a href={`tel:${company.phone}`} className="flex items-center gap-2 bg-white text-[var(--brand)] text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl hover:bg-gray-100 transition-colors shadow-lg">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                 Call
               </a>
-              <a href={company.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[var(--brand)] text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-[var(--brand-dark)] transition-colors shadow-lg">
+              <a href={company.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[var(--brand)] text-white text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl hover:bg-[var(--brand-dark)] transition-colors shadow-lg">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                 Visit Website
               </a>
@@ -351,7 +351,7 @@ export default function CompanyProfile({ company, onBack }: { company: Company; 
                   <h2 className="font-serif text-2xl text-[var(--text-primary)]">Customer Reviews</h2>
                   <p className="text-sm text-[var(--text-tertiary)] mt-1">{total} reviews from verified customers</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2">
                   <select
                     value={reviewSort}
                     onChange={e => setReviewSort(e.target.value as typeof reviewSort)}
@@ -361,7 +361,7 @@ export default function CompanyProfile({ company, onBack }: { company: Company; 
                     <option value="highest">Highest rated</option>
                     <option value="lowest">Lowest rated</option>
                   </select>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 flex-wrap">
                     {[5, 4, 3, 2, 1].map(star => (
                       <button
                         key={star}

@@ -62,7 +62,7 @@ export default function AdminUsers() {
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <div className="flex items-center gap-1 bg-[var(--surface)] border border-[var(--border-light)] rounded-xl p-1 w-fit">
             {(['all', 'admin', 'user', 'company'] as const).map(f => (
               <button key={f} onClick={() => setRoleFilter(f)}
@@ -80,10 +80,10 @@ export default function AdminUsers() {
             ))}
           </div>
         </div>
-        <div className="relative">
+        <div className="relative w-full sm:w-56">
           <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
           <input type="text" placeholder="Search users..." value={search} onChange={e => setSearch(e.target.value)}
-            className="bg-[var(--surface)] border border-[var(--border-default)] rounded-xl py-2 pl-9 pr-4 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20 w-56" />
+            className="w-full bg-[var(--surface)] border border-[var(--border-default)] rounded-xl py-2 pl-9 pr-4 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20" />
         </div>
       </div>
 
@@ -92,33 +92,33 @@ export default function AdminUsers() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[var(--border-light)] bg-[var(--surface-alt)]">
-                <th className="text-left text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-5 py-3">User</th>
-                <th className="text-left text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-5 py-3">Role</th>
-                <th className="text-left text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-5 py-3 hidden md:table-cell">Email</th>
-                <th className="text-left text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-5 py-3 hidden md:table-cell">Registered</th>
-                <th className="text-left text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-5 py-3">Status</th>
-                <th className="text-right text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-5 py-3">Action</th>
+                  <th className="text-left text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-3 sm:px-5 py-3">User</th>
+                  <th className="text-left text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-3 sm:px-5 py-3 hidden xs:table-cell">Role</th>
+                  <th className="text-left text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-3 sm:px-5 py-3 hidden md:table-cell">Email</th>
+                  <th className="text-left text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-3 sm:px-5 py-3 hidden md:table-cell">Registered</th>
+                  <th className="text-left text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-3 sm:px-5 py-3">Status</th>
+                  <th className="text-right text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-3 sm:px-5 py-3">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border-light)]">
               {filtered.map(u => (
                 <tr key={u.id} className="hover:bg-[var(--surface-alt)] transition-colors">
-                  <td className="px-5 py-3">
-                    <button onClick={() => setSelected(u)} className="flex items-center gap-3 text-left">
-                      <img src={u.avatar} alt="" className="w-9 h-9 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
-                      <div>
-                        <div className="text-sm font-medium text-[var(--text-primary)]">{u.name}</div>
-                        {u.business && <div className="text-xs text-[var(--text-tertiary)]">{u.business}</div>}
+                  <td className="px-3 sm:px-5 py-3">
+                    <button onClick={() => setSelected(u)} className="flex items-center gap-2 sm:gap-3 text-left">
+                      <img src={u.avatar} alt="" className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
+                      <div className="min-w-0">
+                        <div className="text-xs sm:text-sm font-medium text-[var(--text-primary)] truncate">{u.name}</div>
+                        {u.business && <div className="text-[10px] text-[var(--text-tertiary)] truncate">{u.business}</div>}
                       </div>
                     </button>
                   </td>
-                  <td className="px-5 py-3">{roleBadge(u.role)}</td>
-                  <td className="px-5 py-3 text-sm text-[var(--text-secondary)] hidden md:table-cell">{u.email}</td>
-                  <td className="px-5 py-3 text-xs text-[var(--text-tertiary)] hidden md:table-cell">{new Date(u.registeredAt).toLocaleDateString()}</td>
-                  <td className="px-5 py-3">
+                  <td className="px-3 sm:px-5 py-3">{roleBadge(u.role)}</td>
+                  <td className="px-3 sm:px-5 py-3 text-sm text-[var(--text-secondary)] hidden md:table-cell">{u.email}</td>
+                  <td className="px-3 sm:px-5 py-3 text-xs text-[var(--text-tertiary)] hidden md:table-cell">{new Date(u.registeredAt).toLocaleDateString()}</td>
+                  <td className="px-3 sm:px-5 py-3">
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${u.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}`}>{u.status}</span>
                   </td>
-                  <td className="px-5 py-3 text-right">
+                  <td className="px-3 sm:px-5 py-3 text-right">
                     <button onClick={() => setSelected(u)} className="text-xs font-medium text-[var(--brand)] hover:underline">
                       View
                     </button>
@@ -168,9 +168,9 @@ function UserDetail({ user, onBack, onDeactivate, onReactivate }: {
         <span className={`text-xs font-semibold px-3 py-1 rounded-full ${user.status === 'active' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}`}>{user.status}</span>
       </div>
 
-      <div className="p-8">
-        <div className="flex items-center gap-5 mb-8">
-          <img src={user.avatar} alt="" className="w-20 h-20 rounded-2xl object-cover ring-3 ring-[var(--border-light)]" />
+      <div className="p-5 sm:p-8">
+        <div className="flex items-center gap-4 sm:gap-5 mb-8">
+          <img src={user.avatar} alt="" className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-3 ring-[var(--border-light)]" />
           <div>
             <h1 className="font-serif text-2xl text-[var(--text-primary)]">{user.name}</h1>
             <div className="flex items-center gap-2 mt-1">
@@ -180,7 +180,7 @@ function UserDetail({ user, onBack, onDeactivate, onReactivate }: {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8">
           <div>
             <label className="block text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider mb-1">Email</label>
             <p className="text-sm text-[var(--text-primary)]">{user.email}</p>

@@ -88,18 +88,18 @@ export default function CompanyDashboard({ onBack }: { onBack: () => void }) {
 
   return (
     <div className="min-h-screen bg-[var(--surface-alt)]">
-      <header className="bg-[var(--brand-dark)] py-6 md:py-8">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl overflow-hidden bg-white/10 flex-shrink-0">
+      <header className="bg-[var(--brand-dark)] py-5 md:py-8">
+        <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-white/10 flex-shrink-0">
               <img src={company.logo} alt="" className="w-full h-full object-cover" />
             </div>
-            <div>
-              <h1 className="font-serif text-2xl md:text-3xl text-white">{company.name}</h1>
+            <div className="min-w-0">
+              <h1 className="font-serif text-xl sm:text-2xl md:text-3xl text-white truncate">{company.name}</h1>
               <p className="text-[#94A3B8] text-sm">Company Dashboard</p>
             </div>
           </div>
-          <button onClick={onBack} className="flex items-center gap-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium px-4 py-2.5 rounded-xl border border-white/15 hover:bg-white/20 transition-all">
+          <button onClick={onBack} className="flex items-center gap-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-white/15 hover:bg-white/20 transition-all self-start sm:self-auto flex-shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             Back to Home
           </button>

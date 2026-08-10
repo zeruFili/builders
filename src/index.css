@@ -19,6 +19,7 @@
   --color-success: var(--success);
   --color-error: var(--error);
   --color-cta: var(--cta);
+  --breakpoint-xs: 475px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;

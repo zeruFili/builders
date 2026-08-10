@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/AuthContext'
+import knbLogo from '../assets/kbn logo.jpg'
 import AdminCompanies from './admin/AdminCompanies'
 import AdminApplications from './admin/AdminApplications'
 import AdminUsers from './admin/AdminUsers'
@@ -20,6 +21,7 @@ export default function AdminDashboard({ onBack }: { onBack: () => void }) {
   const { user } = useAuth()
   const [active, setActive] = useState<Section>('overview')
   const [collapsed, setCollapsed] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   if (!user || user.role !== 'admin') {
     return <div className="min-h-screen bg-[var(--surface-alt)] flex items-center justify-center text-[var(--text-tertiary)]">Access denied.</div>
@@ -35,55 +37,65 @@ export default function AdminDashboard({ onBack }: { onBack: () => void }) {
     }
   })()
 
+  const sidebar = (
+    <aside className={`${collapsed ? 'w-16' : 'w-60'} bg-[var(--brand-dark)] text-white flex flex-col transition-all duration-300 flex-shrink-0 h-full`}>
+      <div className="h-16 flex items-center gap-3 px-4 border-b border-white/10">
+        <img src={knbLogo} alt="KBN" className="w-9 h-9 rounded-xl object-cover flex-shrink-0" />
+        {!collapsed && <span className="font-serif text-lg">Admin</span>}
+      </div>
+
+      <nav className="flex-1 py-4 space-y-1 px-2 overflow-y-auto">
+        {NAV_ITEMS.map(item => (
+          <button
+            key={item.id}
+            onClick={() => { setActive(item.id); setMobileOpen(false) }}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-left ${active === item.id ? 'bg-[var(--accent)]/20 text-[var(--accent)]' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}`}
+          >
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} /></svg>
+            {!collapsed && <span className="truncate">{item.label}</span>}
+            {!collapsed && active === item.id && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[var(--accent)] flex-shrink-0" />}
+          </button>
+        ))}
+      </nav>
+
+      <div className="p-2 border-t border-white/10">
+        <button onClick={() => setCollapsed(!collapsed)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#94A3B8] hover:bg-white/5 hover:text-white transition-all">
+          <svg className={`w-5 h-5 flex-shrink-0 transition-transform ${collapsed ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
+          {!collapsed && 'Collapse'}
+        </button>
+        <button onClick={onBack} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#94A3B8] hover:bg-white/5 hover:text-white transition-all">
+          <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+          {!collapsed && 'Back to Site'}
+        </button>
+      </div>
+    </aside>
+  )
+
   return (
     <div className="min-h-screen bg-[var(--surface-alt)] flex">
-      <aside className={`${collapsed ? 'w-16' : 'w-60'} bg-[var(--brand-dark)] text-white flex flex-col transition-all duration-300 flex-shrink-0`}>
-        <div className="h-16 flex items-center gap-3 px-4 border-b border-white/10">
-          <div className="w-9 h-9 bg-[var(--accent)] rounded-xl flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-[var(--brand-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          </div>
-          {!collapsed && <span className="font-serif text-lg">Admin</span>}
+      <div className="hidden lg:flex">{sidebar}</div>
+
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
+          <div className="absolute left-0 top-0 bottom-0 z-50">{sidebar}</div>
         </div>
+      )}
 
-        <nav className="flex-1 py-4 space-y-1 px-2">
-          {NAV_ITEMS.map(item => (
-            <button
-              key={item.id}
-              onClick={() => setActive(item.id)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-left ${active === item.id ? 'bg-[var(--accent)]/20 text-[var(--accent)]' : 'text-[#94A3B8] hover:bg-white/5 hover:text-white'}`}
-            >
-              <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} /></svg>
-              {!collapsed && <span className="truncate">{item.label}</span>}
-              {!collapsed && active === item.id && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[var(--accent)] flex-shrink-0" />}
-            </button>
-          ))}
-        </nav>
-
-        <div className="p-2 border-t border-white/10">
-          <button onClick={() => setCollapsed(!collapsed)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#94A3B8] hover:bg-white/5 hover:text-white transition-all">
-            <svg className={`w-5 h-5 flex-shrink-0 transition-transform ${collapsed ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
-            {!collapsed && 'Collapse'}
-          </button>
-          <button onClick={onBack} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#94A3B8] hover:bg-white/5 hover:text-white transition-all">
-            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-            {!collapsed && 'Back to Site'}
-          </button>
-        </div>
-      </aside>
-
-      <main className="flex-1 overflow-auto">
-        <header className="h-16 bg-[var(--surface)] border-b border-[var(--border-light)] flex items-center justify-between px-6 sticky top-0 z-10">
-          <div>
-            <h1 className="font-serif text-lg text-[var(--text-primary)]">{NAV_ITEMS.find(n => n.id === active)?.label}</h1>
-          </div>
+      <main className="flex-1 overflow-auto min-w-0">
+        <header className="h-16 bg-[var(--surface)] border-b border-[var(--border-light)] flex items-center justify-between px-4 sm:px-6 sticky top-0 z-10">
           <div className="flex items-center gap-3">
+            <button onClick={() => setMobileOpen(true)} className="lg:hidden w-10 h-10 rounded-xl border border-[var(--border-default)] flex items-center justify-center text-[var(--text-secondary)] hover:bg-[var(--surface-alt)] transition-colors flex-shrink-0">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+            <h1 className="font-serif text-base sm:text-lg text-[var(--text-primary)] truncate">{NAV_ITEMS.find(n => n.id === active)?.label}</h1>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
             <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
             <span className="text-sm font-medium text-[var(--text-secondary)] hidden sm:inline">{user.name}</span>
           </div>
         </header>
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {content}
         </div>
       </main>
