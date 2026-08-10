@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/AuthContext'
+import knbLogo from '../assets/kbn logo.jpg'
 
 export default function SignUpPage({ onSwitch }: { onSwitch: () => void }) {
   const { signUp } = useAuth()
@@ -34,9 +35,7 @@ export default function SignUpPage({ onSwitch }: { onSwitch: () => void }) {
     <div className="min-h-screen bg-[var(--surface-alt)] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <a href="/" className="flex items-center gap-2.5 justify-center mb-10 group">
-          <div className="w-10 h-10 bg-[var(--brand)] rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20">
-            <svg className="w-5 h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          </div>
+          <img src={knbLogo} alt="KBN Logo" className="w-10 h-10 rounded-xl object-cover group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20" />
           <span className="font-serif text-xl text-[var(--text-primary)]">KBN</span>
         </a>
 

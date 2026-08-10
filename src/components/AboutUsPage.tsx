@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import knbLogo from '../assets/kbn logo.jpg'
 
 function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
   return (
@@ -346,9 +347,7 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-12">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-              </div>
+              <img src={knbLogo} alt="KBN Logo" className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover bg-white/10 flex-shrink-0" />
               <span className="font-serif text-base sm:text-lg truncate">Kingdom Builders Network</span>
             </div>
             <p className="text-xs text-[#64748B] text-center flex-shrink-0">&copy; 2025 Kingdom Builders Network. All rights reserved.</p>

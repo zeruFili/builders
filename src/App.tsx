@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
+import knbLogo from './assets/kbn logo.jpg'
 import CompanyProfile, { CompanyCard, StarRating } from './components/CompanyProfile'
 import LoginPage from './components/LoginPage'
 import SignUpPage from './components/SignUpPage'
@@ -45,11 +46,7 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
     <header className="glass sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between gap-4">
         <button onClick={onHome} className="flex items-center gap-2.5 flex-shrink-0 group">
-          <div className="w-9 h-9 bg-[var(--brand)] rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20">
-            <svg className="w-5 h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          </div>
+          <img src={knbLogo} alt="KBN Logo" className="w-9 h-9 rounded-xl object-cover group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20" />
           <span className="font-serif text-lg sm:text-xl text-[var(--text-primary)] tracking-tight">KBN</span>
         </button>
 
@@ -596,9 +593,7 @@ export default function App() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10">
             <div className="sm:col-span-2 lg:col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center">
-                  <svg className="w-5 h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                </div>
+              <img src={knbLogo} alt="KBN Logo" className="w-9 h-9 rounded-xl object-cover bg-white/10" />
                 <span className="font-serif text-xl">Kingdom Builders Network</span>
               </div>
               <p className="text-sm text-[#94A3B8] leading-relaxed mb-6 max-w-sm">A registered ministry under the Ethiopian Council of Gospel Believers Churches and in the United States — connecting Christian entrepreneurs and professionals across borders.</p>
