@@ -50,7 +50,7 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
           </div>
-          <span className="font-serif text-xl text-[var(--text-primary)] hidden sm:block tracking-tight">KBN</span>
+          <span className="font-serif text-lg sm:text-xl text-[var(--text-primary)] tracking-tight">KBN</span>
         </button>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -69,15 +69,15 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
 
         <div className="flex items-center gap-2">
           {user ? (
-            <div className="relative hidden md:block">
+            <>
               <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
                 <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
-                <span className="hidden lg:inline">{user.name.split(' ')[0]}</span>
+                <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
                 <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : user.role === 'company' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'}`}>{user.role}</span>
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                <svg className="w-4 h-4 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-56 bg-[var(--surface)] rounded-xl border border-[var(--border-light)] shadow-xl p-2 animate-slide-down">
+                <div className="absolute right-4 top-16 z-50 w-56 bg-[var(--surface)] rounded-xl border border-[var(--border-light)] shadow-xl p-2 animate-slide-down">
                   <div className="px-3 py-2.5 border-b border-[var(--border-light)] mb-1">
                     <p className="text-sm font-semibold text-[var(--text-primary)]">{user.name}</p>
                     <p className="text-xs text-[var(--text-tertiary)] truncate">{user.email}</p>
@@ -89,12 +89,13 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
                   </button>
                 </div>
               )}
-            </div>
+            </>
           ) : (
             <>
-              <button onClick={onLogin} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2 rounded-xl transition-colors hidden md:block">Login</button>
-              <button onClick={onSignUp} className="text-sm font-semibold text-white bg-[var(--brand)] px-4 py-2 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 hidden md:flex items-center gap-2">
-                Sign Up
+              <button onClick={onLogin} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 sm:px-3 py-2 rounded-xl transition-colors">Login</button>
+              <button onClick={onSignUp} className="text-sm font-semibold text-white bg-[var(--brand)] px-3 sm:px-4 py-2 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 flex items-center gap-2">
+                <span className="hidden xs:inline">Sign Up</span>
+                <svg className="w-4 h-4 xs:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
               </button>
             </>
           )}
@@ -132,7 +133,7 @@ function SectionHeading({ overline, title, subtitle }: { overline?: string; titl
   return (
     <div className="text-center max-w-2xl mx-auto mb-14">
       {overline && <span className="inline-block text-xs font-semibold text-[var(--accent-dark)] tracking-widest uppercase mb-3">{overline}</span>}
-      <h2 className="font-serif text-3xl md:text-4xl text-[var(--text-primary)] mb-4">{title}</h2>
+      <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--text-primary)] mb-4">{title}</h2>
       {subtitle && <p className="text-[var(--text-secondary)] leading-relaxed">{subtitle}</p>}
     </div>
   )
@@ -331,14 +332,14 @@ export default function App() {
                   Learn More
                 </a>
               </div>
-              <div className="grid grid-cols-3 gap-8 max-w-md mt-12">
+              <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-md mt-12">
                 {[
                   { value: '300+', label: 'Members' },
                   { value: '15', label: 'Industries' },
                   { value: '2', label: 'Countries' },
                 ].map(s => (
                   <div key={s.label}>
-                    <div className="font-serif text-2xl text-white font-bold">{s.value}</div>
+                    <div className="font-serif text-xl sm:text-2xl text-white font-bold">{s.value}</div>
                     <div className="text-xs text-[#94A3B8] mt-0.5 font-medium">{s.label}</div>
                   </div>
                 ))}
@@ -351,10 +352,10 @@ export default function App() {
       </section>
 
       {/* About */}
-      <section id="about-us" className="py-20 md:py-28 animate-fade-in-up">
+      <section id="about-us" className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <SectionHeading overline="Who We Are" title="Kingdom Builders Network" subtitle="Inspired by Psalm 133:1 — 'Behold, how good and pleasant it is when God's people live together in unity!' — KBN envisions a united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life." />
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
             {[
               { title: 'Unity in Christ', desc: 'Building relationships among believers for mutual spiritual and professional growth, reflecting the heart of Psalm 133.' },
               { title: 'Integrity & Excellence', desc: 'Upholding Christian ethics in all professional and business dealings while pursuing excellence in leadership and community transformation.' },
@@ -402,7 +403,7 @@ export default function App() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
+      <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-7xl mx-auto px-4 md:px-8">
           <SectionHeading overline="Our Purpose" title="Mission & Vision" />
@@ -426,7 +427,7 @@ export default function App() {
       </section>
 
       {/* Community & Membership */}
-      <section id="community-membership" className="py-20 md:py-28 animate-fade-in-up">
+      <section id="community-membership" className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <SectionHeading overline="Why Join" title="Community & Membership" subtitle="Experience the power of a faith-driven professional network spanning Ethiopia and the USA. Through consistent networking, training, and strategic initiatives, we empower believers to thrive spiritually and economically." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -444,10 +445,10 @@ export default function App() {
       </section>
 
       {/* Featured Members */}
-      <section className="py-20 md:py-28 bg-[var(--surface)] animate-fade-in-up">
+      <section className="py-16 sm:py-20 md:py-28 bg-[var(--surface)] animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <SectionHeading overline="Our Community" title="Featured Members" subtitle="Meet some of the incredible Ethiopian Christian business owners and professionals in our network." />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-stagger">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 animate-stagger">
             {featured.map(company => (
               <CompanyCard key={company.id} company={company} onClick={() => setSelectedCompany(company)} />
             ))}
@@ -462,10 +463,10 @@ export default function App() {
       </section>
 
       {/* Events */}
-      <section id="events" className="py-20 md:py-28 animate-fade-in-up">
+      <section id="events" className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <SectionHeading overline="Get Involved" title="Upcoming Events" subtitle="Grow in faith, build relationships, and sharpen your skills at our upcoming gatherings." />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {EVENTS.map((ev, i) => (
               <div key={ev.title} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] overflow-hidden group" style={{ animationDelay: `${i * 80}ms` }}>
                 <div className="relative h-40 overflow-hidden">
@@ -496,10 +497,10 @@ export default function App() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 md:py-28 bg-[var(--surface)] animate-fade-in-up">
+      <section className="py-16 sm:py-20 md:py-28 bg-[var(--surface)] animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <SectionHeading overline="Testimonials" title="What Our Members Are Saying" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {TESTIMONIALS.map((t, i) => (
               <div key={t.name} className="card-hover bg-[var(--surface-alt)] rounded-2xl border border-[var(--border-light)] p-6 flex flex-col" style={{ animationDelay: `${i * 100}ms` }}>
                 <div className="flex items-center gap-1 mb-3 text-[var(--accent)]">
@@ -520,7 +521,7 @@ export default function App() {
       </section>
 
       {/* Strategic Goals */}
-      <section className="py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
+      <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-7xl mx-auto px-4 md:px-8">
           <SectionHeading overline="Roadmap 2025–2028" title="Strategic Goals" />
@@ -543,11 +544,11 @@ export default function App() {
       </section>
 
       {/* Founder */}
-      <section className="py-20 md:py-28 animate-fade-in-up">
+      <section className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <SectionHeading overline="Our Founder" title="Mr. Surafel Tilahun Tulu" subtitle="Visionary founder of Kingdom Builders Network — a born-again Christian, minister of God, and pioneering entrepreneur dedicated to uplifting Christian communities through innovation, mentorship, and service." />
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-8">
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8">
               <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-lg">Spiritual & Entrepreneurial Leadership</h3>
               <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
                 <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Faithfully teaching the Word of God and ministering to Christian communities</li>
@@ -576,7 +577,7 @@ export default function App() {
       </section>
 
       {/* CTA */}
-      <section id="join" className="py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
+      <section id="join" className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)] rounded-full blur-[180px] opacity-5" />
         <div className="relative max-w-3xl mx-auto px-4 md:px-8 text-center">
@@ -591,9 +592,9 @@ export default function App() {
 
       {/* Footer */}
       <footer className="bg-[var(--brand)] text-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
-            <div className="md:col-span-2">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 sm:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10">
+            <div className="sm:col-span-2 lg:col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
                 <div className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center">
                   <svg className="w-5 h-5 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
@@ -609,7 +610,7 @@ export default function App() {
                 ))}
               </div>
             </div>
-            <div>
+            <div className="mt-8 sm:mt-0">
               <h4 className="font-semibold text-white text-sm mb-4">Navigation</h4>
               <div className="space-y-2.5">
                 {['About Us', 'Community & Membership', 'Events', 'Join the Network', 'Contact'].map(link => (
@@ -636,7 +637,7 @@ export default function App() {
           </div>
           <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-[#64748B]">&copy; 2025 Kingdom Builders Network. All rights reserved.</p>
-            <div className="flex items-center gap-6 text-xs text-[#64748B]">
+            <div className="flex items-center gap-4 sm:gap-6 text-xs text-[#64748B]">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
               <a href="#" className="hover:text-white transition-colors">Contact</a>

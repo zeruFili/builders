@@ -22,16 +22,16 @@ export default function UserDashboard({ onBack }: { onBack: () => void }) {
 
   return (
     <div className="min-h-screen bg-[var(--surface-alt)]">
-      <header className="bg-[var(--brand-dark)] py-6 md:py-8">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img src={user.avatar} alt="" className="w-14 h-14 rounded-2xl object-cover ring-2 ring-white/20" />
-            <div>
-              <h1 className="font-serif text-2xl md:text-3xl text-white">Welcome, {user.name}</h1>
+      <header className="bg-[var(--brand-dark)] py-5 md:py-8">
+        <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <img src={user.avatar} alt="" className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-cover ring-2 ring-white/20" />
+            <div className="min-w-0">
+              <h1 className="font-serif text-xl sm:text-2xl md:text-3xl text-white">Welcome, {user.name}</h1>
               <p className="text-[#94A3B8] text-sm">Member Dashboard</p>
             </div>
           </div>
-          <button onClick={onBack} className="flex items-center gap-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium px-4 py-2.5 rounded-xl border border-white/15 hover:bg-white/20 transition-all">
+          <button onClick={onBack} className="flex items-center gap-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-white/15 hover:bg-white/20 transition-all self-start sm:self-auto flex-shrink-0">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             Back to Home
           </button>
@@ -39,12 +39,12 @@ export default function UserDashboard({ onBack }: { onBack: () => void }) {
       </header>
 
       <div className="max-w-6xl mx-auto px-4 md:px-8 py-6">
-        <div className="flex items-center gap-1 bg-[var(--surface)] border border-[var(--border-light)] rounded-xl p-1 w-fit mb-8 overflow-x-auto">
+        <div className="flex items-center gap-1 bg-[var(--surface)] border border-[var(--border-light)] rounded-xl p-1 mb-8 overflow-x-auto hide-scrollbar w-full">
           {TABS.map(t => (
             <button key={t.id} onClick={() => setTab(t.id)}
-              className={`flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg transition-all whitespace-nowrap ${tab === t.id ? 'bg-[var(--brand)] text-white shadow-sm' : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)]'}`}>
+              className={`flex items-center gap-2 text-sm font-medium px-3 sm:px-4 py-2 rounded-lg transition-all whitespace-nowrap flex-shrink-0 ${tab === t.id ? 'bg-[var(--brand)] text-white shadow-sm' : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)]'}`}>
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={t.icon} /></svg>
-              {t.label}
+              <span className="hidden xs:inline">{t.label}</span>
             </button>
           ))}
         </div>
@@ -111,11 +111,11 @@ function MyCompanies({ email }: { email: string }) {
     <div className="space-y-4 animate-fade-in">
       {reviewedCompanies.map(({ review, company }) => (
         <div key={review.id} className="bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 md:p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-3 flex-1 min-w-0">
-              <img src={review.companyLogo} alt="" className="w-12 h-12 rounded-xl object-cover flex-shrink-0 ring-2 ring-[var(--border-light)]" />
+              <img src={review.companyLogo} alt="" className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover flex-shrink-0 ring-2 ring-[var(--border-light)]" />
               <div className="min-w-0">
-                <h3 className="font-semibold text-[var(--text-primary)] truncate">{review.companyName}</h3>
+                <h3 className="font-semibold text-[var(--text-primary)] text-sm sm:text-base truncate">{review.companyName}</h3>
                 <div className="flex items-center gap-2 text-xs text-[var(--text-tertiary)]">
                   <span>{review.companyCategory}</span>
                   {company && <><span>·</span><span className="text-[var(--accent)]">{'★'.repeat(Math.round(company.rating))} {company.rating.toFixed(1)}</span></>}
@@ -519,13 +519,13 @@ function ApplyCompany({ user }: { user: { name: string; email: string } }) {
                 <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">Social Media Links (optional)</label>
                 <div className="space-y-2">
                   {form.socialLinks.map((sl, i) => (
-                    <div key={i} className="flex items-center gap-2">
+                    <div key={i} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                       <input type="text" value={sl.platform} placeholder="e.g. LinkedIn" onChange={e => {
                         const updated = [...form.socialLinks]
                         updated[i] = { ...sl, platform: e.target.value }
                         update('socialLinks', updated)
                       }}
-                        className="w-32 bg-[var(--surface-alt)] border border-[var(--border-default)] rounded-xl py-2 px-3 text-xs text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20" />
+                        className="w-full sm:w-32 bg-[var(--surface-alt)] border border-[var(--border-default)] rounded-xl py-2 px-3 text-xs text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20" />
                       <input type="text" value={sl.url} placeholder="https://..." onChange={e => {
                         const updated = [...form.socialLinks]
                         updated[i] = { ...sl, url: e.target.value }
@@ -533,7 +533,7 @@ function ApplyCompany({ user }: { user: { name: string; email: string } }) {
                       }}
                         className="flex-1 bg-[var(--surface-alt)] border border-[var(--border-default)] rounded-xl py-2 px-3 text-xs text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20" />
                       <button onClick={() => update('socialLinks', form.socialLinks.filter((_, j) => j !== i))}
-                        className="text-[var(--text-tertiary)] hover:text-red-500 p-1">
+                        className="text-[var(--text-tertiary)] hover:text-red-500 p-1 self-end sm:self-center">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                       </button>
                     </div>

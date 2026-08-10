@@ -74,10 +74,10 @@ export default function AdminApplications() {
             </button>
           ))}
         </div>
-        <div className="relative">
+        <div className="relative w-full sm:w-56">
           <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
           <input type="text" placeholder="Search applications..." value={search} onChange={e => setSearch(e.target.value)}
-            className="bg-[var(--surface)] border border-[var(--border-default)] rounded-xl py-2 pl-9 pr-4 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20 w-56" />
+            className="w-full bg-[var(--surface)] border border-[var(--border-default)] rounded-xl py-2 pl-9 pr-4 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20" />
         </div>
       </div>
 
@@ -123,13 +123,13 @@ function ApplicationDetail({ app, onBack, onApprove, onReject }: { app: CompanyA
         <span className={`text-xs font-semibold px-3 py-1 rounded-full ${app.status === 'pending' ? 'bg-amber-500/20 text-amber-300' : app.status === 'approved' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}`}>{app.status}</span>
       </div>
 
-      <div className="p-6 md:p-8 grid md:grid-cols-5 gap-8">
+      <div className="p-4 sm:p-6 md:p-8 grid md:grid-cols-5 gap-6 md:gap-8">
         <div className="md:col-span-3 space-y-6">
-          <div className="flex items-center gap-4">
-            <img src={app.logo} alt="" className="w-16 h-16 rounded-2xl object-cover ring-2 ring-[var(--border-light)]" />
-            <div>
-              <h1 className="font-serif text-2xl text-[var(--text-primary)]">{app.companyName}</h1>
-              <div className="text-sm text-[var(--text-tertiary)]">{app.category} · Submitted {new Date(app.submittedAt).toLocaleDateString()}</div>
+          <div className="flex items-center gap-3 sm:gap-4">
+            <img src={app.logo} alt="" className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl object-cover ring-2 ring-[var(--border-light)]" />
+            <div className="min-w-0">
+              <h1 className="font-serif text-xl sm:text-2xl text-[var(--text-primary)] truncate">{app.companyName}</h1>
+              <div className="text-xs sm:text-sm text-[var(--text-tertiary)]">{app.category} · Submitted {new Date(app.submittedAt).toLocaleDateString()}</div>
             </div>
           </div>
 

@@ -45,7 +45,7 @@ export default function LoginPage({ onSwitch, onSuccess }: { onSwitch: () => voi
           <span className="font-serif text-xl text-[var(--text-primary)]">KBN</span>
         </a>
 
-        <div className="bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-8 shadow-sm">
+        <div className="bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8 shadow-sm">
           <h1 className="font-serif text-2xl text-[var(--text-primary)] mb-1">Welcome back</h1>
           <p className="text-sm text-[var(--text-tertiary)] mb-8">Sign in to your Kingdom Builders Network account</p>
 
