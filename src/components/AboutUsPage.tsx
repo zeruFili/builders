@@ -297,11 +297,11 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
       </section>
 
       {/* Founder */}
-      <section className="py-12 sm:py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+      <section className="py-12 sm:py-16 md:py-24 flex flex-col justify-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full">
           <SectionHeading overline="Our Founder" title="Mr. Surafel Tilahun Tulu" subtitle="Visionary founder of Kingdom Builders Network — a born-again Christian, minister of God, and pioneering entrepreneur dedicated to uplifting Christian communities through innovation, mentorship, and service." />
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-5 sm:gap-8">
-            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8 min-w-0">
+            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8 min-w-0 flex flex-col justify-center">
               <h3 className="font-semibold text-[var(--text-primary)] mb-3 sm:mb-4 text-base sm:text-lg break-words">Spiritual & Entrepreneurial Leadership</h3>
               <p className="text-xs sm:text-sm text-[var(--text-secondary)] mb-3 sm:mb-4 leading-relaxed break-words">Born-again Christian and minister of God, faithfully teaching the Word of God. As both a spiritual leader and a forward-thinking entrepreneur, Mr. Surafel has dedicated his life to uplifting Christian communities.</p>
               <p className="text-xs font-semibold text-[var(--accent-dark)] mb-2 sm:mb-3">Pioneering Contributions since 1994 (E.C.):</p>
