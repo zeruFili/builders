@@ -1,5 +1,12 @@
 import { useState } from 'react'
 import knbLogo from '../assets/kbn logo.jpg'
+import surafelImg from '../assets/surafel.jpg'
+import usaOneImg from '../assets/usa one.jpg'
+import usaTwoImg from '../assets/usa two.jpg'
+import addisOneImg from '../assets/addis one.jpg'
+import addisTwoImg from '../assets/addis two.jpg'
+import hawassaOneImg from '../assets/hawassa one.jpg'
+import hawassaBuildingImg from '../assets/hawassa building.jpg'
 
 function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
   return (
@@ -90,8 +97,7 @@ const ACHIEVEMENT_DATA = {
       'Chosen for its 85% Christian population as a strategic hub.',
       'Held 2 large-scale networking events uniting local Christian entrepreneurs and professionals.',
       'Launched and began building a Christian school from KG to college level — a major step toward holistic Kingdom development.',
-    ],
-    amharic: 'የክርስቲያን ነጋዴዋች እና የመጀግነች ህብረት የምስረት በዓል በህዋሳ ታህሳስ 5/2017',
+    ]
   },
 }
 
@@ -187,14 +193,24 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
                   amharic={'amharic' in ACHIEVEMENT_DATA[achieveTab] ? (ACHIEVEMENT_DATA[achieveTab] as typeof ACHIEVEMENT_DATA.hawassa).amharic : undefined}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                {[1, 2].map(n => (
-                  <div key={n} className="bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] border-dashed aspect-[4/3] flex flex-col items-center justify-center text-[var(--text-tertiary)] text-xs sm:text-sm gap-1.5 sm:gap-2 p-2 sm:p-3 hover:border-[var(--accent)] transition-colors min-w-0">
-                    <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--accent)]/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                    <span className="text-center leading-tight break-words">{PHOTO_LABELS[achieveTab]} Event Photo {n}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              {achieveTab === 'usa' ? (
+                <>
+                  <img src={usaOneImg} alt="USA Event Photo 1" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                  <img src={usaTwoImg} alt="USA Event Photo 2" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                </>
+              ) : achieveTab === 'ethiopia' ? (
+                <>
+                  <img src={addisOneImg} alt="Addis Ababa Event Photo 1" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                  <img src={addisTwoImg} alt="Addis Ababa Event Photo 2" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                </>
+              ) : (
+                <>
+                  <img src={hawassaOneImg} alt="Hawassa Event Photo 1" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                  <img src={hawassaBuildingImg} alt="Hawassa Building" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                </>
+              )}
+            </div>
             </div>
           </div>
         </div>
@@ -229,7 +245,7 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
       {/* Strategic Objectives */}
       <section className="py-12 sm:py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          <SectionHeading overline="Our Mission" title="Strategic Objectives" subtitle="Five pillars that guide everything we do." />
+          <SectionHeading overline="Roadmap 2025–2028" title="Strategic Goals" />
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {[
               { num: '01', title: 'Foster Christian Unity', desc: 'Through consistent networking and fellowship.' },
@@ -281,11 +297,11 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
       </section>
 
       {/* Founder */}
-      <section className="py-12 sm:py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+      <section className="py-12 sm:py-16 md:py-24 flex flex-col justify-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full">
           <SectionHeading overline="Our Founder" title="Mr. Surafel Tilahun Tulu" subtitle="Visionary founder of Kingdom Builders Network — a born-again Christian, minister of God, and pioneering entrepreneur dedicated to uplifting Christian communities through innovation, mentorship, and service." />
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-5 sm:gap-8">
-            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8 min-w-0">
+            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8 min-w-0 flex flex-col justify-center">
               <h3 className="font-semibold text-[var(--text-primary)] mb-3 sm:mb-4 text-base sm:text-lg break-words">Spiritual & Entrepreneurial Leadership</h3>
               <p className="text-xs sm:text-sm text-[var(--text-secondary)] mb-3 sm:mb-4 leading-relaxed break-words">Born-again Christian and minister of God, faithfully teaching the Word of God. As both a spiritual leader and a forward-thinking entrepreneur, Mr. Surafel has dedicated his life to uplifting Christian communities.</p>
               <p className="text-xs font-semibold text-[var(--accent-dark)] mb-2 sm:mb-3">Pioneering Contributions since 1994 (E.C.):</p>
@@ -298,11 +314,7 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
               </ul>
             </div>
             <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8 min-w-0">
-              <div className="flex flex-col items-center mb-5 sm:mb-6">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[var(--brand)]/5 border-2 border-[var(--accent)] flex items-center justify-center shadow-lg shadow-[var(--accent)]/5 flex-shrink-0">
-                  <svg className="w-12 h-12 sm:w-16 sm:h-16 text-[var(--accent)]/40" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-                </div>
-              </div>
+              <img src={surafelImg} alt="Mr. Surafel Tilahun Tulu" className="w-full object-contain rounded-xl mb-5 sm:mb-6" />
               <h3 className="font-semibold text-[var(--text-primary)] mb-3 sm:mb-4 text-base sm:text-lg break-words">Enterprises & Ventures</h3>
               <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-6">
                 {['Sura Investment Consultancy', 'Addis Tec Industrial Machinery Equipment', 'Debol Trading LLC (USA)', 'ET-POL Global sp.z.o.o (Poland)'].map(e => (

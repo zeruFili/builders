@@ -38,7 +38,7 @@ const COMMUNITY_CARDS = [
   { icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', title: 'Investment & Business Support', desc: 'Christian Investment Fund, microfinance loans, and a digital platform connecting believers to resources and opportunities.' },
 ]
 
-function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void; onSignUp: () => void; onHome: () => void; onAboutUs: () => void }) {
+function Navbar({ onLogin, onSignUp, onHome, onAboutUs, onAllMembers }: { onLogin: () => void; onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onAllMembers: () => void }) {
   const { user, logout } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
@@ -54,6 +54,10 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
           {NAV_ITEMS.map(item =>
             item === 'About Us' ? (
               <button key={item} onClick={onAboutUs} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
+                {item}
+              </button>
+            ) : item === 'Community & Membership' ? (
+              <button key={item} onClick={onAllMembers} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
                 {item}
               </button>
             ) : (
@@ -106,6 +110,8 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
           {NAV_ITEMS.map(item =>
             item === 'About Us' ? (
               <button key={item} onClick={() => { onAboutUs(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
+            ) : item === 'Community & Membership' ? (
+              <button key={item} onClick={() => { onAllMembers(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
             ) : (
               <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setMenuOpen(false)} className="block w-full text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</a>
             )
@@ -126,12 +132,12 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
   )
 }
 
-function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
+function SectionHeading({ overline, title, subtitle, light }: { overline?: string; title: string; subtitle?: string; light?: boolean }) {
   return (
     <div className="text-center max-w-2xl mx-auto mb-14">
       {overline && <span className="inline-block text-xs font-semibold text-[var(--accent-dark)] tracking-widest uppercase mb-3">{overline}</span>}
-      <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--text-primary)] mb-4">{title}</h2>
-      {subtitle && <p className="text-[var(--text-secondary)] leading-relaxed">{subtitle}</p>}
+      <h2 className={`font-serif text-2xl sm:text-3xl md:text-4xl mb-4 ${light ? 'text-white' : 'text-[var(--text-primary)]'}`}>{title}</h2>
+      {subtitle && <p className={`leading-relaxed ${light ? 'text-[#94A3B8]' : 'text-[var(--text-secondary)]'}`}>{subtitle}</p>}
     </div>
   )
 }
@@ -264,11 +270,11 @@ export default function App() {
   if (dashboard === 'user') return <UserDashboard onBack={() => setDashboard(null)} />
 
   if (authPage === 'login') {
-    return <LoginPage onSwitch={() => setAuthPage('signup')} onSuccess={handleLoginSuccess} />
+    return <LoginPage onBack={() => setAuthPage(null)} onSwitch={() => setAuthPage('signup')} onSuccess={handleLoginSuccess} />
   }
 
   if (authPage === 'signup') {
-    return <SignUpPage onSwitch={() => setAuthPage('login')} />
+    return <SignUpPage onBack={() => setAuthPage(null)} onSwitch={() => setAuthPage('login')} />
   }
 
   if (selectedCompany) {
@@ -299,6 +305,7 @@ export default function App() {
         onSignUp={() => setAuthPage('signup')}
         onHome={() => { setShowDirectory(false); setAuthPage(null); setShowAboutUs(false) }}
         onAboutUs={() => { setShowAboutUs(true); window.scrollTo(0, 0) }}
+        onAllMembers={() => { setShowDirectory(true); window.scrollTo(0, 0) }}
       />
 
       {/* Hero */}
@@ -403,7 +410,7 @@ export default function App() {
       <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Our Purpose" title="Mission & Vision" />
+          <SectionHeading overline="Our Purpose" title="Mission & Vision" light />
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-10 text-center group card-hover">
               <div className="w-16 h-16 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
@@ -517,61 +524,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Strategic Goals */}
-      <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Roadmap 2025–2028" title="Strategic Goals" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-            {[
-              { num: '01', title: 'Foster Christian Unity', desc: 'Consistent networking and fellowship across state-level chapters in the US and regional fellowships in Ethiopia.' },
-              { num: '02', title: 'Empower Entrepreneurship', desc: 'Equipping believers with business skills and spiritual grounding through the Kingdom Builders Leadership Academy.' },
-              { num: '03', title: 'Support Churches', desc: 'Providing financial, professional, and physical resources to local churches, ministries, and community projects.' },
-              { num: '04', title: 'Build Institutions', desc: 'Establishing Christian schools, business hubs, and community centers that reflect Kingdom values.' },
-              { num: '05', title: 'Expand Global Impact', desc: 'Replicating the KBN model in other cities and countries through digital platforms and international coordination.' },
-            ].map(goal => (
-              <div key={goal.num} className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 text-center group card-hover">
-                <div className="w-10 h-10 rounded-full bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-4 text-[var(--accent)] text-sm font-bold">{goal.num}</div>
-                <h3 className="font-semibold text-white mb-2">{goal.title}</h3>
-                <p className="text-xs text-[#94A3B8] leading-relaxed">{goal.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Founder */}
-      <section className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Our Founder" title="Mr. Surafel Tilahun Tulu" subtitle="Visionary founder of Kingdom Builders Network — a born-again Christian, minister of God, and pioneering entrepreneur dedicated to uplifting Christian communities through innovation, mentorship, and service." />
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8">
-              <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-lg">Spiritual & Entrepreneurial Leadership</h3>
-              <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Faithfully teaching the Word of God and ministering to Christian communities</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Pioneering entrepreneur in Ethiopia since 1994 (E.C.) introducing groundbreaking technologies</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Introduced CD printing and duplication technology to Ethiopia</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Developed and installed full-body disinfection tunnels during public health crises</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Created Smart Cafe Counting Machines serving Ethiopian cafes</li>
-              </ul>
-            </div>
-            <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-8">
-              <h3 className="font-semibold text-[var(--text-primary)] mb-4 text-lg">Enterprises & Ventures</h3>
-              <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Sura Investment Consultancy</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Addis Tec Industrial Machinery Equipment</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Debol Trading LLC (USA)</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> ET-POL Global sp.z.o.o (Poland)</li>
-                <li className="flex gap-2"><span className="text-[var(--accent-dark)] mt-0.5">✦</span> Debbol App & e-commerce platform development</li>
-                <li className="flex gap-2 mt-4 pt-4 border-t border-[var(--border-light)]">
-                  <span className="text-[var(--accent-dark)] mt-0.5">✦</span>
-                  <span>Contact: +251 91 196 3232 &bull; www.ethiochristiannet.com</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section id="join" className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
@@ -580,10 +532,10 @@ export default function App() {
         <div className="relative max-w-3xl mx-auto px-4 md:px-8 text-center">
           <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">Join a Movement That Builds God's Kingdom</h2>
           <p className="text-[#94A3B8] text-lg leading-relaxed mb-10">Become part of a growing network of Ethiopian Christian entrepreneurs and professionals committed to making a Kingdom impact through faith, excellence, and service — across Ethiopia, the USA, and beyond.</p>
-          <a href="#" className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30">
+          <button onClick={() => setAuthPage('signup')} className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30 cursor-pointer">
             Become a Member
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-          </a>
+          </button>
         </div>
       </section>
 
@@ -597,19 +549,19 @@ export default function App() {
                 <span className="font-serif text-xl">Kingdom Builders Network</span>
               </div>
               <p className="text-sm text-[#94A3B8] leading-relaxed mb-6 max-w-sm">A registered ministry under the Ethiopian Council of Gospel Believers Churches and in the United States — connecting Christian entrepreneurs and professionals across borders.</p>
-              <div className="flex items-center gap-3">
-                {['Twitter', 'LinkedIn', 'Instagram', 'YouTube'].map(s => (
-                  <a key={s} href="#" className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white/50 hover:bg-[var(--accent)]/20 hover:text-[var(--accent)] transition-all">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                  </a>
-                ))}
-              </div>
+              
             </div>
             <div className="mt-8 sm:mt-0">
               <h4 className="font-semibold text-white text-sm mb-4">Navigation</h4>
               <div className="space-y-2.5">
-                {['About Us', 'Community & Membership', 'Events', 'Join the Network', 'Contact'].map(link => (
-                  <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
+                {['About Us', 'Community & Membership', 'Events', 'Contact'].map(link => (
+                  link === 'Community & Membership' ? (
+                    <button key={link} onClick={() => { setShowDirectory(true); window.scrollTo(0, 0) }} className="block text-sm text-[#94A3B8] hover:text-white transition-colors cursor-pointer">{link}</button>
+                  ) : link === 'About Us' ? (
+                    <button key={link} onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="block text-sm text-[#94A3B8] hover:text-white transition-colors cursor-pointer">{link}</button>
+                  ) : (
+                    <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
+                  )
                 ))}
               </div>
             </div>
@@ -627,6 +579,14 @@ export default function App() {
                 <p>info@kbn.org</p>
                 <p>+251 91 196 3232</p>
                 <p>Addis Ababa, Ethiopia</p>
+              </div>
+              <div className="flex items-center gap-3 mt-5">
+                <a href="https://www.tiktok.com/@kbn_ethiopia?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white/50 hover:bg-[var(--accent)]/20 hover:text-[var(--accent)] transition-all" aria-label="TikTok">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/link/v2?aid=1988&lang=en&scene=bio_url&target=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17VqXsVbz6%2F%3Fmibextid%3DwwXIfr" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white/50 hover:bg-[var(--accent)]/20 hover:text-[var(--accent)] transition-all" aria-label="Facebook">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
               </div>
             </div>
           </div>
