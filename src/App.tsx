@@ -264,11 +264,11 @@ export default function App() {
   if (dashboard === 'user') return <UserDashboard onBack={() => setDashboard(null)} />
 
   if (authPage === 'login') {
-    return <LoginPage onSwitch={() => setAuthPage('signup')} onSuccess={handleLoginSuccess} />
+    return <LoginPage onBack={() => setAuthPage(null)} onSwitch={() => setAuthPage('signup')} onSuccess={handleLoginSuccess} />
   }
 
   if (authPage === 'signup') {
-    return <SignUpPage onSwitch={() => setAuthPage('login')} />
+    return <SignUpPage onBack={() => setAuthPage(null)} onSwitch={() => setAuthPage('login')} />
   }
 
   if (selectedCompany) {
@@ -525,10 +525,10 @@ export default function App() {
         <div className="relative max-w-3xl mx-auto px-4 md:px-8 text-center">
           <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">Join a Movement That Builds God's Kingdom</h2>
           <p className="text-[#94A3B8] text-lg leading-relaxed mb-10">Become part of a growing network of Ethiopian Christian entrepreneurs and professionals committed to making a Kingdom impact through faith, excellence, and service — across Ethiopia, the USA, and beyond.</p>
-          <a href="#" className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30">
+          <button onClick={() => setAuthPage('signup')} className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30 cursor-pointer">
             Become a Member
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-          </a>
+          </button>
         </div>
       </section>
 

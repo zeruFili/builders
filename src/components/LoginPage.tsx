@@ -12,7 +12,7 @@ const MOCK_CREDENTIALS = [
   { email: 'sarah@kingdomfoundations.org', name: 'Sarah Chen', role: 'company' as UserRole },
 ]
 
-export default function LoginPage({ onSwitch, onSuccess }: { onSwitch: () => void; onSuccess: (role: UserRole) => void }) {
+export default function LoginPage({ onBack, onSwitch, onSuccess }: { onBack: () => void; onSwitch: () => void; onSuccess: (role: UserRole) => void }) {
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -39,6 +39,10 @@ export default function LoginPage({ onSwitch, onSuccess }: { onSwitch: () => voi
   return (
     <div className="min-h-screen bg-[var(--surface-alt)] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
+        <button onClick={onBack} className="flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-6">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+          Back to Home
+        </button>
         <a href="/" className="flex items-center gap-2.5 justify-center mb-10 group">
           <img src={knbLogo} alt="KBN Logo" className="w-10 h-10 rounded-xl object-cover group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20" />
           <span className="font-serif text-xl text-[var(--text-primary)]">KBN</span>
