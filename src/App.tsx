@@ -126,12 +126,12 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
   )
 }
 
-function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
+function SectionHeading({ overline, title, subtitle, light }: { overline?: string; title: string; subtitle?: string; light?: boolean }) {
   return (
     <div className="text-center max-w-2xl mx-auto mb-14">
       {overline && <span className="inline-block text-xs font-semibold text-[var(--accent-dark)] tracking-widest uppercase mb-3">{overline}</span>}
-      <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--text-primary)] mb-4">{title}</h2>
-      {subtitle && <p className="text-[var(--text-secondary)] leading-relaxed">{subtitle}</p>}
+      <h2 className={`font-serif text-2xl sm:text-3xl md:text-4xl mb-4 ${light ? 'text-white' : 'text-[var(--text-primary)]'}`}>{title}</h2>
+      {subtitle && <p className={`leading-relaxed ${light ? 'text-[#94A3B8]' : 'text-[var(--text-secondary)]'}`}>{subtitle}</p>}
     </div>
   )
 }
@@ -403,7 +403,7 @@ export default function App() {
       <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Our Purpose" title="Mission & Vision" />
+          <SectionHeading overline="Our Purpose" title="Mission & Vision" light />
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-10 text-center group card-hover">
               <div className="w-16 h-16 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
@@ -521,7 +521,7 @@ export default function App() {
       <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Roadmap 2025–2028" title="Strategic Goals" />
+          <SectionHeading overline="Roadmap 2025–2028" title="Strategic Goals" light />
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
             {[
               { num: '01', title: 'Foster Christian Unity', desc: 'Consistent networking and fellowship across state-level chapters in the US and regional fellowships in Ethiopia.' },

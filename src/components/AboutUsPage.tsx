@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import knbLogo from '../assets/kbn logo.jpg'
 import surafelImg from '../assets/surafel.jpg'
+import usaOneImg from '../assets/usa one.jpg'
+import usaTwoImg from '../assets/usa two.jpg'
+import addisOneImg from '../assets/addis one.jpg'
+import addisTwoImg from '../assets/addis two.jpg'
+import hawassaOneImg from '../assets/hawassa one.jpg'
+import hawassaTwoImg from '../assets/hawassa two.jpg'
 
 function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
   return (
@@ -91,8 +97,7 @@ const ACHIEVEMENT_DATA = {
       'Chosen for its 85% Christian population as a strategic hub.',
       'Held 2 large-scale networking events uniting local Christian entrepreneurs and professionals.',
       'Launched and began building a Christian school from KG to college level — a major step toward holistic Kingdom development.',
-    ],
-    amharic: 'የክርስቲያን ነጋዴዋች እና የመጀግነች ህብረት የምስረት በዓል በህዋሳ ታህሳስ 5/2017',
+    ]
   },
 }
 
@@ -188,14 +193,24 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
                   amharic={'amharic' in ACHIEVEMENT_DATA[achieveTab] ? (ACHIEVEMENT_DATA[achieveTab] as typeof ACHIEVEMENT_DATA.hawassa).amharic : undefined}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                {[1, 2].map(n => (
-                  <div key={n} className="bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] border-dashed aspect-[4/3] flex flex-col items-center justify-center text-[var(--text-tertiary)] text-xs sm:text-sm gap-1.5 sm:gap-2 p-2 sm:p-3 hover:border-[var(--accent)] transition-colors min-w-0">
-                    <svg className="w-5 h-5 sm:w-8 sm:h-8 text-[var(--accent)]/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                    <span className="text-center leading-tight break-words">{PHOTO_LABELS[achieveTab]} Event Photo {n}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              {achieveTab === 'usa' ? (
+                <>
+                  <img src={usaOneImg} alt="USA Event Photo 1" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                  <img src={usaTwoImg} alt="USA Event Photo 2" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                </>
+              ) : achieveTab === 'ethiopia' ? (
+                <>
+                  <img src={addisOneImg} alt="Addis Ababa Event Photo 1" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                  <img src={addisTwoImg} alt="Addis Ababa Event Photo 2" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                </>
+              ) : (
+                <>
+                  <img src={hawassaOneImg} alt="Hawassa Event Photo 1" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
+                  <img src={hawassaTwoImg} alt="Hawassa Event Photo 2" className="w-full aspect-[4/3] object-cover object-[center_10%] rounded-2xl border border-[var(--border-light)]" />
+                </>
+              )}
+            </div>
             </div>
           </div>
         </div>
