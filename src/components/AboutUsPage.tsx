@@ -6,7 +6,7 @@ import usaTwoImg from '../assets/usa two.jpg'
 import addisOneImg from '../assets/addis one.jpg'
 import addisTwoImg from '../assets/addis two.jpg'
 import hawassaOneImg from '../assets/hawassa one.jpg'
-import hawassaTwoImg from '../assets/hawassa two.jpg'
+import hawassaBuildingImg from '../assets/hawassa building.jpg'
 
 function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
   return (
@@ -207,7 +207,7 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
               ) : (
                 <>
                   <img src={hawassaOneImg} alt="Hawassa Event Photo 1" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
-                  <img src={hawassaTwoImg} alt="Hawassa Event Photo 2" className="w-full aspect-[4/3] object-cover object-[center_10%] rounded-2xl border border-[var(--border-light)]" />
+                  <img src={hawassaBuildingImg} alt="Hawassa Building" className="w-full aspect-[4/3] object-cover rounded-2xl border border-[var(--border-light)]" />
                 </>
               )}
             </div>

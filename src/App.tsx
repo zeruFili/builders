@@ -38,7 +38,7 @@ const COMMUNITY_CARDS = [
   { icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', title: 'Investment & Business Support', desc: 'Christian Investment Fund, microfinance loans, and a digital platform connecting believers to resources and opportunities.' },
 ]
 
-function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void; onSignUp: () => void; onHome: () => void; onAboutUs: () => void }) {
+function Navbar({ onLogin, onSignUp, onHome, onAboutUs, onAllMembers }: { onLogin: () => void; onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onAllMembers: () => void }) {
   const { user, logout } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
@@ -54,6 +54,10 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
           {NAV_ITEMS.map(item =>
             item === 'About Us' ? (
               <button key={item} onClick={onAboutUs} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
+                {item}
+              </button>
+            ) : item === 'Community & Membership' ? (
+              <button key={item} onClick={onAllMembers} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
                 {item}
               </button>
             ) : (
@@ -106,6 +110,8 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
           {NAV_ITEMS.map(item =>
             item === 'About Us' ? (
               <button key={item} onClick={() => { onAboutUs(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
+            ) : item === 'Community & Membership' ? (
+              <button key={item} onClick={() => { onAllMembers(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
             ) : (
               <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setMenuOpen(false)} className="block w-full text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</a>
             )
@@ -299,6 +305,7 @@ export default function App() {
         onSignUp={() => setAuthPage('signup')}
         onHome={() => { setShowDirectory(false); setAuthPage(null); setShowAboutUs(false) }}
         onAboutUs={() => { setShowAboutUs(true); window.scrollTo(0, 0) }}
+        onAllMembers={() => { setShowDirectory(true); window.scrollTo(0, 0) }}
       />
 
       {/* Hero */}
@@ -547,8 +554,14 @@ export default function App() {
             <div className="mt-8 sm:mt-0">
               <h4 className="font-semibold text-white text-sm mb-4">Navigation</h4>
               <div className="space-y-2.5">
-                {['About Us', 'Community & Membership', 'Events', 'Join the Network', 'Contact'].map(link => (
-                  <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
+                {['About Us', 'Community & Membership', 'Events', 'Contact'].map(link => (
+                  link === 'Community & Membership' ? (
+                    <button key={link} onClick={() => { setShowDirectory(true); window.scrollTo(0, 0) }} className="block text-sm text-[#94A3B8] hover:text-white transition-colors cursor-pointer">{link}</button>
+                  ) : link === 'About Us' ? (
+                    <button key={link} onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="block text-sm text-[#94A3B8] hover:text-white transition-colors cursor-pointer">{link}</button>
+                  ) : (
+                    <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
+                  )
                 ))}
               </div>
             </div>
