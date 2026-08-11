@@ -245,7 +245,7 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
       {/* Strategic Objectives */}
       <section className="py-12 sm:py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          <SectionHeading overline="Our Mission" title="Strategic Objectives" subtitle="Five pillars that guide everything we do." />
+          <SectionHeading overline="Roadmap 2025–2028" title="Strategic Goals" />
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {[
               { num: '01', title: 'Foster Christian Unity', desc: 'Through consistent networking and fellowship.' },

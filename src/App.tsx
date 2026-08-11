@@ -517,29 +517,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Strategic Goals */}
-      <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Roadmap 2025–2028" title="Strategic Goals" light />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-            {[
-              { num: '01', title: 'Foster Christian Unity', desc: 'Consistent networking and fellowship across state-level chapters in the US and regional fellowships in Ethiopia.' },
-              { num: '02', title: 'Empower Entrepreneurship', desc: 'Equipping believers with business skills and spiritual grounding through the Kingdom Builders Leadership Academy.' },
-              { num: '03', title: 'Support Churches', desc: 'Providing financial, professional, and physical resources to local churches, ministries, and community projects.' },
-              { num: '04', title: 'Build Institutions', desc: 'Establishing Christian schools, business hubs, and community centers that reflect Kingdom values.' },
-              { num: '05', title: 'Expand Global Impact', desc: 'Replicating the KBN model in other cities and countries through digital platforms and international coordination.' },
-            ].map(goal => (
-              <div key={goal.num} className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 text-center group card-hover">
-                <div className="w-10 h-10 rounded-full bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-4 text-[var(--accent)] text-sm font-bold">{goal.num}</div>
-                <h3 className="font-semibold text-white mb-2">{goal.title}</h3>
-                <p className="text-xs text-[#94A3B8] leading-relaxed">{goal.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
 
       {/* CTA */}
       <section id="join" className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
