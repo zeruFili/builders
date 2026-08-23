@@ -5,21 +5,15 @@ import SignUpPage from './components/SignUpPage'
 import AdminDashboard from './components/AdminDashboard'
 import UserDashboard from './components/UserDashboard'
 import AboutUsPage from './components/AboutUsPage'
+import EventsPage from './components/EventsPage'
+import EventDetailsPage from './components/EventDetailsPage'
 import { useAuth } from './auth/AuthContext'
 import { type UserRole } from './auth/auth'
+import { type KbnEvent } from './data/events'
 
 const NAV_ITEMS = ['Home', 'About Us', 'Events'] as const
 
-const EVENTS = [
-  { image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop&auto=format', date: 'Aug 15, 2025', time: '7:30 AM – 9:30 AM', location: 'Abren Cafe, Addis Ababa', title: 'Quarterly Networking Breakfast', description: 'Start your morning with fellowship, prayer, and purposeful connections with fellow Christian entrepreneurs over coffee and breakfast at our quarterly gathering.' },
-  { image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop&auto=format', date: 'Sep 20, 2025', time: '9:00 AM – 4:00 PM', location: 'Betesha Retreat Center, Addis Ababa', title: 'National Ethiopian Christian Business Summit', description: 'A full day of worship, keynote sessions, and workshops designed to equip Christian leaders for greater Kingdom impact across Ethiopia.' },
-  { image: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&h=400&fit=crop&auto=format', date: 'Oct 7, 2025', time: '6:30 PM – 8:30 PM', location: 'Addis Ababa, Ethiopia', title: 'Prayer & Worship Gathering', description: 'An evening of powerful worship and intercessory prayer for our businesses, families, and nation. All are welcome.' },
-  { image: 'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=600&h=400&fit=crop&auto=format', date: 'Nov 11, 2025', time: '9:00 AM – 12:30 PM', location: 'Hawassa, SNNPR, Ethiopia', title: 'Hawassa Regional Networking Event', description: 'Strategic networking event in Hawassa — chosen for its 85% Christian population — uniting local Christian entrepreneurs and professionals.' },
-  { image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=400&fit=crop&auto=format', date: 'Dec 5, 2025', time: '8:00 AM – 5:00 PM', location: 'Addis Ababa, Ethiopia', title: 'Kingdom Builders Leadership Academy Launch', description: 'Launch of our leadership academy equipping believers with business skills and spiritual grounding for Kingdom impact.' },
-  { image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=400&fit=crop&auto=format', date: 'Dec 19, 2025', time: '6:00 PM – 8:00 PM', location: 'Abren Cafe, Addis Ababa', title: 'Year-End Celebration & Prayer', description: 'Wind down the year with fellowship and celebration. Share testimonies of God\'s faithfulness and look ahead to the new year together.' },
-]
-
-function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void; onSignUp: () => void; onHome: () => void; onAboutUs: () => void }) {
+function Navbar({ onLogin, onSignUp, onHome, onAboutUs, onEvents }: { onLogin: () => void; onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onEvents: () => void }) {
   const { user, logout } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
@@ -35,6 +29,10 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
           {NAV_ITEMS.map(item =>
             item === 'About Us' ? (
               <button key={item} onClick={onAboutUs} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
+                {item}
+              </button>
+            ) : item === 'Events' ? (
+              <button key={item} onClick={onEvents} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
                 {item}
               </button>
             ) : (
@@ -86,6 +84,8 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
           {NAV_ITEMS.map(item =>
             item === 'About Us' ? (
               <button key={item} onClick={() => { onAboutUs(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
+            ) : item === 'Events' ? (
+              <button key={item} onClick={() => { onEvents(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
             ) : (
               <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setMenuOpen(false)} className="block w-full text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</a>
             )
@@ -118,6 +118,8 @@ function SectionHeading({ overline, title, subtitle, light }: { overline?: strin
 
 export default function App() {
   const [showAboutUs, setShowAboutUs] = useState(false)
+  const [showEvents, setShowEvents] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState<KbnEvent | null>(null)
   const [authPage, setAuthPage] = useState<'login' | 'signup' | null>(null)
   const [dashboard, setDashboard] = useState<UserRole | null>(null)
   const { user, loading } = useAuth()
@@ -165,13 +167,22 @@ export default function App() {
     return <AboutUsPage onBack={() => setShowAboutUs(false)} />
   }
 
+  if (selectedEvent) {
+    return <EventDetailsPage slug={selectedEvent.slug} onBack={() => setSelectedEvent(null)} />
+  }
+
+  if (showEvents) {
+    return <EventsPage onBack={() => setShowEvents(false)} onOpenEvent={(ev) => setSelectedEvent(ev)} />
+  }
+
   return (
     <div className="min-h-screen bg-[var(--surface-alt)]">
       <Navbar
         onLogin={() => setAuthPage('login')}
         onSignUp={() => setAuthPage('signup')}
-        onHome={() => { setAuthPage(null); setShowAboutUs(false) }}
-        onAboutUs={() => { setShowAboutUs(true); window.scrollTo(0, 0) }}
+        onHome={() => { setAuthPage(null); setShowAboutUs(false); setShowEvents(false); setSelectedEvent(null) }}
+        onAboutUs={() => { setShowAboutUs(true); setShowEvents(false); setSelectedEvent(null); window.scrollTo(0, 0) }}
+        onEvents={() => { setShowEvents(true); setShowAboutUs(false); setSelectedEvent(null); window.scrollTo(0, 0) }}
       />
 
       {/* Hero */}
@@ -299,33 +310,12 @@ export default function App() {
       {/* Events */}
       <section id="events" className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Get Involved" title="Upcoming Events" subtitle="Grow in faith, build relationships, and sharpen your skills at our upcoming gatherings." />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {EVENTS.map((ev, i) => (
-              <div key={ev.title} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] overflow-hidden group" style={{ animationDelay: `${i * 80}ms` }}>
-                <div className="relative h-40 overflow-hidden">
-                  <img src={ev.image} alt={ev.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute top-3 left-3 bg-white/90 dark:bg-[var(--surface-raised)]/90 backdrop-blur-sm rounded-lg px-3 py-1.5 text-xs font-bold text-[var(--brand)]">
-                    {ev.date}
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center gap-2 text-xs text-[var(--text-tertiary)] mb-2">
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    {ev.time}
-                    <span className="mx-1">·</span>
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                    {ev.location.split(',')[0]}
-                  </div>
-                  <h3 className="font-semibold text-[var(--text-primary)] mb-2 leading-tight">{ev.title}</h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4 line-clamp-2">{ev.description}</p>
-                  <button className="text-xs font-semibold text-[var(--accent-dark)] hover:text-[var(--brand)] transition-colors flex items-center gap-1">
-                    Register Now
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                  </button>
-                </div>
-              </div>
-            ))}
+          <SectionHeading overline="Get Involved" title="Our Events" subtitle="Explore the gatherings, conferences, and outreach events that bring our community together." />
+          <div className="text-center">
+            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="inline-flex items-center justify-center gap-2 bg-[var(--brand)] text-white text-sm font-semibold px-6 py-3 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 cursor-pointer">
+              View All Events
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+            </button>
           </div>
         </div>
       </section>
@@ -362,6 +352,8 @@ export default function App() {
                 {['About Us', 'Events', 'Contact'].map(link => (
                   link === 'About Us' ? (
                     <button key={link} onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="block text-sm text-[#94A3B8] hover:text-white transition-colors cursor-pointer">{link}</button>
+                  ) : link === 'Events' ? (
+                    <button key={link} onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="block text-sm text-[#94A3B8] hover:text-white transition-colors cursor-pointer">{link}</button>
                   ) : (
                     <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                   )
