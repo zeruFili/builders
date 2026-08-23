@@ -79,8 +79,8 @@ const ACHIEVEMENT_DATA = {
     label: 'United States',
     items: [
       'Connected Ethiopian Christian professionals and business leaders in multiple states.',
-      'Hosted 3 successful national networking events.',
-      'Developed a strategic plan to purchase commercial buildings that support Christian businesses and community services.',
+      'Hosted 3 successful national networking events ',
+      'Developed a strategic plan to purchase commercial buildings that support Christian businesses and community services',
     ],
   },
   ethiopia: {
