@@ -386,7 +386,7 @@ export default function App() {
             </div>
           </div>
           <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-[#64748B]">&copy; 2025 Kingdom Builders Network. All rights reserved.</p>
+            <p className="text-xs text-[#64748B]">&copy; 2026 Kingdom Builders Network. All rights reserved.</p>
             <div className="flex items-center gap-4 sm:gap-6 text-xs text-[#64748B]">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

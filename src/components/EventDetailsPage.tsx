@@ -1,8 +1,21 @@
+import { useState, useEffect } from 'react'
 import { getEventBySlug } from '../data/events'
 import knbLogo from '../assets/kbn logo.jpg'
 
 export default function EventDetailsPage({ slug, onBack }: { slug: string; onBack: () => void }) {
   const event = getEventBySlug(slug)
+  const [lightbox, setLightbox] = useState<number | null>(null)
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (lightbox === null) return
+      if (e.key === 'Escape') setLightbox(null)
+      if (e.key === 'ArrowRight') setLightbox((i) => (i === null ? i : (i + 1) % event!.images.length))
+      if (e.key === 'ArrowLeft') setLightbox((i) => (i === null ? i : (i - 1 + event!.images.length) % event!.images.length))
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightbox, event])
 
   if (!event) {
     return (
@@ -35,18 +48,43 @@ export default function EventDetailsPage({ slug, onBack }: { slug: string; onBac
       <section className="py-12 sm:py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <h2 className="font-serif text-xl sm:text-2xl text-[var(--text-primary)] mb-6 sm:mb-8">Event Gallery</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 sm:gap-5 [column-fill:_balance]">
             {event.images.map((img, i) => (
-              <figure key={i} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] overflow-hidden group">
-                <div className="relative h-56 sm:h-64 overflow-hidden bg-[var(--surface-raised)]">
-                  <img src={img.src} alt={`${event.title} — ${img.label}`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                </div>
-                <figcaption className="px-4 py-3 text-xs font-medium text-[var(--text-secondary)]">{img.label}</figcaption>
-              </figure>
+              <button
+                key={i}
+                onClick={() => setLightbox(i)}
+                className="group relative block w-full mb-4 sm:mb-5 break-inside-avoid rounded-2xl overflow-hidden border border-[var(--border-light)] bg-[var(--surface)] cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-[var(--brand)]/40"
+              >
+                <img src={img.src} alt={event.title} loading="lazy" className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700" />
+              </button>
             ))}
           </div>
         </div>
       </section>
+
+      {lightbox !== null && event.images[lightbox] && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in" onClick={() => setLightbox(null)}>
+          <button className="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors" onClick={() => setLightbox(null)} aria-label="Close">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+          {event.images.length > 1 && (
+            <>
+              <button className="absolute left-3 sm:left-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors" onClick={(e) => { e.stopPropagation(); setLightbox((lightbox - 1 + event.images.length) % event.images.length) }} aria-label="Previous">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button className="absolute right-3 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors" onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % event.images.length) }} aria-label="Next">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </>
+          )}
+          <figure className="max-w-5xl w-full max-h-[85vh] flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <img src={event.images[lightbox].src} alt={event.title} className="max-w-full max-h-[78vh] object-contain rounded-xl shadow-2xl" />
+            <figcaption className="mt-3 text-sm text-white/80 text-center">
+              <span className="text-white/50">{lightbox + 1} / {event.images.length}</span>
+            </figcaption>
+          </figure>
+        </div>
+      )}
 
       <footer className="bg-[var(--brand)] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-12">
