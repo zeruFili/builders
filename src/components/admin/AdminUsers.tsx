@@ -5,7 +5,7 @@ export default function AdminUsers() {
   const [users, setUsers] = useState<AdminUser[]>([])
   const [selected, setSelected] = useState<AdminUser | null>(null)
   const [search, setSearch] = useState('')
-  const [roleFilter, setRoleFilter] = useState<'all' | 'admin' | 'user' | 'company'>('all')
+  const [roleFilter, setRoleFilter] = useState<'all' | 'admin' | 'user'>('all')
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'deactivated'>('all')
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function AdminUsers() {
     if (statusFilter !== 'all' && u.status !== statusFilter) return false
     if (search) {
       const q = search.toLowerCase()
-      return u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q) || (u.business ?? '').toLowerCase().includes(q)
+      return u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q)
     }
     return true
   })
@@ -38,7 +38,7 @@ export default function AdminUsers() {
   }
 
   const roleBadge = (role: string) => {
-    const colors: Record<string, string> = { admin: 'bg-red-100 text-red-700', user: 'bg-emerald-100 text-emerald-700', company: 'bg-blue-100 text-blue-700' }
+    const colors: Record<string, string> = { admin: 'bg-red-100 text-red-700', user: 'bg-emerald-100 text-emerald-700' }
     return <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${colors[role]}`}>{role}</span>
   }
 
@@ -47,12 +47,11 @@ export default function AdminUsers() {
 
   return (
     <div className="animate-fade-in">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
         {[
           { label: 'Total Users', value: users.length, color: 'border-l-[var(--brand)]' },
           { label: 'Active', value: active, color: 'border-l-emerald-500' },
           { label: 'Deactivated', value: deactivated, color: 'border-l-red-500' },
-          { label: 'Company Users', value: users.filter(u => u.role === 'company').length, color: 'border-l-blue-500' },
         ].map(s => (
           <div key={s.label} className={`bg-[var(--surface)] rounded-xl border border-[var(--border-light)] border-l-4 ${s.color} p-4`}>
             <div className="font-serif text-2xl text-[var(--text-primary)] font-bold">{s.value}</div>
@@ -64,7 +63,7 @@ export default function AdminUsers() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3 flex-wrap">
           <div className="flex items-center gap-1 bg-[var(--surface)] border border-[var(--border-light)] rounded-xl p-1 w-fit">
-            {(['all', 'admin', 'user', 'company'] as const).map(f => (
+            {(['all', 'admin', 'user'] as const).map(f => (
               <button key={f} onClick={() => setRoleFilter(f)}
                 className={`text-xs font-medium px-3 py-1.5 rounded-lg capitalize transition-all ${roleFilter === f ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)]'}`}>
                 {f}
@@ -108,7 +107,6 @@ export default function AdminUsers() {
                       <img src={u.avatar} alt="" className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
                       <div className="min-w-0">
                         <div className="text-xs sm:text-sm font-medium text-[var(--text-primary)] truncate">{u.name}</div>
-                        {u.business && <div className="text-[10px] text-[var(--text-tertiary)] truncate">{u.business}</div>}
                       </div>
                     </button>
                   </td>
@@ -174,8 +172,7 @@ function UserDetail({ user, onBack, onDeactivate, onReactivate }: {
           <div>
             <h1 className="font-serif text-2xl text-[var(--text-primary)]">{user.name}</h1>
             <div className="flex items-center gap-2 mt-1">
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700' : user.role === 'company' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'}`}>{user.role}</span>
-              {user.business && <span className="text-sm text-[var(--text-tertiary)]">{user.business}</span>}
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}`}>{user.role}</span>
             </div>
           </div>
         </div>

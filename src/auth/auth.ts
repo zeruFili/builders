@@ -1,4 +1,4 @@
-export type UserRole = 'admin' | 'user' | 'company'
+export type UserRole = 'admin' | 'user'
 
 export interface User {
   id: string;
@@ -6,8 +6,6 @@ export interface User {
   name: string;
   avatar: string;
   role: UserRole;
-  business?: string;
-  companyId?: string;
 }
 
 interface StoredUser extends User {
@@ -15,11 +13,6 @@ interface StoredUser extends User {
 }
 
 const MOCK_USERS: StoredUser[] = [
-  { id: 'u1', email: 'henok@kidusbuilders.com', name: 'Henok Kebede', avatar: 'https://i.pravatar.cc/96?img=11', password: 'password123', role: 'company', business: 'Kidus Builders Group', companyId: 'covenant-builders' },
-  { id: 'u2', email: 'meron@tsionwellness.org', name: 'Meron Tadesse', avatar: 'https://i.pravatar.cc/96?img=47', password: 'password123', role: 'company', business: 'Tsion Wellness Center', companyId: 'refuge-wellness' },
-  { id: 'u3', email: 'dawit@betesharetreat.org', name: 'Dawit Alemu', avatar: 'https://i.pravatar.cc/96?img=8', password: 'password123', role: 'company', business: 'Betesha Retreat & Conference Center', companyId: 'bethany-retreat' },
-  { id: 'u4', email: 'bethlehem@bereketapparel.co', name: 'Bethlehem Haile', avatar: 'https://i.pravatar.cc/96?img=5', password: 'password123', role: 'company', business: 'Bereket Apparel', companyId: 'generations-of-grace' },
-  { id: 'u5', email: 'yohannes@stewardshipwealth.org', name: 'Yohannes Assefa', avatar: 'https://i.pravatar.cc/96?img=6', password: 'password123', role: 'company', business: 'Stewardship Wealth Management', companyId: 'stewardship-wealth' },
   { id: 'admin1', email: 'admin@kbn.org', name: 'Admin KBN', avatar: 'https://i.pravatar.cc/96?img=68', password: 'password123', role: 'admin' },
   { id: 'regular1', email: 'abel@example.com', name: 'Abel Tesfaye', avatar: 'https://i.pravatar.cc/96?img=3', password: 'password123', role: 'user' },
   { id: 'regular2', email: 'tigist@example.com', name: 'Tigist Lemma', avatar: 'https://i.pravatar.cc/96?img=9', password: 'password123', role: 'user' },
@@ -65,7 +58,7 @@ export async function login(email: string, password: string): Promise<User> {
   return safeUser
 }
 
-export async function signUp(data: { name: string; email: string; password: string; business?: string }): Promise<User> {
+export async function signUp(data: { name: string; email: string; password: string }): Promise<User> {
   await new Promise(r => setTimeout(r, 800))
   const users = getStoredUsers()
   if (users.find(u => u.email.toLowerCase() === data.email.toLowerCase())) {
@@ -80,7 +73,6 @@ export async function signUp(data: { name: string; email: string; password: stri
     avatar: `https://i.pravatar.cc/96?img=${imgIdx}`,
     password: data.password,
     role: 'user',
-    business: data.business,
   }
   users.push(newUser)
   saveStoredUsers(users)

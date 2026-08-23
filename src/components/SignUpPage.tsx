@@ -6,7 +6,6 @@ export default function SignUpPage({ onBack, onSwitch }: { onBack: () => void; o
   const { signUp } = useAuth()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [business, setBusiness] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [error, setError] = useState('')
@@ -23,7 +22,7 @@ export default function SignUpPage({ onBack, onSwitch }: { onBack: () => void; o
     if (password !== confirm) { setError('Passwords do not match.'); return }
     setLoading(true)
     try {
-      await signUp({ name: name.trim(), email: email.trim(), password, business: business.trim() || undefined })
+      await signUp({ name: name.trim(), email: email.trim(), password })
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Sign up failed.')
     } finally {
@@ -63,11 +62,6 @@ export default function SignUpPage({ onBack, onSwitch }: { onBack: () => void; o
             <div>
               <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">Email</label>
               <input type='email' value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email"
-                className="w-full bg-[var(--surface-alt)] border border-[var(--border-default)] rounded-xl py-2.5 px-4 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20 focus:border-[var(--brand)]/50 transition-all" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">Business Name <span className="text-[var(--text-tertiary)] font-normal">(optional)</span></label>
-              <input type='text' value={business} onChange={e => setBusiness(e.target.value)} placeholder="Your company or organization"
                 className="w-full bg-[var(--surface-alt)] border border-[var(--border-default)] rounded-xl py-2.5 px-4 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--brand)]/20 focus:border-[var(--brand)]/50 transition-all" />
             </div>
             <div>

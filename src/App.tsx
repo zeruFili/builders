@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import knbLogo from './assets/kbn logo.jpg'
 import LoginPage from './components/LoginPage'
 import SignUpPage from './components/SignUpPage'
-import CompanyDashboard from './components/CompanyDashboard'
 import AdminDashboard from './components/AdminDashboard'
 import UserDashboard from './components/UserDashboard'
 import AboutUsPage from './components/AboutUsPage'
@@ -52,7 +51,7 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
               <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
                 <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
                 <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
-                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : user.role === 'company' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'}`}>{user.role}</span>
+                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'}`}>{user.role}</span>
                 <svg className="w-4 h-4 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {userMenuOpen && (
@@ -60,7 +59,6 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs }: { onLogin: () => void;
                   <div className="px-3 py-2.5 border-b border-[var(--border-light)] mb-1">
                     <p className="text-sm font-semibold text-[var(--text-primary)]">{user.name}</p>
                     <p className="text-xs text-[var(--text-tertiary)] truncate">{user.email}</p>
-                    {user.business && <p className="text-xs text-[var(--accent-dark)] mt-0.5">{user.business}</p>}
                   </div>
                   <button onClick={() => { logout(); setUserMenuOpen(false) }} className="w-full text-left text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-lg transition-colors flex items-center gap-2">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
@@ -152,7 +150,6 @@ export default function App() {
     )
   }
 
-  if (dashboard === 'company') return <CompanyDashboard onBack={() => setDashboard(null)} />
   if (dashboard === 'admin') return <AdminDashboard onBack={() => setDashboard(null)} />
   if (dashboard === 'user') return <UserDashboard onBack={() => setDashboard(null)} />
 
