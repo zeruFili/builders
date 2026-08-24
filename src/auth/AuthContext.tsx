@@ -5,7 +5,7 @@ interface AuthState {
   user: User | null
   loading: boolean
   login: (email: string, password: string) => Promise<UserRole>
-  signUp: (data: { name: string; email: string; password: string; business?: string }) => Promise<void>
+  signUp: (data: { name: string; email: string; password: string }) => Promise<void>
   logout: () => Promise<void>
 }
 
@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return u.role
   }, [])
 
-  const signUp = useCallback(async (data: { name: string; email: string; password: string; business?: string }) => {
+  const signUp = useCallback(async (data: { name: string; email: string; password: string }) => {
     const u = await doSignUp(data)
     setUser(u)
   }, [])

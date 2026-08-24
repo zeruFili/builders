@@ -79,8 +79,8 @@ const ACHIEVEMENT_DATA = {
     label: 'United States',
     items: [
       'Connected Ethiopian Christian professionals and business leaders in multiple states.',
-      'Hosted 3 successful national networking events.',
-      'Developed a strategic plan to purchase commercial buildings that support Christian businesses and community services.',
+      'Hosted 3 successful national networking events ',
+      'Developed a strategic plan to purchase commercial buildings that support Christian businesses and community services',
     ],
   },
   ethiopia: {
@@ -362,7 +362,7 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
               <img src={knbLogo} alt="KBN Logo" className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover bg-white/10 flex-shrink-0" />
               <span className="font-serif text-base sm:text-lg truncate">Kingdom Builders Network</span>
             </div>
-            <p className="text-xs text-[#64748B] text-center flex-shrink-0">&copy; 2025 Kingdom Builders Network. All rights reserved.</p>
+            <p className="text-xs text-[#64748B] text-center flex-shrink-0">&copy; 2026 Kingdom Builders Network. All rights reserved.</p>
           </div>
           <p className="text-xs text-[#64748B] text-center mt-3 sm:mt-4 break-words">Built with faith · Unity · Integrity · Service · Excellence</p>
         </div>
