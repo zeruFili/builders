@@ -290,49 +290,23 @@ export default function App() {
         <CurveDivider fill="var(--surface)" position="bottom" />
       </section>
 
-      {/* Fuel the fire / Resources */}
-      <section className="relative py-20 md:py-28 bg-[var(--surface)] overflow-hidden">
-        <div className="max-w-5xl mx-auto px-4 md:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <p className="overline-gold mb-3">Fuel the Fire</p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">Resources for the Journey</h2>
-            <p className="text-[var(--text-secondary)] leading-relaxed mt-4">Tools to deepen your relationship with God and discover your unique purpose.</p>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { label: 'KBN App & Podcast', href: '#', icon: 'M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z' },
-              { label: 'The Latest', href: '#', icon: 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z' },
-              { label: 'Prayer Requests', href: '#', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
-              { label: 'KBN Journal', href: '#', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
-            ].map(res => (
-              <a key={res.label} href={res.href} className="group flex flex-col items-center text-center">
-                <div className="w-20 h-20 rounded-full bg-[var(--accent)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-[var(--accent)]/25">
-                  <svg className="w-9 h-9 text-[var(--brand-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={res.icon} /></svg>
-                </div>
-                <span className="text-sm font-bold uppercase tracking-widest text-[var(--text-primary)] group-hover:text-[var(--accent-dark)] transition-colors">{res.label}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Belief statement */}
+      {/* Who We Are */}
       <section className="relative py-20 md:py-28 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="overline-gold mb-4">We Believe</p>
+            <p className="overline-gold mb-4">Who We Are</p>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6 uppercase">
-              Through Our Bold, Fervent Prayers
+              Kingdom Builders Network
             </h2>
             <p className="text-[var(--text-secondary)] text-lg md:text-xl leading-relaxed">
-              We will see God do extraordinary things through the lives of ordinary people.
+              Inspired by Psalm 133:1 — 'Behold, how good and pleasant it is when God's people live together in unity!' — KBN envisions a united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life.
             </p>
           </div>
           <div className="grid sm:grid-cols-3 gap-6 lg:grid-cols-1">
             {[
-              { title: 'Fueling a Movement', desc: 'Uniting believers through consistent networking and fellowship.' },
-              { title: 'Equipping Believers', desc: 'Providing training and resources for spiritual and professional growth.' },
-              { title: 'Multiplying Impact', desc: 'Empowering leaders to reach every sphere of society with God\'s love.' },
+              { title: 'Unity in Christ', desc: 'Building relationships among believers for mutual spiritual and professional growth, reflecting the heart of Psalm 133.' },
+              { title: 'Integrity & Excellence', desc: 'Upholding Christian ethics in all professional and business dealings while pursuing excellence in leadership and community transformation.' },
+              { title: 'Service', desc: 'Using resources, skills, and influence to serve churches, communities, and God\'s Kingdom — empowering believers and building Christian institutions.' },
             ].map(pillar => (
               <div key={pillar.title} className="flex items-center gap-4 text-left">
                 <div className="w-14 h-14 rounded-full bg-[var(--accent)] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--accent)]/25">
@@ -346,29 +320,9 @@ export default function App() {
             ))}
           </div>
         </div>
-        <div className="max-w-4xl mx-auto px-4 md:px-8 mt-16 text-center">
-          <p className="text-[var(--text-secondary)] text-lg md:text-xl leading-relaxed mb-8">
-            Until every person in each sphere of society has encountered His love, Kingdom Builders Network will continue to raise up more Kingdom Builders.
-          </p>
-          <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy">
-            See the Mission in Action
-          </button>
-        </div>
       </section>
 
-      {/* 90% stat banner */}
-      <section className="relative py-24 md:py-32 bg-[var(--brand-dark)] overflow-hidden">
-
-        <div className="relative max-w-3xl mx-auto px-4 md:px-8 pt-12 text-center">
-          <p className="font-serif text-6xl sm:text-7xl md:text-8xl gold-gradient-text leading-none mb-4">90%</p>
-          <p className="text-white text-lg md:text-xl mb-2">of every dollar</p>
-          <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-white uppercase tracking-wide mb-10">Goes to Direct Ministry</p>
-          <button onClick={() => setAuthPage('signup')} className="btn-pill btn-gold shadow-2xl shadow-[var(--accent)]/30">
-            Give Today
-          </button>
-        </div>
-        <CurveDivider fill="var(--surface)" position="bottom" />
-      </section>
+     
 
       {/* Testimonials */}
       <section className="relative overflow-hidden bg-[var(--surface)]">
@@ -442,9 +396,7 @@ export default function App() {
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white leading-tight mb-10 uppercase">
               People Who Love God, Love Others, and Advance the Kingdom Everywhere They Go.
             </h2>
-            <button onClick={() => setAuthPage('signup')} className="btn-pill btn-gold shadow-2xl shadow-[var(--accent)]/30">
-              Become a Member
-            </button>
+           
           </div>
           <div className="grid grid-cols-2 gap-4">
             <img src={excelImg} alt="Founder" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
@@ -470,7 +422,7 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-[var(--brand)] text-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 sm:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
             <div className="sm:col-span-2 lg:col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
               <img src={knbLogo} alt="KBN Logo" className="w-9 h-9 rounded-xl object-cover bg-white/10" />
@@ -490,14 +442,6 @@ export default function App() {
                   ) : (
                     <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                   )
-                ))}
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white text-sm mb-4">Resources</h4>
-              <div className="space-y-2.5">
-                {['Leadership Academy', 'KBN App & Podcast', 'Prayer Requests', 'KBN Journal', 'FAQ'].map(link => (
-                  <a key={link} href="#" className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                 ))}
               </div>
             </div>
