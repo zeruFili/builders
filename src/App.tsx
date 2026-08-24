@@ -237,36 +237,9 @@ export default function App() {
         <CurveDivider fill="var(--surface-alt)" position="bottom" />
       </section>
 
-      {/* Announcement Banner */}
-      <section className="bg-[var(--accent)]">
-        <div className="max-w-4xl mx-auto px-4 md:px-8 text-center py-8">
-          <p className="text-[var(--brand-dark)] text-base sm:text-xl font-bold tracking-wide uppercase mb-4 leading-snug">
-            Celebrate the Kingdom Builders movement
-          </p>
-          <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy">
-            Learn More
-          </button>
-        </div>
-      </section>
+      
 
-      {/* Mission intro */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
-        <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
-          <p className="overline-gold mb-4">Make extraordinary impact</p>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-10 uppercase">
-            In Everyday, Ordinary Moments
-          </h2>
-          <button onClick={() => setShowAboutUs(true)} className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[var(--accent)] text-[var(--brand-dark)] mb-10 mx-auto hover:bg-[var(--accent-dark)] hover:text-white transition-colors shadow-lg shadow-[var(--accent)]/30 cursor-pointer" aria-label="Play">
-            <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-          </button>
-          <p className="text-[var(--text-secondary)] text-lg leading-relaxed mb-10">
-            Did you know God created you to make an extraordinary impact? Through connection, communication, and collaboration, KBN equips Christian entrepreneurs and professionals to live out their God-given purpose right where they are — in their businesses, workplaces, and communities.
-          </p>
-          <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy shadow-lg shadow-[var(--brand)]/20">
-            Discover Our Mission
-          </button>
-        </div>
-      </section>
+     
 
       {/* About KBN */}
       <section className="relative py-20 md:py-28 bg-[var(--surface)] overflow-hidden">
@@ -297,23 +270,11 @@ export default function App() {
         </div>
       </section>
 
-      {/* Igniting hearts */}
-      <section className="relative py-16 md:py-20 bg-gradient-to-r from-[var(--accent-light)] to-[var(--surface)] overflow-hidden">
-        <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
-          <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--accent-dark)] italic mb-2">Igniting hearts on fire</p>
-          <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--text-primary)] uppercase tracking-wide">
-            And Lives on Purpose.
-          </p>
-        </div>
-        <div className="gradient-bar absolute bottom-0 left-[10%] right-[10%]" />
-      </section>
+     
 
       {/* Explore ways */}
       <section className="relative py-20 md:py-28 bg-[var(--brand-dark)] overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <CurveDivider fill="var(--surface-alt)" position="top" />
-        <TriangleArt className="absolute left-[6%] top-24 w-16 h-16 opacity-30 hidden md:block" />
-        <TriangleArt className="absolute right-[8%] top-16 w-12 h-12 opacity-25 hidden md:block" />
+    
         <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-14">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <p className="overline-gold mb-3 text-[var(--accent)]">Explore ways</p>
@@ -342,6 +303,32 @@ export default function App() {
           </div>
         </div>
         <CurveDivider fill="var(--surface)" position="bottom" />
+      </section>
+
+      {/* Fuel the fire / Resources */}
+      <section className="relative py-20 md:py-28 bg-[var(--surface)] overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 md:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <p className="overline-gold mb-3">Fuel the Fire</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">Resources for the Journey</h2>
+            <p className="text-[var(--text-secondary)] leading-relaxed mt-4">Tools to deepen your relationship with God and discover your unique purpose.</p>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { label: 'KBN App & Podcast', href: '#', icon: 'M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z' },
+              { label: 'The Latest', href: '#', icon: 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z' },
+              { label: 'Prayer Requests', href: '#', icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' },
+              { label: 'KBN Journal', href: '#', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
+            ].map(res => (
+              <a key={res.label} href={res.href} className="group flex flex-col items-center text-center">
+                <div className="w-20 h-20 rounded-full bg-[var(--accent)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-[var(--accent)]/25">
+                  <svg className="w-9 h-9 text-[var(--brand-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={res.icon} /></svg>
+                </div>
+                <span className="text-sm font-bold uppercase tracking-widest text-[var(--text-primary)] group-hover:text-[var(--accent-dark)] transition-colors">{res.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Belief statement */}
@@ -374,6 +361,28 @@ export default function App() {
             ))}
           </div>
         </div>
+        <div className="max-w-4xl mx-auto px-4 md:px-8 mt-16 text-center">
+          <p className="text-[var(--text-secondary)] text-lg md:text-xl leading-relaxed mb-8">
+            Until every person in each sphere of society has encountered His love, Kingdom Builders Network will continue to raise up more Kingdom Builders.
+          </p>
+          <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy">
+            See the Mission in Action
+          </button>
+        </div>
+      </section>
+
+      {/* 90% stat banner */}
+      <section className="relative py-24 md:py-32 bg-[var(--brand-dark)] overflow-hidden">
+
+        <div className="relative max-w-3xl mx-auto px-4 md:px-8 pt-12 text-center">
+          <p className="font-serif text-6xl sm:text-7xl md:text-8xl gold-gradient-text leading-none mb-4">90%</p>
+          <p className="text-white text-lg md:text-xl mb-2">of every dollar</p>
+          <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-white uppercase tracking-wide mb-10">Goes to Direct Ministry</p>
+          <button onClick={() => setAuthPage('signup')} className="btn-pill btn-gold shadow-2xl shadow-[var(--accent)]/30">
+            Give Today
+          </button>
+        </div>
+        <CurveDivider fill="var(--surface)" position="bottom" />
       </section>
 
       {/* Testimonials */}
@@ -432,11 +441,7 @@ export default function App() {
       {/* Founder CTA */}
       <section className="relative py-20 md:py-28 bg-[var(--brand-dark)] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <CurveDivider fill="var(--surface-alt)" position="top" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)] rounded-full blur-[180px] opacity-5" />
-        <div className="absolute -left-20 bottom-0 w-72 h-72 rounded-[4rem] border border-[var(--accent)]/20 rotate-12 pointer-events-none hidden lg:block" />
-        <TriangleArt className="absolute right-[6%] top-16 w-16 h-16 opacity-25 hidden md:block" />
-        <TriangleArt className="absolute left-[4%] bottom-10 w-12 h-12 opacity-20 hidden md:block" />
+      
         <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-14 grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <p className="font-serif text-3xl sm:text-4xl text-[var(--accent)] mb-8 leading-snug">Raising Up Kingdom Builders</p>
@@ -453,6 +458,18 @@ export default function App() {
             <img src={addisOneImg} alt="Event" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
             <img src={stageImg} alt="Stage" className="w-full h-56 md:h-72 object-cover rounded-[2rem] mt-8" />
           </div>
+        </div>
+      </section>
+
+      {/* Quiz CTA */}
+      <section className="relative py-16 md:py-20 bg-[var(--accent)] overflow-hidden">
+        <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--brand-dark)] leading-tight mb-6">
+            Discover your kingdom impact.
+          </h2>
+          <button onClick={() => setAuthPage('signup')} className="btn-pill btn-navy">
+            Get Started
+          </button>
         </div>
       </section>
 
