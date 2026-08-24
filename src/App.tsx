@@ -5,8 +5,11 @@ import usaOneImg from './assets/usa one.jpg'
 import addisOneImg from './assets/addis one.jpg'
 import worshipImg from '../assets/events/hawassa worship.jpg'
 import stageImg from '../assets/events/Atlanta stage one.jpg'
+import suraImg from '../assets/events/INTEGROTY  THE FOUNDATION OF KINGDOM INFLUENCE  surafel.jpg'
+import heroImg from '../assets/events/light and salt  peoples one.jpg'
 import peopleImg from '../assets/events/denver peoples.jpg'
 import atlantaPeopleImg from '../assets/events/Atlanta peoples one.jpg'
+import excelImg from '../assets/events/kingdom excellence peoples one.jpg'
 import groupImg from '../assets/events/hawassa group image.jpg'
 import LoginPage from './components/LoginPage'
 import SignUpPage from './components/SignUpPage'
@@ -14,6 +17,7 @@ import AdminDashboard from './components/AdminDashboard'
 import UserDashboard from './components/UserDashboard'
 import AboutUsPage from './components/AboutUsPage'
 import EventsPage from './components/EventsPage'
+import worshipingImg from '../assets/events/INTEGROTY  THE FOUNDATION OF KINGDOM INFLUENCE peoples three.jpg'
 import EventDetailsPage from './components/EventDetailsPage'
 import { useAuth } from './auth/AuthContext'
 import { type UserRole } from './auth/auth'
@@ -24,18 +28,27 @@ const NAV_ITEMS = ['About Us', 'Events'] as const
 function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onEvents: () => void }) {
   const { user, logout } = useAuth()
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header className="glass sticky top-0 z-50">
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? 'glass' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
         <button onClick={onHome} className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0 group">
           <img src={knbLogo} alt="KBN Logo" className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20" />
-          <span className="font-serif text-lg sm:text-xl text-[var(--text-primary)] tracking-tight">KBN</span>
+          <span className={`font-serif text-lg sm:text-xl tracking-tight transition-colors duration-300 ${scrolled ? 'text-[var(--text-primary)]' : 'text-white'}`}>KBN</span>
         </button>
 
         <div className="flex items-center gap-1 sm:gap-2">
           <nav className="flex items-center gap-1">
             {NAV_ITEMS.map(item => (
-              <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className="text-xs sm:text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-2 sm:px-3 py-2 rounded-xl transition-all cursor-pointer">
+              <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className={`text-xs sm:text-sm font-medium px-2 sm:px-3 py-2 rounded-xl transition-all cursor-pointer ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
                 {item}
               </button>
             ))}
@@ -43,7 +56,7 @@ function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => voi
 
           {user ? (
             <>
-              <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="hidden xs:flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
+              <button onClick={() => setUserMenuOpen(!userMenuOpen)} className={`hidden xs:flex items-center gap-2 text-sm font-medium px-2 py-1.5 rounded-xl transition-all ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
                 <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
                 <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
                 <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'}`}>{user.role}</span>
@@ -64,7 +77,7 @@ function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => voi
             </>
           ) : (
             <>
-              <button onClick={onSignUp} className="text-sm font-semibold text-white bg-[var(--brand)] px-3 sm:px-4 py-2 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 flex items-center gap-2">
+              <button onClick={onSignUp} className={`text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl transition-colors shadow-lg flex items-center gap-2 ${scrolled ? 'text-white bg-[var(--brand)] hover:bg-[var(--brand-light)] shadow-[var(--brand)]/20' : 'text-[var(--brand-dark)] bg-white hover:bg-[var(--accent)]'}`}>
                 <span className="hidden xs:inline">Sign Up</span>
                 <svg className="w-4 h-4 xs:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
               </button>
@@ -176,7 +189,7 @@ export default function App() {
       {/* Hero */}
       <section id="home" className="relative text-white overflow-hidden section_has_divider">
         <div className="absolute inset-0">
-          <img src={stageImg} alt="" aria-hidden="true" className="w-full h-full object-cover" />
+          <img src={heroImg} alt="" aria-hidden="true" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--brand-dark)]/95 via-[var(--brand-dark)]/85 to-[var(--brand-dark)]/95" />
         </div>
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
@@ -234,7 +247,7 @@ export default function App() {
             </button>
           </div>
           <div className="relative">
-            <img src={peopleImg} alt="Kingdom Builders Network gathering" className="relative w-full h-72 md:h-[28rem] object-cover rounded-[3rem] shadow-2xl" />
+            <img src={suraImg} alt="Kingdom Builders Network gathering" className="relative w-full h-72 md:h-[28rem] object-cover rounded-[3rem] shadow-2xl" />
             <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[var(--accent)] rounded-full flex items-center justify-center text-[var(--brand-dark)] shadow-xl">
               <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </div>
@@ -358,29 +371,38 @@ export default function App() {
       </section>
 
       {/* Testimonials */}
-      <section className="relative py-20 md:py-28 bg-[var(--surface)] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+      <section className="relative overflow-hidden bg-[var(--surface)]">
+        <TriangleArt className="absolute left-[6%] top-[20%] w-20 h-20 opacity-30 hidden md:block" />
+        <TriangleArt className="absolute right-[8%] top-[30%] w-14 h-14 opacity-25 hidden md:block" />
+        <div className="absolute left-[10%] bottom-12 w-24 h-24 rounded-full border-2 border-[var(--accent)]/30 hidden md:block" />
+        <div className="absolute right-[12%] bottom-20 w-16 h-16 rounded-[2rem] border-2 border-[var(--accent)]/20 rotate-12 hidden md:block" />
+
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-20 md:pt-28">
+          <div className="text-center max-w-2xl mx-auto mb-24">
             <p className="overline-gold mb-3">Forging Forward</p>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">With the Love of Jesus</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.', img: peopleImg },
-              { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.', img: atlantaPeopleImg },
-              { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.', img: groupImg },
-            ].map(t => (
-              <figure key={t.name} className="flex flex-col items-center text-center">
-                <div className="w-44 h-44 rounded-full overflow-hidden mb-6 ring-4 ring-[var(--accent)]/40">
-                  <img src={t.img} alt={t.name} className="w-full h-full object-cover" />
-                </div>
-                <blockquote className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6 flex-1">"{t.quote}"</blockquote>
-                <figcaption>
-                  <div className="text-base font-bold text-[var(--text-primary)] uppercase tracking-wide">{t.name}</div>
-                  <div className="text-xs text-[var(--text-tertiary)]">{t.role}</div>
-                </figcaption>
-              </figure>
-            ))}
+
+          <div className="relative">
+            <div className="absolute top-1/2 bottom-0 left-1/2 -translate-x-1/2 w-screen bg-[var(--surface-alt)]" />
+            <div className="relative grid md:grid-cols-3 gap-8 pb-20 md:pb-28">
+              {[
+                { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.', img: peopleImg, dark: true },
+                { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.', img: atlantaPeopleImg, dark: false },
+                { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.', img: groupImg, dark: true },
+              ].map(t => (
+                <figure key={t.name} className={`relative rounded-[2rem] px-7 pt-20 pb-9 text-center shadow-xl flex flex-col ${t.dark ? 'bg-[var(--brand)]' : 'bg-[var(--accent)]'}`}>
+                  <div className={`absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full overflow-hidden ring-4 shadow-lg ${t.dark ? 'ring-[var(--accent)]' : 'ring-[var(--brand)]'}`}>
+                    <img src={t.img} alt={t.name} className="w-full h-full object-cover" />
+                  </div>
+                  <blockquote className={`text-sm leading-relaxed mb-6 flex-1 ${t.dark ? 'text-[#C7CFDD]' : 'text-[var(--brand-dark)]/80'}`}>"{t.quote}"</blockquote>
+                  <figcaption>
+                    <div className={`text-base font-bold uppercase tracking-wide ${t.dark ? 'text-white' : 'text-[var(--brand-dark)]'}`}>{t.name}</div>
+                    <div className={`text-xs ${t.dark ? 'text-[#94A3B8]' : 'text-[var(--brand-dark)]/60'}`}>{t.role}</div>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -425,8 +447,8 @@ export default function App() {
             </button>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img src={surafelImg} alt="Founder" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
-            <img src={worshipImg} alt="Worship gathering" className="w-full h-56 md:h-72 object-cover rounded-[2rem] mt-8" />
+            <img src={excelImg} alt="Founder" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
+            <img src={worshipingImg} alt="Worship gathering" className="w-full h-56 md:h-72 object-cover rounded-[2rem] mt-8" />
             <img src={addisOneImg} alt="Event" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
             <img src={stageImg} alt="Stage" className="w-full h-56 md:h-72 object-cover rounded-[2rem] mt-8" />
           </div>
