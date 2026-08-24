@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import knbLogo from './assets/kbn logo.jpg'
+import surafelImg from './assets/surafel.jpg'
+import usaOneImg from './assets/usa one.jpg'
+import addisOneImg from './assets/addis one.jpg'
+import worshipImg from '../assets/events/hawassa worship.jpg'
+import stageImg from '../assets/events/Atlanta stage one.jpg'
+import peopleImg from '../assets/events/denver peoples.jpg'
 import LoginPage from './components/LoginPage'
 import SignUpPage from './components/SignUpPage'
 import AdminDashboard from './components/AdminDashboard'
@@ -9,7 +15,7 @@ import EventsPage from './components/EventsPage'
 import EventDetailsPage from './components/EventDetailsPage'
 import { useAuth } from './auth/AuthContext'
 import { type UserRole } from './auth/auth'
-import { type KbnEvent } from './data/events'
+import { getEvents, type KbnEvent } from './data/events'
 
 const NAV_ITEMS = ['About Us', 'Events'] as const
 
@@ -175,151 +181,230 @@ export default function App() {
       />
 
       {/* Hero */}
-      <section id="home" className="relative bg-[var(--brand-dark)] overflow-hidden">
+      <section id="home" className="relative bg-[var(--brand-dark)] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="absolute top-10 right-10 w-96 h-96 bg-[var(--accent)] rounded-full blur-[180px] opacity-10" />
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-[var(--brand)] rounded-full blur-[140px] opacity-20" />
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-20 pb-20 md:pt-28 md:pb-28">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--accent)] bg-[var(--accent)]/10 border border-[var(--accent)]/20 px-3 py-1.5 rounded-full mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                Kingdom Builders Network
-              </span>
-              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-[1.15] mb-6">
-                Building God's Kingdom Through<br />
-                <span className="gold-gradient-text">Faith, Business, and Community</span>
-              </h1>
-              <p className="text-[#94A3B8] text-lg leading-relaxed mb-10 max-w-xl">
-                Kingdom Builders Network (KBN) is a registered ministry under the Ethiopian Council of Gospel Believers Churches, connecting hundreds of Ethiopian Christian entrepreneurs and professionals across the U.S. and Ethiopia. Through connection, communication, and collaboration, we strengthen both the spiritual and economic well-being of the Christian community.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#join" className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-sm font-bold px-6 py-3.5 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-xl shadow-[var(--accent)]/30">
-                  Join the Network
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                </a>
-                <a href="#who-we-are" className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold px-6 py-3.5 rounded-xl border border-white/15 hover:bg-white/20 transition-colors">
-                  Learn More
-                </a>
-              </div>
-              <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-md mt-12">
-                {[
-                  { value: '300+', label: 'Members' },
-                  { value: '15', label: 'Industries' },
-                  { value: '2', label: 'Countries' },
-                ].map(s => (
-                  <div key={s.label}>
-                    <div className="font-serif text-xl sm:text-2xl text-white font-bold">{s.value}</div>
-                    <div className="text-xs text-[#94A3B8] mt-0.5 font-medium">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+        <div className="absolute top-0 right-0 w-[28rem] h-[28rem] bg-[var(--accent)] rounded-full blur-[180px] opacity-10 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[var(--brand)] rounded-full blur-[140px] opacity-25 pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto px-4 md:px-8 pt-20 pb-16 md:pt-32 md:pb-24 text-center">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-8">
+            Kingdom Builders Network
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.08] mb-6">
+            Building God's Kingdom
+            <span className="block gold-gradient-text mt-1">Every Day, Everywhere.</span>
+          </h1>
+          <p className="text-[#94A3B8] text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
+            Kingdom Builders Network (KBN) is a registered ministry connecting hundreds of Ethiopian Christian entrepreneurs and professionals across the U.S. and Ethiopia — strengthening the spiritual and economic well-being of the Christian community.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onClick={() => setAuthPage('signup')} className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-sm font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-xl shadow-[var(--accent)]/30 cursor-pointer">
+              Become a Member
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+            </button>
+            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold px-8 py-4 rounded-xl border border-white/15 hover:bg-white/20 transition-colors cursor-pointer">
+              Explore Events
+            </button>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[var(--surface-alt)] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[var(--surface-alt)] to-transparent" />
       </section>
 
-      {/* About */}
-      <section id="about-us" className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Who We Are" title="Kingdom Builders Network" subtitle="Inspired by Psalm 133:1 — 'Behold, how good and pleasant it is when God's people live together in unity!' — KBN envisions a united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life." />
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+      {/* Announcement Banner */}
+      <div className="bg-[var(--accent)] text-[var(--brand-dark)] text-center">
+        <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="w-full text-xs sm:text-sm font-bold tracking-wide uppercase px-4 py-4 hover:bg-[var(--accent-dark)] hover:text-white transition-colors cursor-pointer">
+          Celebrate the Kingdom Builders movement — see our latest events →
+        </button>
+      </div>
+
+      {/* Mission intro */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-4">Make extraordinary impact</p>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6">
+            In Everyday, Ordinary Moments
+          </h2>
+          <p className="text-[var(--text-secondary)] text-lg leading-relaxed mb-10">
+            Did you know God created you to make an extraordinary impact? Through connection, communication, and collaboration, KBN equips Christian entrepreneurs and professionals to live out their God-given purpose right where they are — in their businesses, workplaces, and communities.
+          </p>
+          <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="inline-flex items-center justify-center gap-2 bg-[var(--brand)] text-white text-sm font-semibold px-8 py-4 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 cursor-pointer">
+            Discover Our Mission
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+          </button>
+        </div>
+      </section>
+
+      {/* About KBN */}
+      <section className="py-20 md:py-28 bg-[var(--surface)]">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-4">Who We Are</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6">
+              Raising Up Kingdom Builders
+            </h2>
+            <p className="text-[var(--text-secondary)] leading-relaxed mb-4">
+              Since our founding, Kingdom Builders Network has passionately pursued the mission to unite Christian entrepreneurs and professionals — people whose hearts are set on fire to live purposefully and build the Kingdom of God in every sphere of life.
+            </p>
+            <p className="text-[var(--text-secondary)] leading-relaxed mb-8">
+              Through dynamic gatherings, practical equipping, and strategic initiatives, we come alongside churches and believers to make spiritual decisions, activate God-given purpose, and create impact across the United States and Ethiopia.
+            </p>
+            <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-dark)] hover:text-[var(--brand)] transition-colors cursor-pointer">
+              See the Mission in Action
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+          <div className="relative">
+            <img src={peopleImg} alt="Kingdom Builders Network gathering" className="w-full h-72 md:h-[28rem] object-cover rounded-3xl shadow-2xl" />
+            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[var(--accent)] rounded-3xl flex items-center justify-center text-[var(--brand-dark)] shadow-xl">
+              <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Explore ways */}
+      <section className="py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-3">Explore ways</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white">To Forge Forward</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { title: 'Unity in Christ', desc: 'Building relationships among believers for mutual spiritual and professional growth, reflecting the heart of Psalm 133.' },
-              { title: 'Integrity & Excellence', desc: 'Upholding Christian ethics in all professional and business dealings while pursuing excellence in leadership and community transformation.' },
-              { title: 'Service', desc: 'Using resources, skills, and influence to serve churches, communities, and God\'s Kingdom — empowering believers and building Christian institutions.' },
-            ].map(item => (
-              <div key={item.title} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6 text-center group">
-                <div className="w-12 h-12 rounded-xl bg-[var(--accent-light)] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <svg className="w-6 h-6 text-[var(--accent-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+              { img: peopleImg, title: 'Networking Events', desc: 'Quarterly gatherings uniting Christian entrepreneurs and professionals across the U.S. and Ethiopia.' },
+              { img: worshipImg, title: 'Worship & Prayer', desc: 'Powerful gatherings of worship and intercessory prayer for our businesses, families, and nation.' },
+              { img: usaOneImg, title: 'Global Movement', desc: 'Building Christian schools, institutions, and community hubs that reflect Kingdom values.' },
+            ].map(way => (
+              <button key={way.title} onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="group text-left bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden hover:bg-white/10 transition-all cursor-pointer">
+                <div className="h-40 overflow-hidden">
+                  <img src={way.img} alt={way.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
-                <h3 className="font-semibold text-[var(--text-primary)] mb-2">{item.title}</h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{item.desc}</p>
+                <div className="p-6">
+                  <h3 className="font-serif text-lg text-white mb-2 uppercase tracking-wide">{way.title}</h3>
+                  <p className="text-sm text-[#94A3B8] leading-relaxed mb-4">{way.desc}</p>
+                  <span className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--accent)]">
+                    Learn More
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Belief statement */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-4">We Believe</p>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6">
+            Through Our Bold, Fervent Prayers
+          </h2>
+          <p className="text-[var(--text-secondary)] text-lg md:text-xl leading-relaxed">
+            We will see God do extraordinary things through the lives of ordinary people.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-6 mt-14">
+            {[
+              { title: 'Fueling a Movement', desc: 'Uniting believers through consistent networking and fellowship.' },
+              { title: 'Equipping Believers', desc: 'Providing training and resources for spiritual and professional growth.' },
+              { title: 'Multiplying Impact', desc: 'Empowering leaders to reach every sphere of society with God\'s love.' },
+            ].map(pillar => (
+              <div key={pillar.title} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-8 text-center">
+                <div className="w-12 h-12 rounded-full bg-[var(--accent-light)] flex items-center justify-center mx-auto mb-5">
+                  <svg className="w-6 h-6 text-[var(--accent-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
+                <h3 className="font-semibold text-[var(--text-primary)] mb-2">{pillar.title}</h3>
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{pillar.desc}</p>
               </div>
             ))}
           </div>
-
-          {/* Achievements */}
-          <div className="max-w-4xl mx-auto mt-16">
-            <h3 className="font-serif text-2xl text-[var(--text-primary)] text-center mb-8">Our Impact (Past 3 Years)</h3>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[var(--accent-dark)] mb-3">
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
-                  United States
-                </div>
-                <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                  <li>• Connected Ethiopian Christian professionals in multiple states</li>
-                  <li>• Hosted 3 successful national networking events</li>
-                  <li>• Developing strategic plan for commercial buildings to support Christian businesses</li>
-                </ul>
-              </div>
-              <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[var(--accent-dark)] mb-3">
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
-                  Ethiopia
-                </div>
-                <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                  <li>• Held 2 large-scale networking events in Hawassa</li>
-                  <li>• Launched KG to College Christian School in Hawassa</li>
-                  <li>• Building Kingdom Business Hubs across Addis Ababa</li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Our Purpose" title="Mission & Vision" light />
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-10 text-center group card-hover">
-              <div className="w-16 h-16 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <svg className="w-8 h-8 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-              </div>
-              <h3 className="font-serif text-2xl text-white mb-4">Our Mission</h3>
-              <p className="text-[#94A3B8] leading-relaxed text-lg">To unite Christian entrepreneurs and professionals through connection, communication, and collaboration — strengthening both the spiritual and physical well-being of the Christian community locally and globally.</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-10 text-center group card-hover">
-              <div className="w-16 h-16 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <svg className="w-8 h-8 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-              </div>
-              <h3 className="font-serif text-2xl text-white mb-4">Our Vision</h3>
-              <p className="text-[#94A3B8] leading-relaxed text-lg">A united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life — in Ethiopia, the U.S., and beyond.</p>
-            </div>
+      {/* Testimonials */}
+      <section className="py-20 md:py-28 bg-[var(--surface)]">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-3">Testimonials</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)]">Forging Forward With Faith</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.' },
+              { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.' },
+              { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.' },
+            ].map(t => (
+              <figure key={t.name} className="bg-[var(--surface-alt)] rounded-2xl border border-[var(--border-light)] p-8 flex flex-col">
+                <div className="flex items-center gap-1 mb-4 text-[var(--accent)]">
+                  {[1, 2, 3, 4, 5].map(s => <span key={s}>★</span>)}
+                </div>
+                <blockquote className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6 flex-1">"{t.quote}"</blockquote>
+                <figcaption>
+                  <div className="text-sm font-semibold text-[var(--text-primary)]">{t.name}</div>
+                  <div className="text-xs text-[var(--text-tertiary)]">{t.role}</div>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Events */}
-      <section id="events" className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
+      <section id="events" className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Get Involved" title="Our Events" subtitle="Explore the gatherings, conferences, and outreach events that bring our community together." />
-          <div className="text-center">
-            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="inline-flex items-center justify-center gap-2 bg-[var(--brand)] text-white text-sm font-semibold px-6 py-3 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 cursor-pointer">
-              View All Events
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-3">The Latest</p>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)]">Events & Gatherings</h2>
+            </div>
+            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-dark)] hover:text-[var(--brand)] transition-colors cursor-pointer">
+              See All Events
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </button>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {getEvents().slice(0, 6).map(ev => (
+              <button key={ev.slug} onClick={() => { setShowEvents(true); setSelectedEvent(ev); window.scrollTo(0, 0) }} className="group text-left card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] overflow-hidden cursor-pointer">
+                <div className="h-44 overflow-hidden">
+                  <img src={ev.brochure} alt={ev.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-serif text-base text-[var(--text-primary)] leading-snug mb-2 line-clamp-2">{ev.title}</h3>
+                  <span className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--accent-dark)] group-hover:text-[var(--brand)] transition-colors">
+                    View More
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </span>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="join" className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
+      {/* Founder CTA */}
+      <section className="py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)] rounded-full blur-[180px] opacity-5" />
-        <div className="relative max-w-3xl mx-auto px-4 md:px-8 text-center">
-          <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">Join a Movement That Builds God's Kingdom</h2>
-          <p className="text-[#94A3B8] text-lg leading-relaxed mb-10">Become part of a growing network of Ethiopian Christian entrepreneurs and professionals committed to making a Kingdom impact through faith, excellence, and service — across Ethiopia, the USA, and beyond.</p>
-          <button onClick={() => setAuthPage('signup')} className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30 cursor-pointer">
-            Become a Member
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-          </button>
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-4">Join the Movement</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-6">
+              Raising Up Kingdom Builders Who Love God, Love Others, and Advance the Kingdom Everywhere They Go.
+            </h2>
+            <p className="text-[#94A3B8] text-lg leading-relaxed mb-8">
+              Become part of a growing network of Christian entrepreneurs and professionals committed to making a Kingdom impact through faith, excellence, and service.
+            </p>
+            <button onClick={() => setAuthPage('signup')} className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30 cursor-pointer">
+              Become a Member
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+            </button>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <img src={surafelImg} alt="Founder" className="w-full h-56 md:h-72 object-cover rounded-3xl" />
+            <img src={worshipImg} alt="Worship gathering" className="w-full h-56 md:h-72 object-cover rounded-3xl" />
+            <img src={addisOneImg} alt="Event" className="w-full h-56 md:h-72 object-cover rounded-3xl" />
+            <img src={stageImg} alt="Stage" className="w-full h-56 md:h-72 object-cover rounded-3xl" />
+          </div>
         </div>
       </section>
 
