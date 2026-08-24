@@ -1,50 +1,62 @@
 import { useState, useEffect, useRef } from 'react'
 import knbLogo from './assets/kbn logo.jpg'
+import surafelImg from './assets/surafel.jpg'
+import usaOneImg from './assets/usa one.jpg'
+import addisOneImg from './assets/addis one.jpg'
+import worshipImg from '../assets/events/hawassa worship.jpg'
+import stageImg from '../assets/events/Atlanta stage one.jpg'
+import suraImg from '../assets/events/INTEGROTY  THE FOUNDATION OF KINGDOM INFLUENCE  surafel.jpg'
+import heroImg from '../assets/events/light and salt  peoples one.jpg'
+import peopleImg from '../assets/events/denver peoples.jpg'
+import atlantaPeopleImg from '../assets/events/Atlanta peoples one.jpg'
+import excelImg from '../assets/events/kingdom excellence peoples one.jpg'
+import groupImg from '../assets/events/hawassa group image.jpg'
 import LoginPage from './components/LoginPage'
 import SignUpPage from './components/SignUpPage'
 import AdminDashboard from './components/AdminDashboard'
 import UserDashboard from './components/UserDashboard'
 import AboutUsPage from './components/AboutUsPage'
 import EventsPage from './components/EventsPage'
+import worshipingImg from '../assets/events/INTEGROTY  THE FOUNDATION OF KINGDOM INFLUENCE peoples three.jpg'
 import EventDetailsPage from './components/EventDetailsPage'
 import { useAuth } from './auth/AuthContext'
 import { type UserRole } from './auth/auth'
-import { type KbnEvent } from './data/events'
+import { getEvents, type KbnEvent } from './data/events'
 
 const NAV_ITEMS = ['About Us', 'Events'] as const
 
 function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onEvents: () => void }) {
   const { user, logout } = useAuth()
-  const [menuOpen, setMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header className="glass sticky top-0 z-50">
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? 'glass' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
         <button onClick={onHome} className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0 group">
           <img src={knbLogo} alt="KBN Logo" className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20" />
-          <span className="font-serif text-lg sm:text-xl text-[var(--text-primary)] tracking-tight">KBN</span>
+          <span className={`font-serif text-lg sm:text-xl tracking-tight transition-colors duration-300 ${scrolled ? 'text-[var(--text-primary)]' : 'text-white'}`}>KBN</span>
         </button>
 
-        <nav className="hidden lg:flex items-center gap-1">
-          {NAV_ITEMS.map(item => (
-            <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
-              {item}
-            </button>
-          ))}
-        </nav>
+        <div className="flex items-center gap-1 sm:gap-2">
+          <nav className="flex items-center gap-1">
+            {NAV_ITEMS.map(item => (
+              <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className={`text-xs sm:text-sm font-medium px-2 sm:px-3 py-2 rounded-xl transition-all cursor-pointer ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
+                {item}
+              </button>
+            ))}
+          </nav>
 
-        <div className="flex lg:hidden items-center gap-0 flex-shrink-0">
-          {NAV_ITEMS.map(item => (
-            <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className="text-xs sm:text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-1.5 sm:px-2 py-1.5 rounded-xl transition-all cursor-pointer">
-              {item}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
           {user ? (
             <>
-              <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="hidden xs:flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
+              <button onClick={() => setUserMenuOpen(!userMenuOpen)} className={`hidden xs:flex items-center gap-2 text-sm font-medium px-2 py-1.5 rounded-xl transition-all ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
                 <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
                 <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
                 <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'}`}>{user.role}</span>
@@ -65,33 +77,14 @@ function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => voi
             </>
           ) : (
             <>
-              <button onClick={onSignUp} className="text-sm font-semibold text-white bg-[var(--brand)] px-3 sm:px-4 py-2 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 flex items-center gap-2">
+              <button onClick={onSignUp} className={`text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl transition-colors shadow-lg flex items-center gap-2 ${scrolled ? 'text-white bg-[var(--brand)] hover:bg-[var(--brand-light)] shadow-[var(--brand)]/20' : 'text-[var(--brand-dark)] bg-white hover:bg-[var(--accent)]'}`}>
                 <span className="hidden xs:inline">Sign Up</span>
                 <svg className="w-4 h-4 xs:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
               </button>
             </>
           )}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden w-10 h-10 rounded-xl border border-[var(--border-default)] flex items-center justify-center text-[var(--text-secondary)] hover:bg-[var(--surface-alt)] transition-colors">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} /></svg>
-          </button>
         </div>
       </div>
-      {menuOpen && (
-        <div className="lg:hidden border-t border-[var(--border-light)] bg-[var(--surface)] px-4 py-4 space-y-2 animate-slide-down">
-          {NAV_ITEMS.map(item => (
-            <button key={item} onClick={() => { (item === 'About Us' ? onAboutUs : onEvents)(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
-          ))}
-          <div className="pt-2 border-t border-[var(--border-light)] space-y-2">
-            {user ? (
-              <button onClick={() => { logout(); setMenuOpen(false) }} className="block w-full text-center text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">Sign Out</button>
-            ) : (
-              <>
-                <button onClick={() => { onSignUp(); setMenuOpen(false) }} className="block w-full text-center text-sm font-semibold text-white bg-[var(--brand)] py-2.5 rounded-xl hover:bg-[var(--brand-light)] transition-colors">Sign Up</button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
     </header>
   )
 }
@@ -103,6 +96,25 @@ function SectionHeading({ overline, title, subtitle, light }: { overline?: strin
       <h2 className={`font-serif text-2xl sm:text-3xl md:text-4xl mb-4 ${light ? 'text-white' : 'text-[var(--text-primary)]'}`}>{title}</h2>
       {subtitle && <p className={`leading-relaxed ${light ? 'text-[#94A3B8]' : 'text-[var(--text-secondary)]'}`}>{subtitle}</p>}
     </div>
+  )
+}
+
+function TriangleArt({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 120 110" fill="none" aria-hidden="true">
+      <path d="M60 10 L112 98 L8 98 Z" stroke="var(--accent)" strokeWidth="2" />
+      <path d="M60 34 L94 92 L26 92 Z" stroke="var(--accent)" strokeWidth="1.5" opacity="0.55" />
+      <path d="M60 58 L76 84 L44 84 Z" stroke="var(--accent)" strokeWidth="1.5" opacity="0.3" />
+      <circle cx="60" cy="52" r="3" fill="var(--accent)" />
+    </svg>
+  )
+}
+
+function CurveDivider({ fill = 'var(--surface-alt)', position = 'bottom', flip = false, className = '' }: { fill?: string; position?: 'top' | 'bottom'; flip?: boolean; className?: string }) {
+  return (
+    <svg className={`absolute block ${position === 'bottom' ? 'bottom-[-1px]' : 'top-[-1px]'} left-0 w-full h-10 sm:h-14 md:h-20 ${flip ? 'rotate-180' : ''} ${className}`} viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,64 C240,120 480,0 720,32 C960,64 1200,120 1440,56 L1440,124 L0,124 Z" fill={fill} />
+    </svg>
   )
 }
 
@@ -175,150 +187,231 @@ export default function App() {
       />
 
       {/* Hero */}
-      <section id="home" className="relative bg-[var(--brand-dark)] overflow-hidden">
+      <section id="home" className="relative text-white overflow-hidden section_has_divider">
+        <div className="absolute inset-0">
+          <img src={heroImg} alt="" aria-hidden="true" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--brand-dark)]/95 via-[var(--brand-dark)]/85 to-[var(--brand-dark)]/95" />
+        </div>
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="absolute top-10 right-10 w-96 h-96 bg-[var(--accent)] rounded-full blur-[180px] opacity-10" />
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-[var(--brand)] rounded-full blur-[140px] opacity-20" />
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-20 pb-20 md:pt-28 md:pb-28">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--accent)] bg-[var(--accent)]/10 border border-[var(--accent)]/20 px-3 py-1.5 rounded-full mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                Kingdom Builders Network
-              </span>
-              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-[1.15] mb-6">
-                Building God's Kingdom Through<br />
-                <span className="gold-gradient-text">Faith, Business, and Community</span>
-              </h1>
-              <p className="text-[#94A3B8] text-lg leading-relaxed mb-10 max-w-xl">
-                Kingdom Builders Network (KBN) is a registered ministry under the Ethiopian Council of Gospel Believers Churches, connecting hundreds of Ethiopian Christian entrepreneurs and professionals across the U.S. and Ethiopia. Through connection, communication, and collaboration, we strengthen both the spiritual and economic well-being of the Christian community.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#join" className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-sm font-bold px-6 py-3.5 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-xl shadow-[var(--accent)]/30">
-                  Join the Network
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                </a>
-                <a href="#who-we-are" className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold px-6 py-3.5 rounded-xl border border-white/15 hover:bg-white/20 transition-colors">
-                  Learn More
-                </a>
-              </div>
-              <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-md mt-12">
-                {[
-                  { value: '300+', label: 'Members' },
-                  { value: '15', label: 'Industries' },
-                  { value: '2', label: 'Countries' },
-                ].map(s => (
-                  <div key={s.label}>
-                    <div className="font-serif text-xl sm:text-2xl text-white font-bold">{s.value}</div>
-                    <div className="text-xs text-[#94A3B8] mt-0.5 font-medium">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+        <div className="absolute top-0 right-0 w-[28rem] h-[28rem] bg-[var(--accent)] rounded-full blur-[180px] opacity-10 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[var(--brand)] rounded-full blur-[140px] opacity-25 pointer-events-none" />
+        <TriangleArt className="absolute left-8 top-24 w-24 h-24 opacity-40 hidden md:block" />
+        <TriangleArt className="absolute right-16 top-36 w-16 h-16 opacity-30 hidden md:block" />
+        <div className="relative max-w-5xl mx-auto px-4 md:px-8 pt-24 pb-28 md:pt-36 md:pb-44 text-center">
+          <p className="overline-gold mb-8 text-[var(--accent)]">
+            Kingdom Builders Network
+          </p>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-6">
+            Building God's Kingdom
+          </h1>
+          <p className="font-serif text-2xl sm:text-3xl md:text-4xl gold-gradient-text mb-10">
+            Every Day, Everywhere.
+          </p>
+          <p className="text-[#94A3B8] text-base md:text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
+            Kingdom Builders Network (KBN) is a registered ministry connecting hundreds of Ethiopian Christian entrepreneurs and professionals across the U.S. and Ethiopia — strengthening the spiritual and economic well-being of the Christian community.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onClick={() => setAuthPage('signup')} className="btn-pill btn-gold shadow-xl shadow-[var(--accent)]/30">
+              Become a Member
+            </button>
+            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="btn-pill btn-outline-light">
+              Explore Events
+            </button>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[var(--surface-alt)] to-transparent" />
+        <CurveDivider fill="var(--surface)" position="bottom" />
       </section>
 
-      {/* About */}
-      <section id="about-us" className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Who We Are" title="Kingdom Builders Network" subtitle="Inspired by Psalm 133:1 — 'Behold, how good and pleasant it is when God's people live together in unity!' — KBN envisions a united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life." />
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+      
+
+     
+
+      {/* About KBN */}
+      <section className="relative py-20 md:py-28 bg-[var(--surface)] overflow-hidden">
+        <div className="absolute -right-16 top-10 w-64 h-64 rounded-[3rem] border border-[var(--border-default)] rotate-12 pointer-events-none hidden md:block" />
+        <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="overline-gold mb-4">Who We Are</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-8 uppercase">
+              Raising Up Kingdom Builders
+            </h2>
+            <TriangleArt className="w-24 h-24 opacity-60 mb-6" />
+            <p className="text-[var(--text-secondary)] leading-relaxed mb-4">
+              Since our founding, Kingdom Builders Network has passionately pursued the mission to unite Christian entrepreneurs and professionals — people whose hearts are set on fire to live purposefully and build the Kingdom of God in every sphere of life.
+            </p>
+            <p className="text-[var(--text-secondary)] leading-relaxed mb-8">
+              Through dynamic gatherings, practical equipping, and strategic initiatives, we come alongside churches and believers to make spiritual decisions, activate God-given purpose, and create impact across the United States and Ethiopia.
+            </p>
+            <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy">
+              See the Mission in Action
+            </button>
+          </div>
+          <div className="relative">
+            <img src={suraImg} alt="Kingdom Builders Network gathering" className="relative w-full h-72 md:h-[28rem] object-cover rounded-[3rem] shadow-2xl" />
+            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[var(--accent)] rounded-full flex items-center justify-center text-[var(--brand-dark)] shadow-xl">
+              <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+     
+
+      {/* Explore ways */}
+      <section className="relative py-20 md:py-28 bg-[var(--brand-dark)] overflow-hidden">
+
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-14">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <p className="overline-gold mb-3 text-[var(--accent)]">Explore ways</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white uppercase">To Forge Forward</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { img: peopleImg, title: 'Networking Events', desc: 'Quarterly gatherings uniting Christian entrepreneurs and professionals across the U.S. and Ethiopia.' },
+              { img: worshipImg, title: 'Worship & Prayer', desc: 'Powerful gatherings of worship and intercessory prayer for our businesses, families, and nation.' },
+              { img: usaOneImg, title: 'Global Movement', desc: 'Building Christian schools, institutions, and community hubs that reflect Kingdom values.' },
+            ].map(way => (
+              <button key={way.title} onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="group text-left cursor-pointer">
+                <div className="h-60 overflow-hidden rounded-t-[3rem] border-b-4 border-[var(--accent)]">
+                  <img src={way.img} alt={way.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                </div>
+                <div className="px-2 pt-6">
+                  <h3 className="font-serif text-xl text-white mb-3 uppercase tracking-wide">{way.title}</h3>
+                  <p className="text-sm text-[#94A3B8] leading-relaxed mb-4">{way.desc}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+        <CurveDivider fill="var(--surface-alt)" position="bottom" />
+
+      </section>
+
+      {/* Who We Are */}
+      <section className="relative py-20 md:py-28 bg-[var(--surface-alt)] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="overline-gold mb-4">Who We Are</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6 uppercase">
+              Kingdom Builders Network
+            </h2>
+            <p className="text-[var(--text-secondary)] text-lg md:text-xl leading-relaxed">
+              Inspired by Psalm 133:1 — 'Behold, how good and pleasant it is when God's people live together in unity!' — KBN envisions a united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6 lg:grid-cols-1">
             {[
               { title: 'Unity in Christ', desc: 'Building relationships among believers for mutual spiritual and professional growth, reflecting the heart of Psalm 133.' },
               { title: 'Integrity & Excellence', desc: 'Upholding Christian ethics in all professional and business dealings while pursuing excellence in leadership and community transformation.' },
               { title: 'Service', desc: 'Using resources, skills, and influence to serve churches, communities, and God\'s Kingdom — empowering believers and building Christian institutions.' },
-            ].map(item => (
-              <div key={item.title} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6 text-center group">
-                <div className="w-12 h-12 rounded-xl bg-[var(--accent-light)] flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <svg className="w-6 h-6 text-[var(--accent-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            ].map(pillar => (
+              <div key={pillar.title} className="flex items-center gap-4 text-left">
+                <div className="w-14 h-14 rounded-full bg-[var(--accent)] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--accent)]/25">
+                  <svg className="w-6 h-6 text-[var(--brand-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
-                <h3 className="font-semibold text-[var(--text-primary)] mb-2">{item.title}</h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{item.desc}</p>
+                <div>
+                  <h3 className="font-semibold text-[var(--text-primary)] uppercase tracking-wide">{pillar.title}</h3>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{pillar.desc}</p>
+                </div>
               </div>
             ))}
           </div>
-
-          {/* Achievements */}
-          <div className="max-w-4xl mx-auto mt-16">
-            <h3 className="font-serif text-2xl text-[var(--text-primary)] text-center mb-8">Our Impact (Past 3 Years)</h3>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[var(--accent-dark)] mb-3">
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
-                  United States
-                </div>
-                <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                  <li>• Connected Ethiopian Christian professionals in multiple states</li>
-                  <li>• Hosted 3 successful national networking events</li>
-                  <li>• Developing strategic plan for commercial buildings to support Christian businesses</li>
-                </ul>
-              </div>
-              <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-6">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[var(--accent-dark)] mb-3">
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
-                  Ethiopia
-                </div>
-                <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                  <li>• Held 2 large-scale networking events in Hawassa</li>
-                  <li>• Launched KG to College Christian School in Hawassa</li>
-                  <li>• Building Kingdom Business Hubs across Addis Ababa</li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Our Purpose" title="Mission & Vision" light />
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-10 text-center group card-hover">
-              <div className="w-16 h-16 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <svg className="w-8 h-8 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-              </div>
-              <h3 className="font-serif text-2xl text-white mb-4">Our Mission</h3>
-              <p className="text-[#94A3B8] leading-relaxed text-lg">To unite Christian entrepreneurs and professionals through connection, communication, and collaboration — strengthening both the spiritual and physical well-being of the Christian community locally and globally.</p>
+     
+
+      {/* Testimonials */}
+      <section className="relative overflow-hidden bg-[var(--surface)]">
+  <TriangleArt className="absolute left-[6%] top-[20%] w-20 h-20 opacity-30 hidden md:block" />
+  <TriangleArt className="absolute right-[8%] top-[30%] w-14 h-14 opacity-25 hidden md:block" />
+  <div className="absolute left-[10%] bottom-12 w-24 h-24 rounded-full border-2 border-[var(--accent)]/30 hidden md:block" />
+  <div className="absolute right-[12%] bottom-20 w-16 h-16 rounded-[2rem] border-2 border-[var(--accent)]/20 rotate-12 hidden md:block" />
+
+  <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-20 md:pt-28">
+    <div className="text-center max-w-2xl mx-auto mb-24">
+      <p className="overline-gold mb-3">Stories of God’s Faithfulness</p>
+      <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">Stories of Faith</h2>
+    </div>
+
+    <div className="relative">
+      <div className="absolute top-1/2 bottom-0 left-1/2 -translate-x-1/2 w-screen bg-[var(--surface-alt)]" />
+      <div className="relative grid md:grid-cols-3 gap-x-8 gap-y-16 md:gap-y-8 pb-20 md:pb-28">
+        {[
+          { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.', img: peopleImg, dark: true },
+          { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.', img: atlantaPeopleImg, dark: false },
+          { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.', img: groupImg, dark: true },
+        ].map(t => (
+          <figure key={t.name} className={`relative rounded-[2rem] px-7 pt-20 pb-9 text-center shadow-xl flex flex-col ${t.dark ? 'bg-[var(--brand)]' : 'bg-[var(--accent)]'}`}>
+            <div className={`absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full overflow-hidden ring-4 shadow-lg ${t.dark ? 'ring-[var(--accent)]' : 'ring-[var(--brand)]'}`}>
+              <img src={t.img} alt={t.name} className="w-full h-full object-cover" />
             </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-10 text-center group card-hover">
-              <div className="w-16 h-16 rounded-2xl bg-[var(--accent)]/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <svg className="w-8 h-8 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-              </div>
-              <h3 className="font-serif text-2xl text-white mb-4">Our Vision</h3>
-              <p className="text-[#94A3B8] leading-relaxed text-lg">A united community of Christian entrepreneurs and professionals who are spiritually rooted, socially connected, and economically empowered to build the Kingdom of God in every sphere of life — in Ethiopia, the U.S., and beyond.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+            <blockquote className={`text-sm leading-relaxed mb-6 flex-1 ${t.dark ? 'text-[#C7CFDD]' : 'text-[var(--brand-dark)]/80'}`}>"{t.quote}"</blockquote>
+            <figcaption>
+              <div className={`text-base font-bold uppercase tracking-wide ${t.dark ? 'text-white' : 'text-[var(--brand-dark)]'}`}>{t.name}</div>
+              <div className={`text-xs ${t.dark ? 'text-[#94A3B8]' : 'text-[var(--brand-dark)]/60'}`}>{t.role}</div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Events */}
-      <section id="events" className="py-16 sm:py-20 md:py-28 animate-fade-in-up">
+      <section id="events" className="relative py-20 md:py-28 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <SectionHeading overline="Get Involved" title="Our Events" subtitle="Explore the gatherings, conferences, and outreach events that bring our community together." />
-          <div className="text-center">
-            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="inline-flex items-center justify-center gap-2 bg-[var(--brand)] text-white text-sm font-semibold px-6 py-3 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 cursor-pointer">
-              View All Events
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12">
+            <div>
+              <p className="overline-gold mb-3">The Latest</p>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">Events & Gatherings</h2>
+            </div>
+            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy">
+              See All Events
             </button>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {getEvents().slice(0, 4).map(ev => (
+              <button key={ev.slug} onClick={() => { setShowEvents(true); setSelectedEvent(ev); window.scrollTo(0, 0) }} className="group text-left cursor-pointer">
+                <div className="h-52 overflow-hidden rounded-t-[2rem] border-b-4 border-[var(--accent)]">
+                  <img src={ev.brochure} alt={ev.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                </div>
+                <h3 className="font-serif text-base text-[var(--text-primary)] leading-snug mt-4 line-clamp-2 group-hover:text-[var(--accent-dark)] transition-colors">{ev.title}</h3>
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="join" className="py-16 sm:py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
+      {/* Founder CTA */}
+      <section className="relative py-20 md:py-28 bg-[var(--brand-dark)] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)] rounded-full blur-[180px] opacity-5" />
-        <div className="relative max-w-3xl mx-auto px-4 md:px-8 text-center">
-          <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">Join a Movement That Builds God's Kingdom</h2>
-          <p className="text-[#94A3B8] text-lg leading-relaxed mb-10">Become part of a growing network of Ethiopian Christian entrepreneurs and professionals committed to making a Kingdom impact through faith, excellence, and service — across Ethiopia, the USA, and beyond.</p>
-          <button onClick={() => setAuthPage('signup')} className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30 cursor-pointer">
-            Become a Member
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+      
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-14 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="font-serif text-3xl sm:text-4xl text-[var(--accent)] mb-8 leading-snug">Raising Up Kingdom Builders</p>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white leading-tight mb-10 uppercase">
+              People Who Love God, Love Others, and Advance the Kingdom Everywhere They Go.
+            </h2>
+           
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <img src={excelImg} alt="Founder" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
+            <img src={worshipingImg} alt="Worship gathering" className="w-full h-56 md:h-72 object-cover rounded-[2rem] mt-8" />
+            <img src={addisOneImg} alt="Event" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
+            <img src={stageImg} alt="Stage" className="w-full h-56 md:h-72 object-cover rounded-[2rem] mt-8" />
+          </div>
+        </div>
+      </section>
+
+      {/* Quiz CTA */}
+      <section className="relative py-16 md:py-20 bg-[var(--accent)] overflow-hidden">
+        <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--brand-dark)] leading-tight mb-6">
+            Discover your kingdom impact.
+          </h2>
+          <button onClick={() => setAuthPage('signup')} className="btn-pill btn-navy">
+            Get Started
           </button>
         </div>
       </section>
@@ -326,7 +419,7 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-[var(--brand)] text-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 sm:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
             <div className="sm:col-span-2 lg:col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
               <img src={knbLogo} alt="KBN Logo" className="w-9 h-9 rounded-xl object-cover bg-white/10" />
@@ -346,14 +439,6 @@ export default function App() {
                   ) : (
                     <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                   )
-                ))}
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white text-sm mb-4">Resources</h4>
-              <div className="space-y-2.5">
-                {['Leadership Academy', 'KBN App & Podcast', 'Prayer Requests', 'KBN Journal', 'FAQ'].map(link => (
-                  <a key={link} href="#" className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                 ))}
               </div>
             </div>
