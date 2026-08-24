@@ -112,8 +112,8 @@ function TriangleArt({ className = '' }: { className?: string }) {
 
 function CurveDivider({ fill = 'var(--surface-alt)', position = 'bottom', flip = false, className = '' }: { fill?: string; position?: 'top' | 'bottom'; flip?: boolean; className?: string }) {
   return (
-    <svg className={`absolute ${position === 'bottom' ? 'bottom-0' : 'top-0'} left-0 w-full ${flip ? 'rotate-180' : ''} ${className}`} viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,64 C240,120 480,0 720,32 C960,64 1200,120 1440,56 L1440,120 L0,120 Z" fill={fill} />
+    <svg className={`absolute block ${position === 'bottom' ? 'bottom-[-1px]' : 'top-[-1px]'} left-0 w-full h-10 sm:h-14 md:h-20 ${flip ? 'rotate-180' : ''} ${className}`} viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,64 C240,120 480,0 720,32 C960,64 1200,120 1440,56 L1440,124 L0,124 Z" fill={fill} />
     </svg>
   )
 }
@@ -259,7 +259,7 @@ export default function App() {
 
       {/* Explore ways */}
       <section className="relative py-20 md:py-28 bg-[var(--brand-dark)] overflow-hidden">
-    
+
         <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-14">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <p className="overline-gold mb-3 text-[var(--accent)]">Explore ways</p>
@@ -278,20 +278,17 @@ export default function App() {
                 <div className="px-2 pt-6">
                   <h3 className="font-serif text-xl text-white mb-3 uppercase tracking-wide">{way.title}</h3>
                   <p className="text-sm text-[#94A3B8] leading-relaxed mb-4">{way.desc}</p>
-                  <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--accent)]">
-                    Learn More
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                  </span>
                 </div>
               </button>
             ))}
           </div>
         </div>
-        <CurveDivider fill="var(--surface)" position="bottom" />
+        <CurveDivider fill="var(--surface-alt)" position="bottom" />
+
       </section>
 
       {/* Who We Are */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
+      <section className="relative py-20 md:py-28 bg-[var(--surface-alt)] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <p className="overline-gold mb-4">Who We Are</p>
@@ -326,40 +323,40 @@ export default function App() {
 
       {/* Testimonials */}
       <section className="relative overflow-hidden bg-[var(--surface)]">
-        <TriangleArt className="absolute left-[6%] top-[20%] w-20 h-20 opacity-30 hidden md:block" />
-        <TriangleArt className="absolute right-[8%] top-[30%] w-14 h-14 opacity-25 hidden md:block" />
-        <div className="absolute left-[10%] bottom-12 w-24 h-24 rounded-full border-2 border-[var(--accent)]/30 hidden md:block" />
-        <div className="absolute right-[12%] bottom-20 w-16 h-16 rounded-[2rem] border-2 border-[var(--accent)]/20 rotate-12 hidden md:block" />
+  <TriangleArt className="absolute left-[6%] top-[20%] w-20 h-20 opacity-30 hidden md:block" />
+  <TriangleArt className="absolute right-[8%] top-[30%] w-14 h-14 opacity-25 hidden md:block" />
+  <div className="absolute left-[10%] bottom-12 w-24 h-24 rounded-full border-2 border-[var(--accent)]/30 hidden md:block" />
+  <div className="absolute right-[12%] bottom-20 w-16 h-16 rounded-[2rem] border-2 border-[var(--accent)]/20 rotate-12 hidden md:block" />
 
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-20 md:pt-28">
-          <div className="text-center max-w-2xl mx-auto mb-24">
-            <p className="overline-gold mb-3">Forging Forward</p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">With the Love of Jesus</h2>
-          </div>
+  <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-20 md:pt-28">
+    <div className="text-center max-w-2xl mx-auto mb-24">
+      <p className="overline-gold mb-3">Stories of God’s Faithfulness</p>
+      <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">Stories of Faith</h2>
+    </div>
 
-          <div className="relative">
-            <div className="absolute top-1/2 bottom-0 left-1/2 -translate-x-1/2 w-screen bg-[var(--surface-alt)]" />
-            <div className="relative grid md:grid-cols-3 gap-8 pb-20 md:pb-28">
-              {[
-                { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.', img: peopleImg, dark: true },
-                { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.', img: atlantaPeopleImg, dark: false },
-                { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.', img: groupImg, dark: true },
-              ].map(t => (
-                <figure key={t.name} className={`relative rounded-[2rem] px-7 pt-20 pb-9 text-center shadow-xl flex flex-col ${t.dark ? 'bg-[var(--brand)]' : 'bg-[var(--accent)]'}`}>
-                  <div className={`absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full overflow-hidden ring-4 shadow-lg ${t.dark ? 'ring-[var(--accent)]' : 'ring-[var(--brand)]'}`}>
-                    <img src={t.img} alt={t.name} className="w-full h-full object-cover" />
-                  </div>
-                  <blockquote className={`text-sm leading-relaxed mb-6 flex-1 ${t.dark ? 'text-[#C7CFDD]' : 'text-[var(--brand-dark)]/80'}`}>"{t.quote}"</blockquote>
-                  <figcaption>
-                    <div className={`text-base font-bold uppercase tracking-wide ${t.dark ? 'text-white' : 'text-[var(--brand-dark)]'}`}>{t.name}</div>
-                    <div className={`text-xs ${t.dark ? 'text-[#94A3B8]' : 'text-[var(--brand-dark)]/60'}`}>{t.role}</div>
-                  </figcaption>
-                </figure>
-              ))}
+    <div className="relative">
+      <div className="absolute top-1/2 bottom-0 left-1/2 -translate-x-1/2 w-screen bg-[var(--surface-alt)]" />
+      <div className="relative grid md:grid-cols-3 gap-x-8 gap-y-16 md:gap-y-8 pb-20 md:pb-28">
+        {[
+          { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.', img: peopleImg, dark: true },
+          { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.', img: atlantaPeopleImg, dark: false },
+          { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.', img: groupImg, dark: true },
+        ].map(t => (
+          <figure key={t.name} className={`relative rounded-[2rem] px-7 pt-20 pb-9 text-center shadow-xl flex flex-col ${t.dark ? 'bg-[var(--brand)]' : 'bg-[var(--accent)]'}`}>
+            <div className={`absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full overflow-hidden ring-4 shadow-lg ${t.dark ? 'ring-[var(--accent)]' : 'ring-[var(--brand)]'}`}>
+              <img src={t.img} alt={t.name} className="w-full h-full object-cover" />
             </div>
-          </div>
-        </div>
-      </section>
+            <blockquote className={`text-sm leading-relaxed mb-6 flex-1 ${t.dark ? 'text-[#C7CFDD]' : 'text-[var(--brand-dark)]/80'}`}>"{t.quote}"</blockquote>
+            <figcaption>
+              <div className={`text-base font-bold uppercase tracking-wide ${t.dark ? 'text-white' : 'text-[var(--brand-dark)]'}`}>{t.name}</div>
+              <div className={`text-xs ${t.dark ? 'text-[#94A3B8]' : 'text-[var(--brand-dark)]/60'}`}>{t.role}</div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Events */}
       <section id="events" className="relative py-20 md:py-28 overflow-hidden">
