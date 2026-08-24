@@ -162,3 +162,69 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 16px 32px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 300ms ease;
+  white-space: nowrap;
+}
+
+.btn-gold {
+  background: var(--accent);
+  color: var(--brand-dark);
+}
+.btn-gold:hover {
+  background: var(--accent-dark);
+  color: #ffffff;
+}
+
+.btn-navy {
+  background: var(--brand);
+  color: var(--accent);
+}
+.btn-navy:hover {
+  background: var(--brand-light);
+  color: #ffffff;
+}
+
+.btn-outline-light {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.gradient-bar {
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--accent) 32%,
+    #F0D080 32%,
+    #F0D080 68%,
+    var(--accent-dark) 68%,
+    var(--accent-dark) 100%
+  );
+  height: 10px;
+}
+
+.overline-gold {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}

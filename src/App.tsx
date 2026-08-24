@@ -6,6 +6,8 @@ import addisOneImg from './assets/addis one.jpg'
 import worshipImg from '../assets/events/hawassa worship.jpg'
 import stageImg from '../assets/events/Atlanta stage one.jpg'
 import peopleImg from '../assets/events/denver peoples.jpg'
+import atlantaPeopleImg from '../assets/events/Atlanta peoples one.jpg'
+import groupImg from '../assets/events/hawassa group image.jpg'
 import LoginPage from './components/LoginPage'
 import SignUpPage from './components/SignUpPage'
 import AdminDashboard from './components/AdminDashboard'
@@ -112,6 +114,25 @@ function SectionHeading({ overline, title, subtitle, light }: { overline?: strin
   )
 }
 
+function TriangleArt({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 120 110" fill="none" aria-hidden="true">
+      <path d="M60 10 L112 98 L8 98 Z" stroke="var(--accent)" strokeWidth="2" />
+      <path d="M60 34 L94 92 L26 92 Z" stroke="var(--accent)" strokeWidth="1.5" opacity="0.55" />
+      <path d="M60 58 L76 84 L44 84 Z" stroke="var(--accent)" strokeWidth="1.5" opacity="0.3" />
+      <circle cx="60" cy="52" r="3" fill="var(--accent)" />
+    </svg>
+  )
+}
+
+function CurveDivider({ fill = 'var(--surface-alt)', position = 'bottom', flip = false, className = '' }: { fill?: string; position?: 'top' | 'bottom'; flip?: boolean; className?: string }) {
+  return (
+    <svg className={`absolute ${position === 'bottom' ? 'bottom-0' : 'top-0'} left-0 w-full ${flip ? 'rotate-180' : ''} ${className}`} viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,64 C240,120 480,0 720,32 C960,64 1200,120 1440,56 L1440,120 L0,120 Z" fill={fill} />
+    </svg>
+  )
+}
+
 export default function App() {
   const [showAboutUs, setShowAboutUs] = useState(false)
   const [showEvents, setShowEvents] = useState(false)
@@ -181,108 +202,137 @@ export default function App() {
       />
 
       {/* Hero */}
-      <section id="home" className="relative bg-[var(--brand-dark)] text-white overflow-hidden">
+      <section id="home" className="relative text-white overflow-hidden section_has_divider">
+        <div className="absolute inset-0">
+          <img src={stageImg} alt="" aria-hidden="true" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--brand-dark)]/95 via-[var(--brand-dark)]/85 to-[var(--brand-dark)]/95" />
+        </div>
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         <div className="absolute top-0 right-0 w-[28rem] h-[28rem] bg-[var(--accent)] rounded-full blur-[180px] opacity-10 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-[var(--brand)] rounded-full blur-[140px] opacity-25 pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-4 md:px-8 pt-20 pb-16 md:pt-32 md:pb-24 text-center">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-8">
+        <TriangleArt className="absolute left-8 top-24 w-24 h-24 opacity-40 hidden md:block" />
+        <TriangleArt className="absolute right-16 top-36 w-16 h-16 opacity-30 hidden md:block" />
+        <div className="relative max-w-5xl mx-auto px-4 md:px-8 pt-24 pb-28 md:pt-36 md:pb-44 text-center">
+          <p className="overline-gold mb-8 text-[var(--accent)]">
             Kingdom Builders Network
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.08] mb-6">
+          </p>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-6">
             Building God's Kingdom
-            <span className="block gold-gradient-text mt-1">Every Day, Everywhere.</span>
           </h1>
-          <p className="text-[#94A3B8] text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
+          <p className="font-serif text-2xl sm:text-3xl md:text-4xl gold-gradient-text mb-10">
+            Every Day, Everywhere.
+          </p>
+          <p className="text-[#C7CFDD] text-base md:text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
             Kingdom Builders Network (KBN) is a registered ministry connecting hundreds of Ethiopian Christian entrepreneurs and professionals across the U.S. and Ethiopia — strengthening the spiritual and economic well-being of the Christian community.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button onClick={() => setAuthPage('signup')} className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-sm font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-xl shadow-[var(--accent)]/30 cursor-pointer">
+            <button onClick={() => setAuthPage('signup')} className="btn-pill btn-gold shadow-xl shadow-[var(--accent)]/30">
               Become a Member
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
             </button>
-            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold px-8 py-4 rounded-xl border border-white/15 hover:bg-white/20 transition-colors cursor-pointer">
+            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="btn-pill btn-outline-light">
               Explore Events
             </button>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[var(--surface-alt)] to-transparent" />
+        <CurveDivider fill="var(--surface-alt)" position="bottom" />
       </section>
 
       {/* Announcement Banner */}
-      <div className="bg-[var(--accent)] text-[var(--brand-dark)] text-center">
-        <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="w-full text-xs sm:text-sm font-bold tracking-wide uppercase px-4 py-4 hover:bg-[var(--accent-dark)] hover:text-white transition-colors cursor-pointer">
-          Celebrate the Kingdom Builders movement — see our latest events →
-        </button>
-      </div>
+      <section className="bg-[var(--accent)]">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 text-center py-8">
+          <p className="text-[var(--brand-dark)] text-base sm:text-xl font-bold tracking-wide uppercase mb-4 leading-snug">
+            Celebrate the Kingdom Builders movement
+          </p>
+          <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy">
+            Learn More
+          </button>
+        </div>
+      </section>
 
       {/* Mission intro */}
-      <section className="py-20 md:py-28">
+      <section className="relative py-20 md:py-28 overflow-hidden">
         <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-4">Make extraordinary impact</p>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6">
+          <p className="overline-gold mb-4">Make extraordinary impact</p>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-10 uppercase">
             In Everyday, Ordinary Moments
           </h2>
+          <button onClick={() => setShowAboutUs(true)} className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[var(--accent)] text-[var(--brand-dark)] mb-10 mx-auto hover:bg-[var(--accent-dark)] hover:text-white transition-colors shadow-lg shadow-[var(--accent)]/30 cursor-pointer" aria-label="Play">
+            <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+          </button>
           <p className="text-[var(--text-secondary)] text-lg leading-relaxed mb-10">
             Did you know God created you to make an extraordinary impact? Through connection, communication, and collaboration, KBN equips Christian entrepreneurs and professionals to live out their God-given purpose right where they are — in their businesses, workplaces, and communities.
           </p>
-          <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="inline-flex items-center justify-center gap-2 bg-[var(--brand)] text-white text-sm font-semibold px-8 py-4 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 cursor-pointer">
+          <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy shadow-lg shadow-[var(--brand)]/20">
             Discover Our Mission
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
           </button>
         </div>
       </section>
 
       {/* About KBN */}
-      <section className="py-20 md:py-28 bg-[var(--surface)]">
+      <section className="relative py-20 md:py-28 bg-[var(--surface)] overflow-hidden">
+        <div className="absolute -right-16 top-10 w-64 h-64 rounded-[3rem] border border-[var(--border-default)] rotate-12 pointer-events-none hidden md:block" />
         <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-4">Who We Are</p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6">
+            <p className="overline-gold mb-4">Who We Are</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-8 uppercase">
               Raising Up Kingdom Builders
             </h2>
+            <TriangleArt className="w-24 h-24 opacity-60 mb-6" />
             <p className="text-[var(--text-secondary)] leading-relaxed mb-4">
               Since our founding, Kingdom Builders Network has passionately pursued the mission to unite Christian entrepreneurs and professionals — people whose hearts are set on fire to live purposefully and build the Kingdom of God in every sphere of life.
             </p>
             <p className="text-[var(--text-secondary)] leading-relaxed mb-8">
               Through dynamic gatherings, practical equipping, and strategic initiatives, we come alongside churches and believers to make spiritual decisions, activate God-given purpose, and create impact across the United States and Ethiopia.
             </p>
-            <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-dark)] hover:text-[var(--brand)] transition-colors cursor-pointer">
+            <button onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy">
               See the Mission in Action
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </button>
           </div>
           <div className="relative">
-            <img src={peopleImg} alt="Kingdom Builders Network gathering" className="w-full h-72 md:h-[28rem] object-cover rounded-3xl shadow-2xl" />
-            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[var(--accent)] rounded-3xl flex items-center justify-center text-[var(--brand-dark)] shadow-xl">
+            <img src={peopleImg} alt="Kingdom Builders Network gathering" className="relative w-full h-72 md:h-[28rem] object-cover rounded-[3rem] shadow-2xl" />
+            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[var(--accent)] rounded-full flex items-center justify-center text-[var(--brand-dark)] shadow-xl">
               <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Igniting hearts */}
+      <section className="relative py-16 md:py-20 bg-gradient-to-r from-[var(--accent-light)] to-[var(--surface)] overflow-hidden">
+        <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
+          <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--accent-dark)] italic mb-2">Igniting hearts on fire</p>
+          <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-[var(--text-primary)] uppercase tracking-wide">
+            And Lives on Purpose.
+          </p>
+        </div>
+        <div className="gradient-bar absolute bottom-0 left-[10%] right-[10%]" />
+      </section>
+
       {/* Explore ways */}
-      <section className="py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
+      <section className="relative py-20 md:py-28 bg-[var(--brand-dark)] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8">
+        <CurveDivider fill="var(--surface-alt)" position="top" />
+        <TriangleArt className="absolute left-[6%] top-24 w-16 h-16 opacity-30 hidden md:block" />
+        <TriangleArt className="absolute right-[8%] top-16 w-12 h-12 opacity-25 hidden md:block" />
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-14">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-3">Explore ways</p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white">To Forge Forward</h2>
+            <p className="overline-gold mb-3 text-[var(--accent)]">Explore ways</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white uppercase">To Forge Forward</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { img: peopleImg, title: 'Networking Events', desc: 'Quarterly gatherings uniting Christian entrepreneurs and professionals across the U.S. and Ethiopia.' },
               { img: worshipImg, title: 'Worship & Prayer', desc: 'Powerful gatherings of worship and intercessory prayer for our businesses, families, and nation.' },
               { img: usaOneImg, title: 'Global Movement', desc: 'Building Christian schools, institutions, and community hubs that reflect Kingdom values.' },
             ].map(way => (
-              <button key={way.title} onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="group text-left bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden hover:bg-white/10 transition-all cursor-pointer">
-                <div className="h-40 overflow-hidden">
+              <button key={way.title} onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="group text-left cursor-pointer">
+                <div className="h-60 overflow-hidden rounded-t-[3rem] border-b-4 border-[var(--accent)]">
                   <img src={way.img} alt={way.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-lg text-white mb-2 uppercase tracking-wide">{way.title}</h3>
+                <div className="px-2 pt-6">
+                  <h3 className="font-serif text-xl text-white mb-3 uppercase tracking-wide">{way.title}</h3>
                   <p className="text-sm text-[#94A3B8] leading-relaxed mb-4">{way.desc}</p>
-                  <span className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--accent)]">
+                  <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--accent)]">
                     Learn More
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                   </span>
@@ -291,30 +341,35 @@ export default function App() {
             ))}
           </div>
         </div>
+        <CurveDivider fill="var(--surface)" position="bottom" />
       </section>
 
       {/* Belief statement */}
-      <section className="py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-4">We Believe</p>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6">
-            Through Our Bold, Fervent Prayers
-          </h2>
-          <p className="text-[var(--text-secondary)] text-lg md:text-xl leading-relaxed">
-            We will see God do extraordinary things through the lives of ordinary people.
-          </p>
-          <div className="grid sm:grid-cols-3 gap-6 mt-14">
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="overline-gold mb-4">We Believe</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-6 uppercase">
+              Through Our Bold, Fervent Prayers
+            </h2>
+            <p className="text-[var(--text-secondary)] text-lg md:text-xl leading-relaxed">
+              We will see God do extraordinary things through the lives of ordinary people.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6 lg:grid-cols-1">
             {[
               { title: 'Fueling a Movement', desc: 'Uniting believers through consistent networking and fellowship.' },
               { title: 'Equipping Believers', desc: 'Providing training and resources for spiritual and professional growth.' },
               { title: 'Multiplying Impact', desc: 'Empowering leaders to reach every sphere of society with God\'s love.' },
             ].map(pillar => (
-              <div key={pillar.title} className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-8 text-center">
-                <div className="w-12 h-12 rounded-full bg-[var(--accent-light)] flex items-center justify-center mx-auto mb-5">
-                  <svg className="w-6 h-6 text-[var(--accent-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              <div key={pillar.title} className="flex items-center gap-4 text-left">
+                <div className="w-14 h-14 rounded-full bg-[var(--accent)] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--accent)]/25">
+                  <svg className="w-6 h-6 text-[var(--brand-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
-                <h3 className="font-semibold text-[var(--text-primary)] mb-2">{pillar.title}</h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{pillar.desc}</p>
+                <div>
+                  <h3 className="font-semibold text-[var(--text-primary)] uppercase tracking-wide">{pillar.title}</h3>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{pillar.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -322,25 +377,25 @@ export default function App() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 md:py-28 bg-[var(--surface)]">
+      <section className="relative py-20 md:py-28 bg-[var(--surface)] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-3">Testimonials</p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)]">Forging Forward With Faith</h2>
+            <p className="overline-gold mb-3">Forging Forward</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">With the Love of Jesus</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-10">
             {[
-              { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.' },
-              { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.' },
-              { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.' },
+              { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.', img: peopleImg },
+              { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.', img: atlantaPeopleImg },
+              { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.', img: groupImg },
             ].map(t => (
-              <figure key={t.name} className="bg-[var(--surface-alt)] rounded-2xl border border-[var(--border-light)] p-8 flex flex-col">
-                <div className="flex items-center gap-1 mb-4 text-[var(--accent)]">
-                  {[1, 2, 3, 4, 5].map(s => <span key={s}>★</span>)}
+              <figure key={t.name} className="flex flex-col items-center text-center">
+                <div className="w-44 h-44 rounded-full overflow-hidden mb-6 ring-4 ring-[var(--accent)]/40">
+                  <img src={t.img} alt={t.name} className="w-full h-full object-cover" />
                 </div>
                 <blockquote className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6 flex-1">"{t.quote}"</blockquote>
                 <figcaption>
-                  <div className="text-sm font-semibold text-[var(--text-primary)]">{t.name}</div>
+                  <div className="text-base font-bold text-[var(--text-primary)] uppercase tracking-wide">{t.name}</div>
                   <div className="text-xs text-[var(--text-tertiary)]">{t.role}</div>
                 </figcaption>
               </figure>
@@ -350,31 +405,24 @@ export default function App() {
       </section>
 
       {/* Events */}
-      <section id="events" className="py-20 md:py-28">
+      <section id="events" className="relative py-20 md:py-28 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12">
             <div>
-              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-dark)] mb-3">The Latest</p>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)]">Events & Gatherings</h2>
+              <p className="overline-gold mb-3">The Latest</p>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] uppercase">Events & Gatherings</h2>
             </div>
-            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-dark)] hover:text-[var(--brand)] transition-colors cursor-pointer">
+            <button onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="btn-pill btn-navy">
               See All Events
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </button>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {getEvents().slice(0, 6).map(ev => (
-              <button key={ev.slug} onClick={() => { setShowEvents(true); setSelectedEvent(ev); window.scrollTo(0, 0) }} className="group text-left card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] overflow-hidden cursor-pointer">
-                <div className="h-44 overflow-hidden">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {getEvents().slice(0, 4).map(ev => (
+              <button key={ev.slug} onClick={() => { setShowEvents(true); setSelectedEvent(ev); window.scrollTo(0, 0) }} className="group text-left cursor-pointer">
+                <div className="h-52 overflow-hidden rounded-t-[2rem] border-b-4 border-[var(--accent)]">
                   <img src={ev.brochure} alt={ev.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
-                <div className="p-5">
-                  <h3 className="font-serif text-base text-[var(--text-primary)] leading-snug mb-2 line-clamp-2">{ev.title}</h3>
-                  <span className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--accent-dark)] group-hover:text-[var(--brand)] transition-colors">
-                    View More
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                  </span>
-                </div>
+                <h3 className="font-serif text-base text-[var(--text-primary)] leading-snug mt-4 line-clamp-2 group-hover:text-[var(--accent-dark)] transition-colors">{ev.title}</h3>
               </button>
             ))}
           </div>
@@ -382,28 +430,28 @@ export default function App() {
       </section>
 
       {/* Founder CTA */}
-      <section className="py-20 md:py-28 bg-[var(--brand-dark)] relative overflow-hidden">
+      <section className="relative py-20 md:py-28 bg-[var(--brand-dark)] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #D4A853 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        <CurveDivider fill="var(--surface-alt)" position="top" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)] rounded-full blur-[180px] opacity-5" />
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="absolute -left-20 bottom-0 w-72 h-72 rounded-[4rem] border border-[var(--accent)]/20 rotate-12 pointer-events-none hidden lg:block" />
+        <TriangleArt className="absolute right-[6%] top-16 w-16 h-16 opacity-25 hidden md:block" />
+        <TriangleArt className="absolute left-[4%] bottom-10 w-12 h-12 opacity-20 hidden md:block" />
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-14 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-4">Join the Movement</p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-6">
-              Raising Up Kingdom Builders Who Love God, Love Others, and Advance the Kingdom Everywhere They Go.
+            <p className="font-serif text-3xl sm:text-4xl text-[var(--accent)] mb-8 leading-snug">Raising Up Kingdom Builders</p>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white leading-tight mb-10 uppercase">
+              People Who Love God, Love Others, and Advance the Kingdom Everywhere They Go.
             </h2>
-            <p className="text-[#94A3B8] text-lg leading-relaxed mb-8">
-              Become part of a growing network of Christian entrepreneurs and professionals committed to making a Kingdom impact through faith, excellence, and service.
-            </p>
-            <button onClick={() => setAuthPage('signup')} className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--brand-dark)] text-base font-bold px-8 py-4 rounded-xl hover:bg-[var(--accent-dark)] transition-colors shadow-2xl shadow-[var(--accent)]/30 cursor-pointer">
+            <button onClick={() => setAuthPage('signup')} className="btn-pill btn-gold shadow-2xl shadow-[var(--accent)]/30">
               Become a Member
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
             </button>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img src={surafelImg} alt="Founder" className="w-full h-56 md:h-72 object-cover rounded-3xl" />
-            <img src={worshipImg} alt="Worship gathering" className="w-full h-56 md:h-72 object-cover rounded-3xl" />
-            <img src={addisOneImg} alt="Event" className="w-full h-56 md:h-72 object-cover rounded-3xl" />
-            <img src={stageImg} alt="Stage" className="w-full h-56 md:h-72 object-cover rounded-3xl" />
+            <img src={surafelImg} alt="Founder" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
+            <img src={worshipImg} alt="Worship gathering" className="w-full h-56 md:h-72 object-cover rounded-[2rem] mt-8" />
+            <img src={addisOneImg} alt="Event" className="w-full h-56 md:h-72 object-cover rounded-[2rem]" />
+            <img src={stageImg} alt="Stage" className="w-full h-56 md:h-72 object-cover rounded-[2rem] mt-8" />
           </div>
         </div>
       </section>
