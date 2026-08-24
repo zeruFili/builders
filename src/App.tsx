@@ -11,42 +11,40 @@ import { useAuth } from './auth/AuthContext'
 import { type UserRole } from './auth/auth'
 import { type KbnEvent } from './data/events'
 
-const NAV_ITEMS = ['Home', 'About Us', 'Events'] as const
+const NAV_ITEMS = ['About Us', 'Events'] as const
 
-function Navbar({ onLogin, onSignUp, onHome, onAboutUs, onEvents }: { onLogin: () => void; onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onEvents: () => void }) {
+function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onEvents: () => void }) {
   const { user, logout } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   return (
     <header className="glass sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between gap-4">
-        <button onClick={onHome} className="flex items-center gap-2.5 flex-shrink-0 group">
-          <img src={knbLogo} alt="KBN Logo" className="w-9 h-9 rounded-xl object-cover group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20" />
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+        <button onClick={onHome} className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0 group">
+          <img src={knbLogo} alt="KBN Logo" className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover group-hover:scale-105 transition-transform shadow-lg shadow-[var(--brand)]/20" />
           <span className="font-serif text-lg sm:text-xl text-[var(--text-primary)] tracking-tight">KBN</span>
         </button>
 
         <nav className="hidden lg:flex items-center gap-1">
-          {NAV_ITEMS.map(item =>
-            item === 'About Us' ? (
-              <button key={item} onClick={onAboutUs} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
-                {item}
-              </button>
-            ) : item === 'Events' ? (
-              <button key={item} onClick={onEvents} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
-                {item}
-              </button>
-            ) : (
-              <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all">
-                {item}
-              </a>
-            )
-          )}
+          {NAV_ITEMS.map(item => (
+            <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
+              {item}
+            </button>
+          ))}
         </nav>
+
+        <div className="flex lg:hidden items-center gap-0 flex-shrink-0">
+          {NAV_ITEMS.map(item => (
+            <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className="text-xs sm:text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-1.5 sm:px-2 py-1.5 rounded-xl transition-all cursor-pointer">
+              {item}
+            </button>
+          ))}
+        </div>
 
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
+              <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="hidden xs:flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
                 <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
                 <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
                 <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'}`}>{user.role}</span>
@@ -67,7 +65,6 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs, onEvents }: { onLogin: (
             </>
           ) : (
             <>
-              <button onClick={onLogin} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 sm:px-3 py-2 rounded-xl transition-colors">Login</button>
               <button onClick={onSignUp} className="text-sm font-semibold text-white bg-[var(--brand)] px-3 sm:px-4 py-2 rounded-xl hover:bg-[var(--brand-light)] transition-colors shadow-lg shadow-[var(--brand)]/20 flex items-center gap-2">
                 <span className="hidden xs:inline">Sign Up</span>
                 <svg className="w-4 h-4 xs:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
@@ -81,21 +78,14 @@ function Navbar({ onLogin, onSignUp, onHome, onAboutUs, onEvents }: { onLogin: (
       </div>
       {menuOpen && (
         <div className="lg:hidden border-t border-[var(--border-light)] bg-[var(--surface)] px-4 py-4 space-y-2 animate-slide-down">
-          {NAV_ITEMS.map(item =>
-            item === 'About Us' ? (
-              <button key={item} onClick={() => { onAboutUs(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
-            ) : item === 'Events' ? (
-              <button key={item} onClick={() => { onEvents(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
-            ) : (
-              <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setMenuOpen(false)} className="block w-full text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</a>
-            )
-          )}
+          {NAV_ITEMS.map(item => (
+            <button key={item} onClick={() => { (item === 'About Us' ? onAboutUs : onEvents)(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
+          ))}
           <div className="pt-2 border-t border-[var(--border-light)] space-y-2">
             {user ? (
               <button onClick={() => { logout(); setMenuOpen(false) }} className="block w-full text-center text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">Sign Out</button>
             ) : (
               <>
-                <button onClick={() => { onLogin(); setMenuOpen(false) }} className="block w-full text-center text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">Login</button>
                 <button onClick={() => { onSignUp(); setMenuOpen(false) }} className="block w-full text-center text-sm font-semibold text-white bg-[var(--brand)] py-2.5 rounded-xl hover:bg-[var(--brand-light)] transition-colors">Sign Up</button>
               </>
             )}
@@ -178,7 +168,6 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[var(--surface-alt)]">
       <Navbar
-        onLogin={() => setAuthPage('login')}
         onSignUp={() => setAuthPage('signup')}
         onHome={() => { setAuthPage(null); setShowAboutUs(false); setShowEvents(false); setSelectedEvent(null) }}
         onAboutUs={() => { setShowAboutUs(true); setShowEvents(false); setSelectedEvent(null); window.scrollTo(0, 0) }}
