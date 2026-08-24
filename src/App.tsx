@@ -23,7 +23,6 @@ const NAV_ITEMS = ['About Us', 'Events'] as const
 
 function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onEvents: () => void }) {
   const { user, logout } = useAuth()
-  const [menuOpen, setMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   return (
     <header className="glass sticky top-0 z-50">
@@ -33,23 +32,15 @@ function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => voi
           <span className="font-serif text-lg sm:text-xl text-[var(--text-primary)] tracking-tight">KBN</span>
         </button>
 
-        <nav className="hidden lg:flex items-center gap-1">
-          {NAV_ITEMS.map(item => (
-            <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-xl transition-all cursor-pointer">
-              {item}
-            </button>
-          ))}
-        </nav>
+        <div className="flex items-center gap-1 sm:gap-2">
+          <nav className="flex items-center gap-1">
+            {NAV_ITEMS.map(item => (
+              <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className="text-xs sm:text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-2 sm:px-3 py-2 rounded-xl transition-all cursor-pointer">
+                {item}
+              </button>
+            ))}
+          </nav>
 
-        <div className="flex lg:hidden items-center gap-0 flex-shrink-0">
-          {NAV_ITEMS.map(item => (
-            <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className="text-xs sm:text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-1.5 sm:px-2 py-1.5 rounded-xl transition-all cursor-pointer">
-              {item}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
           {user ? (
             <>
               <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="hidden xs:flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1.5 rounded-xl hover:bg-[var(--surface-alt)] transition-all">
@@ -79,27 +70,8 @@ function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => voi
               </button>
             </>
           )}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden w-10 h-10 rounded-xl border border-[var(--border-default)] flex items-center justify-center text-[var(--text-secondary)] hover:bg-[var(--surface-alt)] transition-colors">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} /></svg>
-          </button>
         </div>
       </div>
-      {menuOpen && (
-        <div className="lg:hidden border-t border-[var(--border-light)] bg-[var(--surface)] px-4 py-4 space-y-2 animate-slide-down">
-          {NAV_ITEMS.map(item => (
-            <button key={item} onClick={() => { (item === 'About Us' ? onAboutUs : onEvents)(); setMenuOpen(false) }} className="block w-full text-left text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">{item}</button>
-          ))}
-          <div className="pt-2 border-t border-[var(--border-light)] space-y-2">
-            {user ? (
-              <button onClick={() => { logout(); setMenuOpen(false) }} className="block w-full text-center text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-3 py-2.5 rounded-xl hover:bg-[var(--surface-alt)] transition-colors">Sign Out</button>
-            ) : (
-              <>
-                <button onClick={() => { onSignUp(); setMenuOpen(false) }} className="block w-full text-center text-sm font-semibold text-white bg-[var(--brand)] py-2.5 rounded-xl hover:bg-[var(--brand-light)] transition-colors">Sign Up</button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
     </header>
   )
 }
@@ -222,7 +194,7 @@ export default function App() {
           <p className="font-serif text-2xl sm:text-3xl md:text-4xl gold-gradient-text mb-10">
             Every Day, Everywhere.
           </p>
-          <p className="text-[#C7CFDD] text-base md:text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
+          <p className="text-[#94A3B8] text-base md:text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
             Kingdom Builders Network (KBN) is a registered ministry connecting hundreds of Ethiopian Christian entrepreneurs and professionals across the U.S. and Ethiopia — strengthening the spiritual and economic well-being of the Christian community.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -234,7 +206,7 @@ export default function App() {
             </button>
           </div>
         </div>
-        <CurveDivider fill="var(--surface-alt)" position="bottom" />
+        <CurveDivider fill="var(--surface)" position="bottom" />
       </section>
 
       
