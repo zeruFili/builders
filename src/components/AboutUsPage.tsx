@@ -6,7 +6,6 @@ import addisOneImg from '../assets/addis one.jpg'
 import addisTwoImg from '../assets/addis two.jpg'
 import hawassaOneImg from '../assets/hawassa one.jpg'
 import hawassaBuildingImg from '../assets/hawassa building.jpg'
-import { BoardOfDirectorsGrid } from './LeadershipSection'
 import { FOUNDER_AND_PRESIDENT } from '../data/leadership'
 
 function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
@@ -334,13 +333,6 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* KBN Board of Directors */}
-      <section className="py-12 sm:py-16 md:py-24 bg-[var(--surface)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          <BoardOfDirectorsGrid cardSurface="alt" />
         </div>
       </section>
 

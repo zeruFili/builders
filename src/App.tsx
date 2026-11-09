@@ -24,7 +24,7 @@ import { getEvents, type KbnEvent } from './data/events'
 
 const NAV_ITEMS = ['About Us', 'Leadership', 'Events', 'Contact Us'] as const
 
-function Navbar({ onSignUp, onHome, onAboutUs, onLeadership, onEvents, onContact, onDashboard }: { onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onLeadership: () => void; onEvents: () => void; onContact: () => void; onDashboard: () => void }) {
+function Navbar({ onHome, onAboutUs, onLeadership, onEvents, onContact, onDashboard }: { onHome: () => void; onAboutUs: () => void; onLeadership: () => void; onEvents: () => void; onContact: () => void; onDashboard: () => void }) {
   const navHandlers: Record<(typeof NAV_ITEMS)[number], () => void> = {
     'About Us': onAboutUs,
     'Leadership': onLeadership,
@@ -53,7 +53,7 @@ function Navbar({ onSignUp, onHome, onAboutUs, onLeadership, onEvents, onContact
         <div className="flex items-center gap-1 sm:gap-2">
           <nav className="flex items-center gap-0.5 sm:gap-1">
             {NAV_ITEMS.map(item => (
-              <button key={item} onClick={navHandlers[item]} className={`text-[11px] sm:text-sm font-medium px-1.5 sm:px-3 py-2 rounded-xl whitespace-nowrap transition-all cursor-pointer ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
+              <button key={item} onClick={navHandlers[item]} className={`text-[11px] xs:text-xs sm:text-sm font-medium px-1.5 xs:px-2 sm:px-3 py-2 rounded-xl whitespace-nowrap transition-all cursor-pointer ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
                 {item}
               </button>
             ))}
@@ -65,7 +65,7 @@ function Navbar({ onSignUp, onHome, onAboutUs, onLeadership, onEvents, onContact
             )}
           </nav>
 
-          {user ? (
+          {user && (
             <>
               <button onClick={() => setUserMenuOpen(!userMenuOpen)} className={`hidden xs:flex items-center gap-2 text-sm font-medium px-2 py-1.5 rounded-xl transition-all ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
                 <img src={user.avatar} alt={user.name} className="w-7 h-7 rounded-lg object-cover ring-2 ring-[var(--border-light)]" />
@@ -89,13 +89,6 @@ function Navbar({ onSignUp, onHome, onAboutUs, onLeadership, onEvents, onContact
                   </button>
                 </div>
               )}
-            </>
-          ) : (
-            <>
-              <button onClick={onSignUp} className={`text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl transition-colors shadow-lg flex items-center gap-2 ${scrolled ? 'text-white bg-[var(--brand)] hover:bg-[var(--brand-light)] shadow-[var(--brand)]/20' : 'text-[var(--brand-dark)] bg-white hover:bg-[var(--accent)]'}`}>
-                <span className="hidden xs:inline">Sign Up</span>
-                <svg className="w-4 h-4 xs:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
-              </button>
             </>
           )}
         </div>
@@ -195,7 +188,6 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[var(--surface-alt)]">
       <Navbar
-        onSignUp={() => setAuthPage('signup')}
         onHome={() => { setAuthPage(null); setShowAboutUs(false); setShowEvents(false); setSelectedEvent(null) }}
         onAboutUs={() => { setShowAboutUs(true); setShowEvents(false); setSelectedEvent(null); window.scrollTo(0, 0) }}
         onLeadership={() => { document.getElementById('leadership')?.scrollIntoView({ behavior: 'smooth' }) }}

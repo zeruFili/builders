@@ -1,6 +1,6 @@
 import { BOARD_OF_DIRECTORS, FOUNDER_AND_PRESIDENT } from "../data/leadership"
 
-export function BoardOfDirectorsGrid({
+function BoardOfDirectorsGrid({
   cardSurface = "alt",
 }: {
   cardSurface?: "alt" | "base"
