@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import knbLogo from './assets/kbn logo.jpg'
-import surafelImg from './assets/surafel.jpg'
 import usaOneImg from './assets/usa one.jpg'
 import addisOneImg from './assets/addis one.jpg'
 import worshipImg from '../assets/events/hawassa worship.jpg'
@@ -8,9 +7,7 @@ import stageImg from '../assets/events/Atlanta stage one.jpg'
 import suraImg from '../assets/events/INTEGROTY  THE FOUNDATION OF KINGDOM INFLUENCE  surafel.jpg'
 import heroImg from '../assets/events/light and salt  peoples one.jpg'
 import peopleImg from '../assets/events/denver peoples.jpg'
-import atlantaPeopleImg from '../assets/events/Atlanta peoples one.jpg'
 import excelImg from '../assets/events/kingdom excellence peoples one.jpg'
-import groupImg from '../assets/events/hawassa group image.jpg'
 import LoginPage from './components/LoginPage'
 import SignUpPage from './components/SignUpPage'
 import AdminDashboard from './components/AdminDashboard'
@@ -19,13 +16,21 @@ import AboutUsPage from './components/AboutUsPage'
 import EventsPage from './components/EventsPage'
 import worshipingImg from '../assets/events/INTEGROTY  THE FOUNDATION OF KINGDOM INFLUENCE peoples three.jpg'
 import EventDetailsPage from './components/EventDetailsPage'
+import ContactUsSection from './components/ContactUsSection'
+import LeadershipSection from './components/LeadershipSection'
 import { useAuth } from './auth/AuthContext'
 import { type UserRole } from './auth/auth'
 import { getEvents, type KbnEvent } from './data/events'
 
-const NAV_ITEMS = ['About Us', 'Events'] as const
+const NAV_ITEMS = ['About Us', 'Leadership', 'Events', 'Contact Us'] as const
 
-function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onEvents: () => void }) {
+function Navbar({ onSignUp, onHome, onAboutUs, onLeadership, onEvents, onContact, onDashboard }: { onSignUp: () => void; onHome: () => void; onAboutUs: () => void; onLeadership: () => void; onEvents: () => void; onContact: () => void; onDashboard: () => void }) {
+  const navHandlers: Record<(typeof NAV_ITEMS)[number], () => void> = {
+    'About Us': onAboutUs,
+    'Leadership': onLeadership,
+    'Events': onEvents,
+    'Contact Us': onContact,
+  }
   const { user, logout } = useAuth()
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -46,12 +51,18 @@ function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => voi
         </button>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-0.5 sm:gap-1">
             {NAV_ITEMS.map(item => (
-              <button key={item} onClick={item === 'About Us' ? onAboutUs : onEvents} className={`text-xs sm:text-sm font-medium px-2 sm:px-3 py-2 rounded-xl transition-all cursor-pointer ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
+              <button key={item} onClick={navHandlers[item]} className={`text-[11px] sm:text-sm font-medium px-1.5 sm:px-3 py-2 rounded-xl whitespace-nowrap transition-all cursor-pointer ${scrolled ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)]' : 'text-white/90 hover:text-white hover:bg-white/10'}`}>
                 {item}
               </button>
             ))}
+            {user && (
+              <button onClick={onDashboard} className={`text-xs sm:text-sm font-medium px-2 sm:px-3 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1 ${scrolled ? 'text-[var(--brand)] hover:text-[var(--brand-light)] hover:bg-[var(--surface-alt)]' : 'text-[var(--accent)] hover:text-white hover:bg-white/10'}`}>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                Dashboard
+              </button>
+            )}
           </nav>
 
           {user ? (
@@ -68,6 +79,10 @@ function Navbar({ onSignUp, onHome, onAboutUs, onEvents }: { onSignUp: () => voi
                     <p className="text-sm font-semibold text-[var(--text-primary)]">{user.name}</p>
                     <p className="text-xs text-[var(--text-tertiary)] truncate">{user.email}</p>
                   </div>
+                  <button onClick={() => { onDashboard(); setUserMenuOpen(false) }} className="w-full text-left text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-lg transition-colors flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                    Dashboard
+                  </button>
                   <button onClick={() => { logout(); setUserMenuOpen(false) }} className="w-full text-left text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-alt)] px-3 py-2 rounded-lg transition-colors flex items-center gap-2">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                     Sign Out
@@ -183,7 +198,10 @@ export default function App() {
         onSignUp={() => setAuthPage('signup')}
         onHome={() => { setAuthPage(null); setShowAboutUs(false); setShowEvents(false); setSelectedEvent(null) }}
         onAboutUs={() => { setShowAboutUs(true); setShowEvents(false); setSelectedEvent(null); window.scrollTo(0, 0) }}
+        onLeadership={() => { document.getElementById('leadership')?.scrollIntoView({ behavior: 'smooth' }) }}
         onEvents={() => { setShowEvents(true); setShowAboutUs(false); setSelectedEvent(null); window.scrollTo(0, 0) }}
+        onContact={() => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
+        onDashboard={() => { if (user) { setDashboard(user.role); window.scrollTo(0, 0) } }}
       />
 
       {/* Hero */}
@@ -338,13 +356,13 @@ export default function App() {
       <div className="absolute top-1/2 bottom-0 left-1/2 -translate-x-1/2 w-screen bg-[var(--surface-alt)]" />
       <div className="relative grid md:grid-cols-3 gap-x-8 gap-y-16 md:gap-y-8 pb-20 md:pb-28">
         {[
-          { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.', img: peopleImg, dark: true },
-          { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.', img: atlantaPeopleImg, dark: false },
-          { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.', img: groupImg, dark: true },
+          { name: 'Meron Tadesse', role: 'Business Owner', quote: 'KBN connected me with Christian mentors who transformed how I lead my business. I no longer feel alone in the marketplace — I have a community that prays for me and pushes me to pursue excellence for God\'s glory.', dark: true },
+          { name: 'Henok Kebede', role: 'Architect', quote: 'Joining KBN was one of the best decisions I have made for my career. The networking events are genuine, not transactional. I have formed friendships that go far beyond business.', dark: false },
+          { name: 'Dr. Tigist Asrat', role: 'Physician', quote: 'Finding other Christian professionals through KBN has been life-giving. We share best practices, pray for each other, and encourage one another to keep Christ at the center of our work.', dark: true },
         ].map(t => (
           <figure key={t.name} className={`relative rounded-[2rem] px-7 pt-20 pb-9 text-center shadow-xl flex flex-col ${t.dark ? 'bg-[var(--brand)]' : 'bg-[var(--accent)]'}`}>
-            <div className={`absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full overflow-hidden ring-4 shadow-lg ${t.dark ? 'ring-[var(--accent)]' : 'ring-[var(--brand)]'}`}>
-              <img src={t.img} alt={t.name} className="w-full h-full object-cover" />
+            <div className={`absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full flex items-center justify-center ring-4 shadow-lg ${t.dark ? 'bg-white/10 ring-[var(--accent)]' : 'bg-[var(--brand)] ring-[var(--brand)]'}`}>
+              <svg className={`w-11 h-11 ${t.dark ? 'text-[var(--accent)]' : 'text-[var(--accent)]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
             </div>
             <blockquote className={`text-sm leading-relaxed mb-6 flex-1 ${t.dark ? 'text-[#C7CFDD]' : 'text-[var(--brand-dark)]/80'}`}>"{t.quote}"</blockquote>
             <figcaption>
@@ -404,6 +422,9 @@ export default function App() {
         </div>
       </section>
 
+      {/* Leadership */}
+      <LeadershipSection onReadFounderBio={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} />
+
       {/* Quiz CTA */}
       <section className="relative py-16 md:py-20 bg-[var(--accent)] overflow-hidden">
         <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
@@ -415,6 +436,9 @@ export default function App() {
           </button>
         </div>
       </section>
+
+      {/* Contact Us */}
+      <ContactUsSection />
 
       {/* Footer */}
       <footer className="bg-[var(--brand)] text-white">
@@ -431,13 +455,15 @@ export default function App() {
             <div className="mt-8 sm:mt-0">
               <h4 className="font-semibold text-white text-sm mb-4">Navigation</h4>
               <div className="space-y-2.5">
-                {['About Us', 'Events', 'Contact'].map(link => (
+                {['About Us', 'Leadership', 'Events', 'Contact'].map(link => (
                   link === 'About Us' ? (
                     <button key={link} onClick={() => { setShowAboutUs(true); window.scrollTo(0, 0) }} className="block text-sm text-[#94A3B8] hover:text-white transition-colors cursor-pointer">{link}</button>
+                  ) : link === 'Leadership' ? (
+                    <a key={link} href="#leadership" className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                   ) : link === 'Events' ? (
                     <button key={link} onClick={() => { setShowEvents(true); window.scrollTo(0, 0) }} className="block text-sm text-[#94A3B8] hover:text-white transition-colors cursor-pointer">{link}</button>
                   ) : (
-                    <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
+                    <a key={link} href="#contact" className="block text-sm text-[#94A3B8] hover:text-white transition-colors">{link}</a>
                   )
                 ))}
               </div>
@@ -464,7 +490,7 @@ export default function App() {
             <div className="flex items-center gap-4 sm:gap-6 text-xs text-[#64748B]">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-colors">Contact</a>
+              <a href="#contact" className="hover:text-white transition-colors">Contact</a>
             </div>
           </div>
         </div>

@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import knbLogo from '../assets/kbn logo.jpg'
-import surafelImg from '../assets/surafel.jpg'
 import usaOneImg from '../assets/usa one.jpg'
 import usaTwoImg from '../assets/usa two.jpg'
 import addisOneImg from '../assets/addis one.jpg'
 import addisTwoImg from '../assets/addis two.jpg'
 import hawassaOneImg from '../assets/hawassa one.jpg'
 import hawassaBuildingImg from '../assets/hawassa building.jpg'
+import { BoardOfDirectorsGrid } from './LeadershipSection'
+import { FOUNDER_AND_PRESIDENT } from '../data/leadership'
 
 function SectionHeading({ overline, title, subtitle }: { overline?: string; title: string; subtitle?: string }) {
   return (
@@ -314,7 +315,7 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
               </ul>
             </div>
             <div className="card-hover bg-[var(--surface)] rounded-2xl border border-[var(--border-light)] p-5 sm:p-8 min-w-0">
-              <img src={surafelImg} alt="Mr. Surafel Tilahun Tulu" className="w-full object-contain rounded-xl mb-5 sm:mb-6" />
+              <img src={FOUNDER_AND_PRESIDENT.image} alt="Mr. Surafel Tilahun Tulu" className="w-full aspect-[4/5] object-cover object-top rounded-xl mb-5 sm:mb-6" />
               <h3 className="font-semibold text-[var(--text-primary)] mb-3 sm:mb-4 text-base sm:text-lg break-words">Enterprises & Ventures</h3>
               <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-6">
                 {['Sura Investment Consultancy', 'Addis Tec Industrial Machinery Equipment', 'Debol Trading LLC (USA)', 'ET-POL Global sp.z.o.o (Poland)'].map(e => (
@@ -333,6 +334,13 @@ export default function AboutUsPage({ onBack }: { onBack: () => void }) {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* KBN Board of Directors */}
+      <section className="py-12 sm:py-16 md:py-24 bg-[var(--surface)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <BoardOfDirectorsGrid cardSurface="alt" />
         </div>
       </section>
 
